@@ -1,4 +1,4 @@
-﻿using Application.Request;
+﻿using Application.Models.Request;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -11,6 +11,6 @@ namespace Application.Abstraction.Services
     public interface IBigliettoService
     {
         Task<List<Biglietto>> GetBigliettiByAcquirenteAsync(int idAcquirente);
-        Task<List<Biglietto>> AddBigliettiAsync(AddBigliettoRequest request);
+        Task<List<Biglietto>> AddBigliettiAsync(List<AddBigliettoRequest> request);
     }
 }

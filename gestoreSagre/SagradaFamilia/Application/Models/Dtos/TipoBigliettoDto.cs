@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.Entities
+namespace Application.Models.Dtos
 {
-    public class TipoBiglietto
+    internal class TipoBigliettoDto
     {
         public int IdTipo { get; set; }
         public string Tipo { get; set; }
         public double Prezzo { get; set; }
         public string Descrizione { get; set; }
-        
+
     }
 }

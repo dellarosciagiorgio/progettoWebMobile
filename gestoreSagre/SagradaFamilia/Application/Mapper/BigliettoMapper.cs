@@ -1,11 +1,24 @@
-﻿using Application.Request;
+﻿using Application.Models.Dtos;
+using Application.Models.Request;
 using Models.Entities;
 
 namespace Application.Mapper
 {
-    internal class BigliettoMapper
+    public class BigliettoMapper
     {
-        internal static List<Biglietto> ToEntity(AddBigliettoRequest request)
+        public static List<Biglietto> ToEntity(List<AddBigliettoRequest> request)
+        {
+            List <Biglietto> biglietti = new List<Biglietto>();
+            foreach (var item in request)
+            {
+                Biglietto biglietto = new Biglietto();
+                biglietto.Nominativo = item.Nominativo;
+                biglietto.IdTipoBiglietto = item.IdTipoBiglietto;
+                biglietti.Add(biglietto);
+            }
+            return biglietti;
+        }
+        public static BigliettoDto ToDto(Biglietto biglietto)
         {
             throw new NotImplementedException();
         }

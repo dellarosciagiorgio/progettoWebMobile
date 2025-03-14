@@ -1,7 +1,7 @@
 ﻿using Abstraction.Context;
 using Application.Abstraction.Services;
 using Application.Mapper;
-using Application.Request;
+using Application.Models.Request;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
 using System;
@@ -24,12 +24,11 @@ namespace Application.Services
             _context = context;
         }
 
-        public async Task<List<Biglietto>> AddBigliettiAsync(AddBigliettoRequest request)
+        public async Task<List<Biglietto>> AddBigliettiAsync(List<AddBigliettoRequest> request)
         {
             List<Biglietto> entity = BigliettoMapper.ToEntity(request);
             foreach (var item in entity)
             {
-
                 await _context.Biglietti.AddAsync(item);
             }
 

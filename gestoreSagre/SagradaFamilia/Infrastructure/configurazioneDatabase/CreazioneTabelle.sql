@@ -29,24 +29,6 @@ CREATE TABLE Admins(
 	)
 )
 
--- biglietti
-GO
-IF EXISTS(SELECT 1 FROM sys.objects where name = 'Biglietti')
-begin
-	drop table Biglietti
-end
-CREATE TABLE Biglietti(
-    IdBiglietto INT identity (1,1),
-	Nominativo VARCHAR(100) not null,
-	IdAcquirente INT not null,
-	IdTipoBiglietto INT not null,
-	CONSTRAINT [PK_Biglietti] primary key clustered
-	(
-		IdBiglietto ASC
-	)
-	
-)
-
 -- Eventi
 IF EXISTS(SELECT 1 FROM sys.objects where name = 'Eventi')
 begin
@@ -71,7 +53,7 @@ begin
 end
 CREATE TABLE Feedbacks(
     IdFeedback INT identity (1,1),
-	IdAcquirente int not null,
+	IdAcquirente int,
 	Titolo VARCHAR(100) not null,
 	Descrizione VARCHAR(1000) not null,
 	Rating int not null,
@@ -108,7 +90,7 @@ CREATE TABLE Sagre(
 	IdSagra INT identity (1,1),
 	NomeSagra VARCHAR(100) not null,
 	DescrizioneSagra VARCHAR(1000) not null,
-	IdOrganizzatore INT not null,
+	IdOrganizzatore INT,
 	CONSTRAINT [PK_Sagre] primary key clustered
 	(
 		IdSagra ASC
@@ -141,50 +123,86 @@ Go
 CREATE TABLE TipiBiglietto(
 	IdTipoBiglietto INT identity (1,1),
 	DescrizioneTipoBiglietto VARCHAR(1000) not null,
-	IdEvento INT not null,
 	CONSTRAINT [PK_TipiBiglietto] primary key clustered
 	(
 		IdTipoBiglietto ASC
 	)
 )
 
+-- biglietti
+GO
+IF EXISTS(SELECT 1 FROM sys.objects where name = 'Biglietti')
+begin
+	drop table Biglietti
+end
+CREATE TABLE Biglietti(
+    IdBiglietto INT identity (1,1),
+	Nominativo VARCHAR(100) not null,
+	IdAcquirente INT not null,
+	IdTipoBiglietto INT,
+	CONSTRAINT [PK_Biglietti] primary key clustered
+	(
+		IdBiglietto ASC
+	)
+	
+)
+
+
+
 GO
 Alter table Biglietti
 add constraint FK_Biglietti_Acquirenti foreign key (IdAcquirente)
-references Acquirenti (IdAcquirente);
+references Acquirenti (IdAcquirente)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 GO
 Alter table Biglietti
 add constraint FK_Biglietti_TipoBiglietto foreign key (IdTipoBiglietto)
-references TipiBiglietto (IdTipoBiglietto);
+references TipiBiglietto (IdTipoBiglietto)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE;
 
 GO
 alter table Eventi
 add constraint FK_Eventi_Sagre foreign key (IdSagra)
-references Sagre (IdSagra);
+references Sagre (IdSagra)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 
 GO
 alter table Feedbacks
 add constraint FK_Feedbacks_Acquirenti foreign key (IdAcquirente)
-references Acquirenti (IdAcquirente);
+references Acquirenti (IdAcquirente)
+  ON DELETE SET NULL
+  ON UPDATE CASCADE;
 
 GO
 alter table Feedbacks
 add constraint FK_Feedbacks_Sagre foreign key (IdSagra)
-references Sagre (IdSagra);
+references Sagre (IdSagra)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
 
 GO
 alter table Sagre
 add constraint FK_Sagre_Organizzatori foreign key (IdOrganizzatore)
-references Organizzatori (IdOrganizzatore);
+references Organizzatori (IdOrganizzatore)
+  ON DELETE SET NULL
+  ON UPDATE CASCADE;
 
-GO
-alter table TipiBiglietto
-add constraint FK_TipoBiglietto_Eventi foreign key (IdEvento)
-references Eventi (IdEvento);
 
 GO
 alter table Stocks
 add constraint FK_Stocks_TipoBiglietto foreign key (IdTipoBiglietto)
-references TipiBiglietto (IdTipoBiglietto);
+references TipiBiglietto (IdTipoBiglietto)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+GO
+alter table Stocks
+add constraint FK_Stocks_Eventi foreign key (IdEvento)
+references Eventi (IdEvento)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;

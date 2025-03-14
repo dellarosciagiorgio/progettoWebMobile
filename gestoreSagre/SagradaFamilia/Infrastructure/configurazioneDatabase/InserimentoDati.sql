@@ -1,6 +1,5 @@
-use GestoreSagre
-
-TRUNCATE TABLE Acquirenti;
+USE GestoreSagre
+-- TRUNCATE TABLE Acquirenti;
 INSERT INTO Acquirenti(NomeAcquirente, CognomeAcquirente, MailAcquirente)  
 VALUES 
 ('Marco', 'Neri', 'marco.neri@example.com'),
@@ -11,7 +10,7 @@ VALUES
 ('Franco', 'Gialli', 'sagraiolo.franchino65@example.com');
 
 
-TRUNCATE TABLE Organizzatori;
+-- TRUNCATE TABLE Organizzatori;
 INSERT INTO Organizzatori(NomeOrganizzatore, MailOrganizzatore)  
 VALUES 
 ('Ascoli Eventi SRL', 'sagre@ascolieventi.it'),
@@ -19,7 +18,7 @@ VALUES
 ('Live Tour', 'live.tour@example.com');
 
 
-TRUNCATE TABLE Admins;
+-- TRUNCATE TABLE Admins;
 INSERT INTO Admins(NomeAdmin, CognomeAdmin, MailAdmin)  
 VALUES 
 ('Loredana', 'Bruni', 'loredana.bruni@sagradafamilia.com'),
@@ -27,7 +26,7 @@ VALUES
 ('Maria', 'Leggiadra', 'maria.leggiadra@sagradafamilia.com');
 
 
-TRUNCATE TABLE Sagre;
+-- TRUNCATE TABLE Sagre;
 INSERT INTO [dbo].[Sagre]
            ([NomeSagra]
            ,[DescrizioneSagra]
@@ -38,7 +37,7 @@ INSERT INTO [dbo].[Sagre]
 	 ('Sagra del Carciofo', 'Carciofi fritti, lessi, gratinati. Insomma, di tutti i tipi', 3);
 
 
-TRUNCATE TABLE Eventi;
+-- TRUNCATE TABLE Eventi;
 INSERT INTO Eventi(DataEvento, InformazioniAggiuntive,IdSagra)  
 VALUES 
 ('2025-03-13', 'Si mangia e si beve, alla festa di paese. Dj set dalle 23 con Pippo DJ', 1),
@@ -52,56 +51,56 @@ VALUES
 ('2025-05-26', 'Festa finale di chiusura, non mancare. Live band dalla cena con Dj dalle 23 fino a tarda notte!', 3);
 
 
-TRUNCATE TABLE TipiBiglietto;
-INSERT INTO TipiBiglietto(DescrizioneTipoBiglietto, IdEvento)  
+-- TRUNCATE TABLE TipiBiglietto;
+INSERT INTO TipiBiglietto(NomeTipoBiglietto, DescrizioneTipoBiglietto, Prezzo)  
 VALUES 
-('Solo Entrata', 1),
-('Mangia a volontà', 1),
-('Mangia e bevi a volontà, posto VIP', 1),
-('Solo Entrata',2),
-('Tavolo davanti al palco', 2),
-('Solo Entrata', 3),
-('Entrata e Tre birre',3),
-('All you can beer, cheers', 3),
-('Solo Entrata', 4),
-('Mangia a volontà', 4),
-('Mangia e bevi a volontà, posto VIP', 4),
-('Solo Entrata',5),
-('Tavolo davanti al palco', 5),
-('Solo Entrata', 6),
-('Entrata e Tre birre',6),
-('All you can beer, cheers', 6),
-('Solo Entrata', 7),
-('Mangia a volontà', 7),
-('Mangia e bevi a volontà, posto VIP', 7),
-('Solo Entrata',8);
+('Entrata', 'Solo Entrata', 10),
+('Mangia','Mangia a volontà', 20),
+('All-inclusive','Mangia e bevi a volontà, posto VIP', 30),
+('Entrata','Solo Entrata', 35),
+('Tavolo','Tavolo davanti al palco', 50),
+('Entrata','Solo Entrata', 5),
+('3Beer','Entrata e Tre birre', 15),
+('Bevii','All you can beer, cheers', 25),
+('Entrata','Solo Entrata',5),
+('Mangia','Mangia a volontà', 20),
+('All-inclusive', 'Mangia e bevi a volontà, posto VIP',35),
+('Entrata','Solo Entrata',40),
+('Tavolo Vip','Tavolo davanti al palco',70),
+('Entrata','Solo Entrata',2),
+('3Beer','Entrata e Tre birre', 10),
+('Bevi', 'All you can beer, cheers', 20),
+('Entrata', 'Solo Entrata',12),
+('Mangia', 'Mangia a volontà',27),
+('All-inclusive','Mangia e bevi a volontà, posto VIP',40),
+('Entrata', 'Solo Entrata',20);
 
 
-TRUNCATE TABLE Stocks;
-INSERT INTO Stocks(Quantita, IdTipoBiglietto)  
+-- TRUNCATE TABLE Stocks;
+INSERT INTO Stocks(Quantita, IdTipoBiglietto, IdEvento)  
 VALUES
-(39, 1),
-(34, 2),
-(30, 3),
-(49, 4),
-(47, 5),
-(42, 6),
-(35, 7),
-(47, 8),
-(50, 9),
-(45, 10),
-(33, 11),
-(42, 12),
-(42, 13),
-(37, 14),
-(32, 15),
-(36, 16),
-(46, 17),
-(43, 18),
-(30, 19),
-(42, 20);
+(39, 1, 1),
+(34, 2, 1),
+(30, 3, 1),
+(49, 4, 2),
+(47, 5, 2),
+(42, 6, 3),
+(35, 7, 3),
+(47, 8, 4),
+(50, 9, 4),
+(45, 10, 5),
+(33, 11, 5),
+(42, 12, 6),
+(42, 13, 6),
+(37, 14, 7),
+(32, 15, 7),
+(36, 16, 7),
+(46, 17, 8),
+(43, 18, 8),
+(30, 19, 8),
+(42, 20, 9);
 
-TRUNCATE TABLE Biglietti;
+-- TRUNCATE TABLE Biglietti;
 INSERT INTO Biglietti(Nominativo, IdAcquirente, IdTipoBiglietto)  
 VALUES
 ('Loredana Bruni', 1, 3),

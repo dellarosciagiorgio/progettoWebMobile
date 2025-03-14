@@ -1,7 +1,7 @@
 ﻿using Abstraction.Context;
 using Application.Abstraction.Services;
 using Application.Mapper;
-using Application.Request;
+using Application.Models.Request;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
 using System;
@@ -38,7 +38,7 @@ namespace Application.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Sagra> EditSagraAsync(EditSagreRequest request)
+        public async Task<Sagra> EditSagraAsync(EditSagraRequest request)
         {
             var entity = SagraMapper.ToEntity(request);
             var entry = _context.Entry<Sagra>(entity);

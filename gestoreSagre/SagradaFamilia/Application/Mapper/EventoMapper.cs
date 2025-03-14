@@ -1,4 +1,5 @@
-﻿using Application.Request;
+﻿using Application.Models.Dtos;
+using Application.Models.Request;
 using Models.Entities;
 
 namespace Application.Mapper
@@ -7,17 +8,32 @@ namespace Application.Mapper
     {
         public static Evento ToEntity(AddEventoRequest request)
         {
-            throw new NotImplementedException();
+            var entity = new Evento();
+            entity.IdSagra = request.IdSagra;
+            entity.InformazioniAggiuntive = request.InformazioniAggiuntive;
+            entity.DataEvento = request.DataEvento;
+            return entity;
         }
 
         public static Evento ToEntity(DeleteEventoRequest request)
         {
-            throw new NotImplementedException();
+            var entity = new Evento();
+            entity.IdEvento = request.IdEvento;
+            return entity;
         }
 
         public static Evento ToEntity(EditEventoRequest request)
         {
+            var entity = new Evento();
+            entity.IdEvento = request.IdEvento;
+            entity.InformazioniAggiuntive = request.InformazioniAggiuntive;
+            entity.DataEvento = request.DataEvento;
+            return entity;
+        }
+        public static EventoDto ToDto(Evento evento)
+        {
             throw new NotImplementedException();
         }
+
     }
 }

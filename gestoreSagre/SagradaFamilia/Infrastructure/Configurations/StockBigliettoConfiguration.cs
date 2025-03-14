@@ -15,6 +15,7 @@ namespace Infrastructure.Configurations
             builder.HasOne(x => x.TipoBiglietto).WithOne()
                 .HasForeignKey<StockBiglietto>(x => x.TipoBiglietto.IdTipo);
 
+            builder.HasOne(x => x.Evento).WithMany(x => x.StocksBiglietto).HasForeignKey(x => x.IdStock);
         }
     }
 }

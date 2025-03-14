@@ -1,26 +1,36 @@
-﻿using Application.Request;
+﻿using Application.Models.Dtos;
+using Application.Models.Request;
 using Models.Entities;
 
 namespace Application.Mapper
 {
     internal class SagraMapper
     {
-        internal static Sagra ToEntity(AddSagraRequest request)
+        public static Sagra ToEntity(AddSagraRequest request)
         {
-            throw new NotImplementedException();
+            var entity = new Sagra();
+            entity.NomeSagra = request.NomeSagra;
+            entity.Descrizione = request.Descrizione;
+            return entity;
         }
 
-        internal static Sagra ToEntity(DeleteSagraRequest request)
+        public static Sagra ToEntity(DeleteSagraRequest request)
         {
-            throw new NotImplementedException();
+            var entity = new Sagra();
+            entity.IdSagra = request.IdSagra;
+            return entity;
         }
 
-        internal static Sagra ToEntity(EditSagreRequest request)
+        public static Sagra ToEntity(EditSagraRequest request)
         {
-            throw new NotImplementedException();
+            var entity = new Sagra();
+            entity.IdSagra = request.IdSagra;
+            entity.NomeSagra = request.NomeSagra;
+            entity.Descrizione = request.Descrizione;
+            return entity;
         }
 
-        internal static Sagra ToEntity(EditQuantitaStockRequest request)
+        public static SagraDto ToDto(Sagra sagra)
         {
             throw new NotImplementedException();
         }

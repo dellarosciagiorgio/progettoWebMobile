@@ -1,4 +1,4 @@
-﻿using Application.Request;
+﻿using Application.Models.Request;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace Application.Abstraction.Services
     {
         Task<List<Sagra>> GetSagreAsync();
         Task<Sagra> AddSagraAsync(AddSagraRequest request);
-        Task<Sagra> EditSagraAsync(EditSagreRequest request);
+        Task<Sagra> EditSagraAsync(EditSagraRequest request);
         Task DeleteSagraAsync(DeleteSagraRequest request);
     }
 }

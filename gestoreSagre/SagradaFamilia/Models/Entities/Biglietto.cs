@@ -6,5 +6,6 @@
         public TipoBiglietto TipoBiglietto { get; set; }
         public string Nominativo { get; set; }
         public Acquirente Acquirente { get; set; }
+        public int IdTipoBiglietto { get; set; }
     }
 }

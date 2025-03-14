@@ -13,6 +13,6 @@ namespace Models.Entities
         public DateTime DataEvento { get; set; }
         public string InformazioniAggiuntive { get; set; }
         public List<StockBiglietto> StocksBiglietto { get; set; }
-
+        public int IdSagra { get; set; }
     }
 }

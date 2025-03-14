@@ -1,7 +1,7 @@
 ﻿using Abstraction.Context;
 using Application.Abstraction.Services;
 using Application.Mapper;
-using Application.Request;
+using Application.Models.Request;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
 using System;
@@ -43,6 +43,7 @@ namespace Application.Services
             var entity = EventoMapper.ToEntity(request);
             var entry = _context.Entry<Evento>(entity);
             entry.Property(x => x.InformazioniAggiuntive).IsModified = true;
+            entry.Property(x => x.DataEvento).IsModified = true;
             await _context.SaveChangesAsync();
             return entity;
         }
