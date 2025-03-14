@@ -1,0 +1,6 @@
+@SagradaFamilia_HostAddress = http://localhost:5290
+
+GET {{SagradaFamilia_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
