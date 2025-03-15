@@ -1,4 +1,5 @@
 using Application.Extensions;
+using Application.Factories;
 using Infrastructure.Extensions;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
@@ -26,7 +27,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 */
-/*
+
 app.UseExceptionHandler(appError =>
 {
     appError.Run(async context =>
@@ -49,7 +50,7 @@ app.UseExceptionHandler(appError =>
         }
     });
 });
-*/
+
 
 app.UseHttpsRedirection();
 

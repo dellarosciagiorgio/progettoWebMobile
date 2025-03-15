@@ -4,7 +4,7 @@ using Models.Entities;
 
 namespace Application.Mapper
 {
-    internal class SagraMapper
+    public class SagraMapper
     {
         public static Sagra ToEntity(AddSagraRequest request)
         {
@@ -32,7 +32,16 @@ namespace Application.Mapper
 
         public static SagraDto ToDto(Sagra sagra)
         {
-            throw new NotImplementedException();
+            SagraDto sagraDto = new SagraDto();
+            sagraDto.IdSagra = sagra.IdSagra;
+            sagraDto.NomeSagra = sagra.NomeSagra;
+            sagraDto.IdOrganizzatore = sagra.Organizzatore.IdOrganizzatore;
+            sagraDto.Descrizione = sagra.Descrizione;
+            foreach(Feedback feedback in sagra.Feedbacks)
+            {
+                sagraDto.IdFeedbacks.Add(feedback.IdFeedback);
+            }
+            return sagraDto;
         }
     }
 }

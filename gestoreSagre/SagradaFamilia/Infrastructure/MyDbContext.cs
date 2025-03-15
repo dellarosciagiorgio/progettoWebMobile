@@ -18,15 +18,15 @@ namespace Infrastructure
         {
 
         }
-        public virtual DbSet<Acquirente> Acquirenti { get; set; }
-        DbSet<Acquirente> IMyDbContext.Acquirenti { get ; set ; }
-        DbSet<Admin> IMyDbContext.Admins { get; set; }
-        DbSet<Biglietto> IMyDbContext.Biglietti { get; set; }
-        DbSet<Evento> IMyDbContext.Eventi { get; set; }
-        DbSet<Feedback> IMyDbContext.Feedbacks { get; set; }
-        DbSet<Organizzatore> IMyDbContext.Organizzatori { get; set; }
-        DbSet<Sagra> IMyDbContext.Sagre { get; set; }
-        DbSet<TipoBiglietto> IMyDbContext.TipiBiglietto { get; set; }
+        public DbSet<Acquirente> Acquirenti { get; set; }
+        public DbSet<StockBiglietto> Stocks { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+        public DbSet<Biglietto> Biglietti { get; set; }
+        public DbSet<Evento> Eventi { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
+        public  DbSet<Organizzatore> Organizzatori { get; set; }
+        public DbSet<Sagra> Sagre { get; set; }
+        public DbSet<TipoBiglietto> TipiBiglietto { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,19 +34,5 @@ namespace Infrastructure
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
 
-        EntityEntry IMyDbContext.Entry(object entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        EntityEntry<T> IMyDbContext.Entry<T>(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<int> IMyDbContext.SaveChangesAsync(CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

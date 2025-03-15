@@ -13,5 +13,6 @@ namespace Models.Entities
         public double Quantita { get; set; }
         public Evento Evento { get; set; }
         public int IdEvento { get; set; }
+        public int IdTipoBiglietto { get; set; }
     }
 }

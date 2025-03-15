@@ -26,5 +26,6 @@ namespace Models.Entities
             }
         }
 
+        public int IdAcquirente { get; set; }
     }
 }

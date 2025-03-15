@@ -20,7 +20,12 @@ namespace Application.Mapper
         }
         public static BigliettoDto ToDto(Biglietto biglietto)
         {
-            throw new NotImplementedException();
+            BigliettoDto bigliettoDto = new BigliettoDto();
+            bigliettoDto.IdBiglietto = biglietto.IdBiglietto;
+            bigliettoDto.Nominativo = biglietto.Nominativo;
+            bigliettoDto.IdTipoBiglietto = biglietto.TipoBiglietto.IdTipo;
+            bigliettoDto.IdAcquirente = biglietto.Acquirente.IdAcquirente;
+            return bigliettoDto;
         }
     }
 }

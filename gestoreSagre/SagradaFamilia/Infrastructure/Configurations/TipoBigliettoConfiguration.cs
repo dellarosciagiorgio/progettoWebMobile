@@ -11,7 +11,6 @@ namespace Infrastructure.Configurations
             builder.HasKey(p => p.IdTipo);
             builder.Property(p => p.IdTipo).HasColumnName("IdTipoBiglietto");
             builder.Property(p => p.Descrizione).HasColumnName("DescrizioneTipoBiglietto");
-            builder.HasOne(x => x.Evento).WithMany().HasForeignKey(x => x.IdTipo);
 
         }
     }

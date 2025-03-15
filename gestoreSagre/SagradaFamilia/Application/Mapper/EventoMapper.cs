@@ -1,11 +1,14 @@
-﻿using Application.Models.Dtos;
+﻿using Application.Abstraction.Services;
+using Application.Models.Dtos;
 using Application.Models.Request;
 using Models.Entities;
 
 namespace Application.Mapper
 {
-    internal class EventoMapper
+    public class EventoMapper
     {
+
+
         public static Evento ToEntity(AddEventoRequest request)
         {
             var entity = new Evento();
@@ -32,7 +35,12 @@ namespace Application.Mapper
         }
         public static EventoDto ToDto(Evento evento)
         {
-            throw new NotImplementedException();
+            EventoDto eventoDto = new EventoDto();
+            eventoDto.IdEvento = evento.IdEvento;
+            eventoDto.IdSagra = evento.IdSagra;
+            eventoDto.DataEvento = evento.DataEvento;
+            eventoDto.InformazioniAggiuntive = evento.InformazioniAggiuntive;
+            return eventoDto;
         }
 
     }

@@ -56,7 +56,7 @@ namespace Application.Services
         public async Task<List<Evento>> GetEventiBySagraAsync(int idSagra)
         {
             return await _context.Eventi
-                .Where(x => x.Sagra.IdSagra.Equals(idSagra))
+                .Where(x => x.IdSagra == idSagra)
                 .ToListAsync();
         }
     }

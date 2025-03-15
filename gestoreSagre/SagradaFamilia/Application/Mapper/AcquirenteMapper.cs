@@ -1,10 +1,11 @@
 ﻿using Application.Models.Dtos;
 using Application.Models.Request;
+using Microsoft.Extensions.DependencyInjection;
 using Models.Entities;
 
 namespace Application.Mapper
 {
-    internal class AcquirenteMapper
+    public class AcquirenteMapper
     {
         public static Acquirente ToEntity(AddAcquirenteRequest request)
         {
@@ -27,7 +28,15 @@ namespace Application.Mapper
 
         public static AcquirenteDto ToDto(Acquirente acquirente)
         {
-            throw new NotImplementedException();
+            AcquirenteDto acquirenteDto = new AcquirenteDto();
+            acquirenteDto.IdAcquirente = acquirente.IdAcquirente;
+            acquirenteDto.Cognome = acquirente.Cognome;
+            acquirenteDto.Nome = acquirente.Nome;
+            foreach (Feedback feedback in acquirente.Feedbacks)
+            {
+                acquirenteDto.IdFeedBacks.Add(feedback.IdFeedback);
+            }
+            return acquirenteDto;
         }
     }
 }

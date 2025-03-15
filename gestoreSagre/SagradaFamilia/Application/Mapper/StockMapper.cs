@@ -4,7 +4,7 @@ using Models.Entities;
 
 namespace Application.Mapper
 {
-    internal class StockMapper
+    public class StockMapper
     {
         public static StockBiglietto ToEntity(AddStockRequest request)
         {
@@ -38,7 +38,12 @@ namespace Application.Mapper
 
         public static StockDto ToDto(StockBiglietto stock)
         {
-            throw new NotImplementedException();
+            StockDto stockDto = new StockDto();
+            stockDto.IdStock = stock.IdStock;
+            stockDto.IdEvento = stock.IdEvento;
+            stockDto.IdTipoBiglietto = stock.TipoBiglietto.IdTipo;
+            stockDto.Quantita = stock.Quantita;
+            return stockDto;
         }
     }
 }
