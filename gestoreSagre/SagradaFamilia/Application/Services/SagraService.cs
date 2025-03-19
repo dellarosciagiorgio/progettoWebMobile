@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Application.Services
 {
-    internal class SagraService : ISagraService
+    public class SagraService : ISagraService
     {
         private readonly IMyDbContext _context;
         //private readonly ILogger _logger;

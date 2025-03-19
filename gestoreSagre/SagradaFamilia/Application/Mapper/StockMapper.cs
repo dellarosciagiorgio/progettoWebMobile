@@ -13,8 +13,7 @@ namespace Application.Mapper
             stock.IdEvento = request.IdEvento;
 
             var tipo = new TipoBiglietto();
-            tipo.Descrizione = request.Descrizione;
-            tipo.Tipo = request.Tipo;
+            tipo.IdTipo = request.IdTipo;
             tipo.Prezzo = request.Prezzo;
 
             stock.TipoBiglietto = tipo;

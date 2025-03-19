@@ -8,7 +8,7 @@ namespace Web.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class EventoController : Controller
     {
         private readonly IEventoService _eventoService;
@@ -18,7 +18,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
+        [Route("evento")]
         public async Task<IActionResult> Add(AddEventoRequest request)
         {
             var result = await _eventoService.AddEventoAsync(request);
@@ -29,7 +29,7 @@ namespace Web.Controllers
         }
 
         [HttpPut]
-        [Route("edit")]
+        [Route("evento")]
         public async Task<IActionResult> Edit(EditEventoRequest request)
         {
             var result = await _eventoService.EditEventoAsync(request);
@@ -40,7 +40,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("eventi/{id:int}")]
         public async Task<IActionResult> GetEventi(int id)
         {
             var result = await _eventoService.GetEventiBySagraAsync(id);
@@ -55,6 +55,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
+        [Route("eventi")]
         public async Task<IActionResult> GetEventi()
         {
             var result = await _eventoService.GetEventiAsync();
@@ -69,6 +70,7 @@ namespace Web.Controllers
         }
 
         [HttpDelete]
+        [Route("evento")]
         public async Task<IActionResult> DeleteSagra(DeleteEventoRequest request)
         {
             await _eventoService.DeleteEventoAsync(request);

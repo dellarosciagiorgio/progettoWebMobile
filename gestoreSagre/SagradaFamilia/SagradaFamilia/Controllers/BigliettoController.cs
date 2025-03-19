@@ -18,7 +18,6 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
         public async Task<IActionResult> Add(List<AddBigliettoRequest> request)
         {
             var result = await _bigliettoService.AddBigliettiAsync(request);

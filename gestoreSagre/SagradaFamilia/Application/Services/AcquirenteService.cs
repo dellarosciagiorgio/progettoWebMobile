@@ -37,7 +37,8 @@ namespace Application.Services
         {
             var entity = AcquirenteMapper.ToEntity(request);
             var entry = _context.Entry<Acquirente>(entity);
-            entry.Property(x => x.Mail).IsModified = true;
+            if(!(entity.Mail == null))
+                entry.Property(x => x.Mail).IsModified = true;
             entry.Property(x => x.Nome).IsModified = true;
             entry.Property(x => x.Cognome).IsModified = true;
             await _context.SaveChangesAsync();

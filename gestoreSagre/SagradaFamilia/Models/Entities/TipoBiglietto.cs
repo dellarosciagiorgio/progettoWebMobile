@@ -9,9 +9,9 @@ namespace Models.Entities
     public class TipoBiglietto
     {
         public int IdTipo { get; set; }
-        public string Tipo { get; set; }
+        public string? Tipo { get; set; }
         public double Prezzo { get; set; }
-        public string Descrizione { get; set; }
+        public string? Descrizione { get; set; }
         
     }
 }

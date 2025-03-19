@@ -11,8 +11,6 @@ namespace Infrastructure.Configurations
             builder.HasKey(p => p.IdOrganizzatore);
             builder.Property(p => p.IdOrganizzatore).HasColumnName("IdOrganizzatore");
             builder.Property(p => p.Mail).HasColumnName("MailOrganizzatore");
-            builder.HasMany(x => x.Sagre).WithOne().HasForeignKey(x => x.IdSagra);
-
         }
     }
 }

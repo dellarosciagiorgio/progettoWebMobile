@@ -7,7 +7,7 @@ using Application.Mapper;
 namespace Web.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class SagraController : Controller
     {
         private readonly ISagraService _sagraService;
@@ -17,7 +17,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
+        [Route("sagra")]
         public async Task<IActionResult> Add(AddSagraRequest request)
         {
             var result = await _sagraService.AddSagraAsync(request);
@@ -28,7 +28,7 @@ namespace Web.Controllers
         }
 
         [HttpPut]
-        [Route("edit")]
+        [Route("sagra")]
         public async Task<IActionResult> Edit(EditSagraRequest request)
         {
             var result = await _sagraService.EditSagraAsync(request);
@@ -39,6 +39,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
+        [Route("sagre")]
         public async Task<IActionResult> GetSagre()
         {
             var result = await _sagraService.GetSagreAsync();
@@ -53,6 +54,7 @@ namespace Web.Controllers
         }
 
         [HttpDelete]
+        [Route("sagra")]
         public async Task<IActionResult> DeleteSagra(DeleteSagraRequest request)
         {
             await _sagraService.DeleteSagraAsync(request);

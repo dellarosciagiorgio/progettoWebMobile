@@ -8,7 +8,7 @@ namespace Web.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class StockController : Controller
     {
 
@@ -19,7 +19,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
+        [Route("stock")]
         public async Task<IActionResult> Add(AddStockRequest request)
         {
             var result = await _stockService.AddStockAsync(request);
@@ -30,7 +30,7 @@ namespace Web.Controllers
         }
 
         [HttpPut]
-        [Route("edit")]
+        [Route("stock")]
         public async Task<IActionResult> Edit(EditQuantitaStockRequest request)
         {
             var result = await _stockService.EditQuantitaStockAsync(request);
@@ -41,7 +41,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        [Route("{id:int}")]
+        [Route("stocks/{id:int}")]
         public async Task<IActionResult> GetStock(int id)
         {
             var result = await _stockService.GetStocksByEventoAsync(id);
@@ -56,6 +56,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
+        [Route("stocks")]
         public async Task<IActionResult> GetStock()
         {
             var result = await _stockService.GetStocksAsync();

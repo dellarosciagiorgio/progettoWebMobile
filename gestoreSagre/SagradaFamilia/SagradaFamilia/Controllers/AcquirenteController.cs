@@ -9,7 +9,7 @@ namespace Web.Controllers
 {
 
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class AcquirenteController : Controller
     {
         private readonly IAcquirenteService _acquirenteService;
@@ -19,7 +19,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route("add")]
+        [Route("acquirente")]
         public async Task<IActionResult> Add(AddAcquirenteRequest request)
         {
             var result = await _acquirenteService.AddAcquirenteAsync(request);
@@ -30,6 +30,7 @@ namespace Web.Controllers
         }
 
         [HttpGet]
+        [Route("acquirenti")]
         public async Task<IActionResult> Get()
         {
             var result = await _acquirenteService.GetAcquirentiAsync();
@@ -44,7 +45,7 @@ namespace Web.Controllers
         }
 
         [HttpPut]
-        [Route("edit")]
+        [Route("acquirente")]
         public async Task<IActionResult> Edit(EditAcquirenteRequest request)
         {
             var result = await _acquirenteService.EditAcquirenteAsync(request);

@@ -32,6 +32,7 @@ namespace Application.Mapper
             acquirenteDto.IdAcquirente = acquirente.IdAcquirente;
             acquirenteDto.Cognome = acquirente.Cognome;
             acquirenteDto.Nome = acquirente.Nome;
+            acquirenteDto.Mail = acquirente.Mail;
             foreach (Feedback feedback in acquirente.Feedbacks)
             {
                 acquirenteDto.IdFeedBacks.Add(feedback.IdFeedback);

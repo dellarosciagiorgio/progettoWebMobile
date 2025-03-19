@@ -35,7 +35,7 @@ namespace Application.Mapper
             SagraDto sagraDto = new SagraDto();
             sagraDto.IdSagra = sagra.IdSagra;
             sagraDto.NomeSagra = sagra.NomeSagra;
-            sagraDto.IdOrganizzatore = sagra.Organizzatore.IdOrganizzatore;
+            sagraDto.IdOrganizzatore = sagra.IdOrganizzatore;
             sagraDto.Descrizione = sagra.Descrizione;
             foreach(Feedback feedback in sagra.Feedbacks)
             {

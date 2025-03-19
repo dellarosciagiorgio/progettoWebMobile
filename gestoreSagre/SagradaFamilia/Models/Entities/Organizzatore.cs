@@ -9,8 +9,8 @@ namespace Models.Entities
     public class Organizzatore
     {
         public int IdOrganizzatore { get; set; }
-        public string Mail { get; set; }
-        public string NomeOrganizzazione { get; set; }
-        public List<Sagra> Sagre { get; set; }
+        public string? Mail { get; set; }
+        public string? NomeOrganizzazione { get; set; }
+        public List<Sagra> Sagre { get; set; } = new List<Sagra>();
     }
 }

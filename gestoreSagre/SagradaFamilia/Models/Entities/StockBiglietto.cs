@@ -9,9 +9,9 @@ namespace Models.Entities
     public class StockBiglietto
     {
         public int IdStock { get; set; }
-        public TipoBiglietto TipoBiglietto { get; set; }
+        public TipoBiglietto? TipoBiglietto { get; set; }
         public double Quantita { get; set; }
-        public Evento Evento { get; set; }
+        public Evento? Evento { get; set; }
         public int IdEvento { get; set; }
         public int IdTipoBiglietto { get; set; }
     }

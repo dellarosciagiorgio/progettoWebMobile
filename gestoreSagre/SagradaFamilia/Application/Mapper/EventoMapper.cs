@@ -7,8 +7,6 @@ namespace Application.Mapper
 {
     public class EventoMapper
     {
-
-
         public static Evento ToEntity(AddEventoRequest request)
         {
             var entity = new Evento();
@@ -33,6 +31,7 @@ namespace Application.Mapper
             entity.DataEvento = request.DataEvento;
             return entity;
         }
+
         public static EventoDto ToDto(Evento evento)
         {
             EventoDto eventoDto = new EventoDto();
@@ -42,6 +41,5 @@ namespace Application.Mapper
             eventoDto.InformazioniAggiuntive = evento.InformazioniAggiuntive;
             return eventoDto;
         }
-
     }
 }

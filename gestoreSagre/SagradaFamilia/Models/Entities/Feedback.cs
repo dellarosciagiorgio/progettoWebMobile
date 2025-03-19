@@ -11,9 +11,9 @@ namespace Models.Entities
         private int _rating;
 
         public int IdFeedback { get; set; }
-        public Acquirente Acquirente { get; set; }
-        public string Titolo { get; set; }
-        public string Descrizione { get; set; }
+        public Acquirente? Acquirente { get; set; } = null;
+        public string? Titolo { get; set; }
+        public string? Descrizione { get; set; }
         public int Rating
         {
             get => _rating;
