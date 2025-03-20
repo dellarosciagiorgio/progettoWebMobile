@@ -1,0 +1,4 @@
+# routes
+
++ [getEventi](http://localhost:5173/getEventi)
++ [getSagre](http://localhost:5173/getSagre)
