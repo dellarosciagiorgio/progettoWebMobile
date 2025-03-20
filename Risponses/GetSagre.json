@@ -1,0 +1,29 @@
+{
+    "success": true,
+    "data": [
+        {
+            "idSagra": 1,
+            "nomeSagra": "Sagra della Coratella",
+            "descrizione": "Nun poi manca, alla sagra della coratella de scapezzà",
+            "idFeedbacks": null,
+            "idEventi": null,
+            "idOrganizzatore": 2
+        },
+        {
+            "idSagra": 2,
+            "nomeSagra": "Sagra del Pesce",
+            "descrizione": "Sagra del pesce fresco di Numana",
+            "idFeedbacks": null,
+            "idEventi": null,
+            "idOrganizzatore": 1
+        },
+        {
+            "idSagra": 3,
+            "nomeSagra": "Sagra del Carciofo",
+            "descrizione": "Carciofi fritti, lessi, gratinati. Insomma, di tutti i tipi",
+            "idFeedbacks": null,
+            "idEventi": null,
+            "idOrganizzatore": 3
+        }
+    ]
+}

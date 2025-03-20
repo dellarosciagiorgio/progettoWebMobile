@@ -1,0 +1,11 @@
+{
+    "success": true,
+    "data": {
+        "idSagra": 3,
+        "nomeSagra": "NomeSagraAgg",
+        "descrizione": "qwerty",
+        "idFeedbacks": null,
+        "idEventi": null,
+        "idOrganizzatore": 0
+    }
+}
