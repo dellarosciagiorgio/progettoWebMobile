@@ -20,6 +20,7 @@ namespace Application.Extensions
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<ISagraService, SagraService>();
             services.AddScoped<IStockService, StockService>();
+            services.AddScoped<IFeedbackService, FeedbackService>();
             return services;
         }
     }

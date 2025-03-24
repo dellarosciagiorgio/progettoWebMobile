@@ -11,7 +11,8 @@ namespace Infrastructure.Configurations
             builder.HasKey(p => p.IdFeedback);
             builder.Property(p => p.IdFeedback).HasColumnName("IdFeedback");
             builder.Property(p => p.Descrizione).HasColumnName("Descrizione");
-            //builder.HasOne(p => p.Acquirente).WithMany(p => p.Feedbacks).HasForeignKey(p => p.IdAcquirente);
+            builder.HasOne(p => p.Acquirente).WithMany(p => p.Feedbacks).HasForeignKey(p => p.IdAcquirente);
+            builder.HasOne(p => p.Sagra).WithMany(p => p.Feedbacks).HasForeignKey(p => p.IdSagra);
 
         }
     }

@@ -7,5 +7,6 @@
         public string? Nominativo { get; set; }
         public Acquirente? Acquirente { get; set; } = null;
         public int IdTipoBiglietto { get; set; }
+        public int IdAcquirente { get; set; }
     }
 }

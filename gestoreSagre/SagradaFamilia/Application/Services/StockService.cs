@@ -27,6 +27,11 @@ namespace Application.Services
         public async Task<StockBiglietto> AddStockAsync(AddStockRequest request)
         {
             var entity = StockMapper.ToEntity(request);
+            TipoBiglietto tipoBiglietto = entity.TipoBiglietto;
+            await _context.TipiBiglietto.AddAsync(tipoBiglietto);
+            await _context.SaveChangesAsync();
+
+            entity.IdTipoBiglietto = tipoBiglietto.IdTipo;
             await _context.Stocks.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;
@@ -56,7 +61,7 @@ namespace Application.Services
         public async Task<List<StockBiglietto>> GetStocksByEventoAsync(int idEvento)
         {
             return await _context.Stocks
-                .Where(x => x.Evento.IdEvento.Equals(idEvento))
+                .Where(x => x.IdEvento == idEvento)
                 .ToListAsync();
         }
     }

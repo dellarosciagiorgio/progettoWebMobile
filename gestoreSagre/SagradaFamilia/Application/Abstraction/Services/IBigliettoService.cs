@@ -11,6 +11,6 @@ namespace Application.Abstraction.Services
     public interface IBigliettoService
     {
         Task<List<Biglietto>> GetBigliettiByAcquirenteAsync(int idAcquirente);
-        Task<List<Biglietto>> AddBigliettiAsync(List<AddBigliettoRequest> request);
+        Task<List<Biglietto>> AddBigliettiAsync(AddBigliettoRequest request);
     }
 }

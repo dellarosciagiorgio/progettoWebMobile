@@ -71,7 +71,7 @@ namespace Web.Controllers
 
         [HttpDelete]
         [Route("evento")]
-        public async Task<IActionResult> DeleteSagra(DeleteEventoRequest request)
+        public async Task<IActionResult> DeleteEvento(DeleteEventoRequest request)
         {
             await _eventoService.DeleteEventoAsync(request);
             return Ok(

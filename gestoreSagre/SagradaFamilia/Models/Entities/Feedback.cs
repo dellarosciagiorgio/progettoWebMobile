@@ -27,5 +27,7 @@ namespace Models.Entities
         }
 
         public int IdAcquirente { get; set; }
+        public Sagra Sagra { get; set; }
+        public int IdSagra { get; set; }
     }
 }

@@ -6,14 +6,28 @@ namespace Application.Mapper
 {
     public class BigliettoMapper
     {
-        public static List<Biglietto> ToEntity(List<AddBigliettoRequest> request)
+        public static List<Biglietto> ToEntity(AddBigliettoRequest request)
         {
             List <Biglietto> biglietti = new List<Biglietto>();
-            foreach (var item in request)
+            foreach (var nominativo in request.Nominativo)
             {
                 Biglietto biglietto = new Biglietto();
-                biglietto.Nominativo = item.Nominativo;
-                biglietto.IdTipoBiglietto = item.IdTipoBiglietto;
+                biglietto.Nominativo = nominativo;
+
+                biglietto.IdTipoBiglietto = request.IdTipoBiglietto;
+                biglietto.IdAcquirente = request.IdAcquirente;
+                biglietto.IdBiglietto = 0;
+                /* 
+                Acquirente acquirente = new Acquirente();
+                acquirente.IdAcquirente = request.IdAcquirente;
+                biglietto.Acquirente = acquirente;
+                */
+
+                /*
+                TipoBiglietto tipoBiglietto = new TipoBiglietto();
+                tipoBiglietto.IdTipo = request.IdTipoBiglietto;
+                biglietto.TipoBiglietto = tipoBiglietto;
+                */
                 biglietti.Add(biglietto);
             }
             return biglietti;
@@ -23,8 +37,8 @@ namespace Application.Mapper
             BigliettoDto bigliettoDto = new BigliettoDto();
             bigliettoDto.IdBiglietto = biglietto.IdBiglietto;
             bigliettoDto.Nominativo = biglietto.Nominativo;
-            bigliettoDto.IdTipoBiglietto = biglietto.TipoBiglietto.IdTipo;
-            bigliettoDto.IdAcquirente = biglietto.Acquirente.IdAcquirente;
+            bigliettoDto.IdTipoBiglietto = biglietto.IdTipoBiglietto;
+            bigliettoDto.IdAcquirente = biglietto.IdAcquirente;
             return bigliettoDto;
         }
     }

@@ -24,8 +24,9 @@ namespace Application.Services
             _context = context;
         }
 
-        public async Task<List<Biglietto>> AddBigliettiAsync(List<AddBigliettoRequest> request)
+        public async Task<List<Biglietto>> AddBigliettiAsync(AddBigliettoRequest request)
         {
+            
             List<Biglietto> entity = BigliettoMapper.ToEntity(request);
             foreach (var item in entity)
             {
@@ -39,7 +40,7 @@ namespace Application.Services
         public async Task<List<Biglietto>> GetBigliettiByAcquirenteAsync(int idAcquirente)
         {
             return await _context.Biglietti
-                .Where(x => x.Acquirente.IdAcquirente == idAcquirente)
+                .Where(x => x.IdAcquirente == idAcquirente)
                 .ToListAsync();
         }
     }

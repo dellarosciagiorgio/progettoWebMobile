@@ -10,11 +10,13 @@ namespace Application.Mapper
         {
             var stock = new StockBiglietto();
             stock.Quantita = request.Quantita;
-            stock.IdEvento = request.IdEvento;
+            stock.IdEvento = request.IdEventoEsistente;
 
             var tipo = new TipoBiglietto();
-            tipo.IdTipo = request.IdTipo;
             tipo.Prezzo = request.Prezzo;
+            tipo.Descrizione = request.Descrizione;
+            tipo.Prezzo = request.Prezzo;
+            tipo.Tipo = request.Tipo;
 
             stock.TipoBiglietto = tipo;
             return stock;
@@ -40,7 +42,7 @@ namespace Application.Mapper
             StockDto stockDto = new StockDto();
             stockDto.IdStock = stock.IdStock;
             stockDto.IdEvento = stock.IdEvento;
-            stockDto.IdTipoBiglietto = stock.TipoBiglietto.IdTipo;
+            stockDto.IdTipoBiglietto = stock.IdTipoBiglietto;
             stockDto.Quantita = stock.Quantita;
             return stockDto;
         }

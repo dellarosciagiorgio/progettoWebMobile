@@ -10,7 +10,7 @@ namespace Models.Entities
     {
         public int IdStock { get; set; }
         public TipoBiglietto? TipoBiglietto { get; set; }
-        public double Quantita { get; set; }
+        public int Quantita { get; set; }
         public Evento? Evento { get; set; }
         public int IdEvento { get; set; }
         public int IdTipoBiglietto { get; set; }

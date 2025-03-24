@@ -14,11 +14,18 @@ namespace Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Biglietto> builder)
         {
             builder.HasKey(p => p.IdBiglietto);
-            builder.Property(p => p.IdBiglietto).HasColumnName("IdBiglietto");
+            
+            builder.Property(b => b.IdBiglietto).HasColumnName("IdBiglietto");
             builder.Property(p => p.Nominativo).HasColumnName("Nominativo");
             builder.HasOne(x => x.TipoBiglietto)
                 .WithMany()
-                .HasForeignKey(x => x.IdTipoBiglietto);
+                .HasForeignKey(x => x.IdTipoBiglietto)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.HasOne(x => x.Acquirente)
+                .WithMany(x => x.BigliettiComprati)
+                .HasForeignKey(x => x.IdAcquirente)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

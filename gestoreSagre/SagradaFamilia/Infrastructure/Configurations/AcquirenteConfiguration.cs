@@ -13,7 +13,6 @@ namespace Infrastructure.Configurations
             builder.Property(p => p.Nome).HasColumnName("NomeAcquirente");
             builder.Property(p => p.Cognome).HasColumnName("CognomeAcquirente");
             builder.Property(p => p.Mail).HasColumnName("MailAcquirente");
-            builder.HasMany(x => x.BigliettiComprati).WithOne().HasForeignKey(x => x.IdBiglietto);
         }
     }
 }

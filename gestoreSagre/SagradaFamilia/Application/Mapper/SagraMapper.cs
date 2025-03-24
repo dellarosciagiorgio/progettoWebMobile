@@ -9,6 +9,7 @@ namespace Application.Mapper
         public static Sagra ToEntity(AddSagraRequest request)
         {
             var entity = new Sagra();
+            entity.IdOrganizzatore = request.IdOrganizzatore;
             entity.NomeSagra = request.NomeSagra;
             entity.Descrizione = request.Descrizione;
             return entity;

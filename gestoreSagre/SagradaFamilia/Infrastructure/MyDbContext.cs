@@ -16,7 +16,7 @@ namespace Infrastructure
     {
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
         {
-
+            
         }
         public DbSet<Acquirente> Acquirenti { get; set; }
         public DbSet<StockBiglietto> Stocks { get; set; }
