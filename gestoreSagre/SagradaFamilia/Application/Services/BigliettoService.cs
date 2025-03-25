@@ -26,12 +26,30 @@ namespace Application.Services
 
         public async Task<List<Biglietto>> AddBigliettiAsync(AddBigliettoRequest request)
         {
-            
             List<Biglietto> entity = BigliettoMapper.ToEntity(request);
+            var stock = await _context.Stocks
+                .Where(x => x.IdTipoBiglietto == request.IdTipoBiglietto)
+                .FirstOrDefaultAsync();
+            if(stock == null)
+            {
+                throw new Exception("Tipo Biglietto non trovato");
+            }
+            if (stock.Quantita < entity.Count)
+            {
+                throw new Exception($"Quantità disponibile non sufficiente per acquistare {entity.Count} biglietti");
+            }
             foreach (var item in entity)
             {
                 await _context.Biglietti.AddAsync(item);
             }
+            IStockService stockService = new StockService(_context);
+            
+            await stockService.EditQuantitaStockAsync(
+                new EditQuantitaStockRequest
+                {
+                    IdStock = stock.IdStock,
+                    Quantita = stock.Quantita - entity.Count
+                });
 
             await _context.SaveChangesAsync();
             return entity;

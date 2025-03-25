@@ -32,6 +32,13 @@ namespace Application.Services
             await _context.SaveChangesAsync();
 
             entity.IdTipoBiglietto = tipoBiglietto.IdTipo;
+
+            var evento = await _context.Eventi.FindAsync(entity.IdEvento);
+            if (evento == null)
+            {
+                throw new Exception("Evento non trovato");
+            }
+
             await _context.Stocks.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;

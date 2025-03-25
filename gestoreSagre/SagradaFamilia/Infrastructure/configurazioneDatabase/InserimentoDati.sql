@@ -1,4 +1,4 @@
-USE GestoreSagre
+use GestoreSagre;
 -- TRUNCATE TABLE Acquirenti;
 INSERT INTO Acquirenti(NomeAcquirente, CognomeAcquirente, MailAcquirente)  
 VALUES 
@@ -52,53 +52,53 @@ VALUES
 
 
 -- TRUNCATE TABLE TipiBiglietto;
-INSERT INTO TipiBiglietto(NomeTipoBiglietto, DescrizioneTipoBiglietto, Prezzo)  
+INSERT INTO TipiBiglietto(NomeTipoBiglietto, DescrizioneTipoBiglietto, Prezzo, IdEvento)  
 VALUES 
-('Entrata', 'Solo Entrata', 10),
-('Mangia','Mangia a volontà', 20),
-('All-inclusive','Mangia e bevi a volontà, posto VIP', 30),
-('Entrata','Solo Entrata', 35),
-('Tavolo','Tavolo davanti al palco', 50),
-('Entrata','Solo Entrata', 5),
-('3Beer','Entrata e Tre birre', 15),
-('Bevii','All you can beer, cheers', 25),
-('Entrata','Solo Entrata',5),
-('Mangia','Mangia a volontà', 20),
-('All-inclusive', 'Mangia e bevi a volontà, posto VIP',35),
-('Entrata','Solo Entrata',40),
-('Tavolo Vip','Tavolo davanti al palco',70),
-('Entrata','Solo Entrata',2),
-('3Beer','Entrata e Tre birre', 10),
-('Bevi', 'All you can beer, cheers', 20),
-('Entrata', 'Solo Entrata',12),
-('Mangia', 'Mangia a volontà',27),
-('All-inclusive','Mangia e bevi a volontà, posto VIP',40),
-('Entrata', 'Solo Entrata',20);
+('Entrata', 'Solo Entrata', 10, 1),
+('Mangia','Mangia a volontà', 20, 1),
+('All-inclusive','Mangia e bevi a volontà, posto VIP', 30, 1),
+('Entrata','Solo Entrata', 35, 2),
+('Tavolo','Tavolo davanti al palco', 50, 2),
+('Entrata','Solo Entrata', 5, 3),
+('3Beer','Entrata e Tre birre', 15, 3),
+('Bevii','All you can beer, cheers', 25, 3),
+('Entrata','Solo Entrata',5, 4),
+('Mangia','Mangia a volontà', 20, 4),
+('All-inclusive', 'Mangia e bevi a volontà, posto VIP',35, 4),
+('Entrata','Solo Entrata',40, 5),
+('Tavolo Vip','Tavolo davanti al palco',70, 5),
+('Entrata','Solo Entrata',2, 6),
+('3Beer','Entrata e Tre birre', 10, 6),
+('Bevi', 'All you can beer, cheers', 20, 6),
+('Entrata', 'Solo Entrata',12, 7),
+('Mangia', 'Mangia a volontà',27, 7),
+('All-inclusive','Mangia e bevi a volontà, posto VIP',40, 7),
+('Entrata', 'Solo Entrata',20, 8);
 
 
 -- TRUNCATE TABLE Stocks;
 INSERT INTO Stocks(Quantita, IdTipoBiglietto, IdEvento)  
 VALUES
 (39, 1, 1),
-(34, 2, 1),
-(30, 3, 1),
-(49, 4, 2),
-(47, 5, 2),
-(42, 6, 3),
+(34, 2,1),
+(30, 3,1),
+(49, 4,2),
+(47, 5,2),
+(42, 6,3),
 (35, 7, 3),
-(47, 8, 4),
+(47, 8, 3),
 (50, 9, 4),
-(45, 10, 5),
-(33, 11, 5),
-(42, 12, 6),
-(42, 13, 6),
-(37, 14, 7),
-(32, 15, 7),
-(36, 16, 7),
-(46, 17, 8),
-(43, 18, 8),
-(30, 19, 8),
-(42, 20, 9);
+(45, 10, 4),
+(33, 11, 4),
+(42, 12, 5),
+(42, 13, 5),
+(37, 14, 6),
+(32, 15, 6),
+(36, 16, 6),
+(46, 17, 7),
+(43, 18, 7),
+(30, 19, 7),
+(42, 20, 8);
 
 -- TRUNCATE TABLE Biglietti;
 INSERT INTO Biglietti(Nominativo, IdAcquirente, IdTipoBiglietto)  

@@ -123,6 +123,9 @@ Go
 CREATE TABLE TipiBiglietto(
 	IdTipoBiglietto INT identity (1,1),
 	DescrizioneTipoBiglietto VARCHAR(1000) not null,
+	IdEvento INT not null,
+	NomeTipoBiglietto varchar(100) not null,
+	Prezzo INT not null,
 	CONSTRAINT [PK_TipiBiglietto] primary key clustered
 	(
 		IdTipoBiglietto ASC
@@ -144,10 +147,7 @@ CREATE TABLE Biglietti(
 	(
 		IdBiglietto ASC
 	)
-	
 )
-
-
 
 GO
 Alter table Biglietti
@@ -161,6 +161,13 @@ Alter table Biglietti
 add constraint FK_Biglietti_TipoBiglietto foreign key (IdTipoBiglietto)
 references TipiBiglietto (IdTipoBiglietto)
     ON DELETE SET NULL
+    ON UPDATE CASCADE;
+
+GO
+Alter table TipiBiglietto
+add constraint FK_TipiBiglietto_Eventi foreign key (IdEvento)
+references Eventi (IdEvento)
+    ON DELETE CASCADE
     ON UPDATE CASCADE;
 
 GO
@@ -199,10 +206,10 @@ add constraint FK_Stocks_TipoBiglietto foreign key (IdTipoBiglietto)
 references TipiBiglietto (IdTipoBiglietto)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
-
+ 
 GO
-alter table Stocks
+Alter table Stocks
 add constraint FK_Stocks_Eventi foreign key (IdEvento)
 references Eventi (IdEvento)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE;
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
