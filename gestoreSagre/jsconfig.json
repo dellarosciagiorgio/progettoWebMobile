@@ -1,8 +1,9 @@
 {
-	"extends": "./.svelte-kit/tsconfig.json",
+	// "extends": "./.svelte-kit/tsconfig.json", // Removed or commented out due to missing file
 	"compilerOptions": {
 		"allowJs": true,
 		"checkJs": false,
+		"module": "es2015",
 		"moduleResolution": "bundler"
 	}
 	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias

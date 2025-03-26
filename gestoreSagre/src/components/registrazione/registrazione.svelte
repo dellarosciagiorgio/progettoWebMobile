@@ -1,11 +1,12 @@
 <script>
     import "bootstrap/dist/css/bootstrap.min.css";
   
+    let nome = "";
     let email = "";
     let password = "";
   
-    const handleLogin = () => {
-      console.log("Login con Email:", email, "Password:", password);
+    const handleRegister = () => {
+      console.log("Registrazione con Nome:", nome, "Email:", email, "Password:", password);
     };
   </script>
   
@@ -14,9 +15,13 @@
       <div class="mb-3">
         <img src="/logo.png" alt="Logo" class="img-fluid" style="max-width: 150px;" />
       </div>
-      <h2 class="text-primary">Benvenuto!</h2>
+      <h2 class="text-success">Registrazione</h2>
   
-      <form on:submit|preventDefault={handleLogin}>
+      <form on:submit|preventDefault={handleRegister}>
+        <div class="mb-3 text-start">
+          <label class="form-label">Nome</label>
+          <input type="text" class="form-control" bind:value={nome} required />
+        </div>
         <div class="mb-3 text-start">
           <label class="form-label">Email</label>
           <input type="email" class="form-control" bind:value={email} required />
@@ -25,15 +30,14 @@
           <label class="form-label">Password</label>
           <input type="password" class="form-control" bind:value={password} required />
         </div>
-        <button type="submit" class="btn btn-primary w-100">Accedi</button>
+        <button type="submit" class="btn btn-success w-100">Registrati</button>
       </form>
   
       <div class="text-center mt-3">
-        <small>Non hai un account? 
-          <a href="/registrazione">Registrati</a>
+        <small>Hai già un account? 
+          <a href="/login">Accedi</a>
         </small>
       </div>
     </div>
   </div>
-  
   
