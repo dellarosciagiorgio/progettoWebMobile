@@ -2,7 +2,10 @@
 using Application.Factories;
 using Application.Mapper;
 using Application.Models.Request;
+using Azure.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static Application.Functions.StaticFunctions;
 
 namespace Web.Controllers
 {
@@ -18,8 +21,14 @@ namespace Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(policy: "IS_ACQ")]
         public async Task<IActionResult> Add(AddBigliettoRequest request)
         {
+
+            var userId = User.FindFirst("sub")?.Value;
+
+            CheckUser(userId, request);
+
             var result = await _bigliettoService.AddBigliettiAsync(request);
             return Ok(
                 ResponseFactory
@@ -32,10 +41,15 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        [Route("{id:int}")]
-        public async Task<IActionResult> GetBiglietti( int id)
+        [Authorize(policy: "IS_ACQ")]
+        public async Task<IActionResult> GetBiglietti()
         {
-            var result = await _bigliettoService.GetBigliettiByAcquirenteAsync(id);
+            var userId = User.FindFirst("sub")?.Value;
+            if (userId == null)
+            {
+                return Unauthorized("Utente non autorizzato");
+            }
+            var result = await _bigliettoService.GetBigliettiByAcquirenteAsync(int.Parse(userId));
             return Ok(
                 ResponseFactory
                 .WithSuccess(
@@ -43,7 +57,7 @@ namespace Web.Controllers
                     BigliettoMapper.ToDto(s)
                     ).ToList()
                     )
-             );
+            );
         }
     }
 }

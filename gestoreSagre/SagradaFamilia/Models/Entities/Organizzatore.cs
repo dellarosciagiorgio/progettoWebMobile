@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Models.Entities
 {
-    public class Organizzatore
+    public class Organizzatore : UserGenerico
     {
-        public int IdOrganizzatore { get; set; }
-        public string? Mail { get; set; }
         public string? NomeOrganizzazione { get; set; }
         public List<Sagra> Sagre { get; set; } = new List<Sagra>();
     }

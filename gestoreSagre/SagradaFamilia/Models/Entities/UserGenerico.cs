@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Models.Entities
 {
-    public class Admin : UserGenerico
+    abstract public class UserGenerico
     {
-        public string? Nome { get; set; }
-        public string? Cognome { get; set; }
+        public int Id { get; set; }
+        public User User { get; set; }
+        public int IdUser { get; set; }
     }
 }

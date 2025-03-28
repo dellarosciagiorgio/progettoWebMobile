@@ -1,6 +1,8 @@
-﻿namespace Application.Models.Request
+﻿using Application.Abstraction.Requests;
+
+namespace Application.Models.Request
 {
-    public class AddEventoRequest
+    public class AddEventoRequest : BaseRequest
     {
         public int IdSagra { get; set; }
         public DateTime DataEvento { get; set; }

@@ -25,6 +25,15 @@ namespace Application.Services
         }
         public async Task<Evento> AddEventoAsync(AddEventoRequest request)
         {
+            var sagra = await _context.Sagre.FindAsync(request.IdSagra);
+            if (sagra == null)
+            {
+                throw new Exception("Sagra non trovata");
+            }
+            if(sagra.IdOrganizzatore != request.IdUser)
+            {
+                throw new Exception("L'organizzatore non è autorizzato a creare eventi per questa sagra");
+            }
             var entity = EventoMapper.ToEntity(request);
             await _context.Eventi.AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -33,6 +42,16 @@ namespace Application.Services
 
         public async Task DeleteEventoAsync(DeleteEventoRequest request)
         {
+            var evento = await _context.Eventi.FindAsync(request.IdEvento);
+            if (evento == null)
+            {
+                throw new Exception("Evento non trovato");
+            }
+            var sagra = await _context.Sagre.FindAsync(evento.IdSagra);
+            if(sagra.IdOrganizzatore != request.IdUser)
+            {
+                throw new Exception("L'organizzatore non è autorizzato a cancellare eventi per questa sagra");
+            }
             var eventoToDelete = EventoMapper.ToEntity(request);
             _context.Entry(eventoToDelete).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
@@ -55,9 +74,14 @@ namespace Application.Services
 
         public async Task<List<Evento>> GetEventiBySagraAsync(int idSagra)
         {
-            return await _context.Eventi
+            var list =  await _context.Eventi
                 .Where(x => x.IdSagra == idSagra)
                 .ToListAsync();
+            if(list.Count == 0)
+            {
+                throw new Exception("Nessun evento trovato per questa sagra");
+            }
+            return list;
         }
     }
 }

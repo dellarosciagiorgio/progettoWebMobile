@@ -1,6 +1,8 @@
-﻿namespace Application.Models.Request
+﻿using Application.Abstraction.Requests;
+
+namespace Application.Models.Request
 {
-    public class DeleteStockRequest
+    public class DeleteStockRequest : BaseRequest
     {
         public int IdStock { get; set; }
     }

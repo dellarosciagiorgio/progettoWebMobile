@@ -1,6 +1,8 @@
-﻿namespace Application.Models.Request
+﻿using Application.Abstraction.Requests;
+
+namespace Application.Models.Request
 {
-    public class AddStockRequest
+    public class AddStockRequest : BaseRequest
     {
         public int Quantita { get; set; }
         public int IdEventoEsistente { get; set; }

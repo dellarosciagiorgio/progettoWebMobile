@@ -21,6 +21,7 @@ namespace Application.Extensions
             services.AddScoped<ISagraService, SagraService>();
             services.AddScoped<IStockService, StockService>();
             services.AddScoped<IFeedbackService, FeedbackService>();
+            services.AddScoped<ILoginService, LoginService>();
             return services;
         }
     }

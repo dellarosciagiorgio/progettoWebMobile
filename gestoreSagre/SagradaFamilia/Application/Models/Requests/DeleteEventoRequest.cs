@@ -1,6 +1,8 @@
-﻿namespace Application.Models.Request
+﻿using Application.Abstraction.Requests;
+
+namespace Application.Models.Request
 {
-    public class DeleteEventoRequest
+    public class DeleteEventoRequest : BaseRequest
     {
         public int IdEvento { get; set; }
     }

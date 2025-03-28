@@ -1,6 +1,8 @@
-﻿namespace Application.Models.Request
+﻿using Application.Abstraction.Requests;
+
+namespace Application.Models.Request
 {
-    public class DeleteSagraRequest
+    public class DeleteSagraRequest : BaseRequest
     {
         public int IdSagra { get; set; }
     }

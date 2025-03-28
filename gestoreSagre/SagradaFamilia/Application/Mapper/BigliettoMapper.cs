@@ -15,7 +15,7 @@ namespace Application.Mapper
                 biglietto.Nominativo = nominativo;
 
                 biglietto.IdTipoBiglietto = request.IdTipoBiglietto;
-                biglietto.IdAcquirente = request.IdAcquirente;
+                biglietto.IdAcquirente = (int)request.IdUser;
                 biglietto.IdBiglietto = 0;
                 /* 
                 Acquirente acquirente = new Acquirente();

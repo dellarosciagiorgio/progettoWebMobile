@@ -1,7 +1,9 @@
-﻿namespace Application.Abstraction.Services
+﻿using Application.Abstraction.Requests;
+
+namespace Application.Abstraction.Services
 {
-    public class GetFeedbackByAcquirenteRequest
+    public class GetFeedbackByAcquirenteRequest : BaseRequest
     {
-        public int IdAcquirente { get; set; }
+        
     }
 }

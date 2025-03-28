@@ -3,30 +3,35 @@ using Application.Factories;
 using Infrastructure.Extensions;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Net;
+using Web.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
 builder.Services
-    //.AddUIServices(builder.Configuration)
+    .AddUiServices(builder.Configuration)
     .AddApplicationServices()
     .AddInfrastructureServices(builder.Configuration);
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+app.UseCors("CustomCORS");
 // Configure the HTTP request pipeline.
-/*
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-*/
+
 
 app.UseExceptionHandler(appError =>
 {
@@ -50,7 +55,6 @@ app.UseExceptionHandler(appError =>
         }
     });
 });
-
 
 app.UseHttpsRedirection();
 

@@ -3,6 +3,7 @@ using Application.Factories;
 using Application.Mapper;
 using Application.Models.Request;
 using Microsoft.AspNetCore.Mvc;
+using static Application.Functions.StaticFunctions;
 
 namespace Web.Controllers
 {
@@ -22,6 +23,9 @@ namespace Web.Controllers
         [Route("stock")]
         public async Task<IActionResult> Add(AddStockRequest request)
         {
+            var userId = User.FindFirst("sub")?.Value;
+            CheckUser(userId, request);
+
             var result = await _stockService.AddStockAsync(request);
             return Ok(
                 ResponseFactory
@@ -33,6 +37,9 @@ namespace Web.Controllers
         [Route("stock")]
         public async Task<IActionResult> Edit(EditQuantitaStockRequest request)
         {
+            var userId = User.FindFirst("sub")?.Value;
+            CheckUser(userId, request);
+
             var result = await _stockService.EditQuantitaStockAsync(request);
             return Ok(
                 ResponseFactory

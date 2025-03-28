@@ -3,6 +3,8 @@ using Application.Factories;
 using Application.Models.Request;
 using Microsoft.AspNetCore.Mvc;
 using Application.Mapper;
+using Microsoft.AspNetCore.Authorization;
+using static Application.Functions.StaticFunctions;
 
 namespace Web.Controllers
 {
@@ -18,24 +20,33 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("sagra")]
+        [Authorize(policy: "IS_ORG")]
         public async Task<IActionResult> Add(AddSagraRequest request)
         {
+            var userId = User.FindFirst("sub")?.Value;
+            CheckUser(userId, request);
+
             var result = await _sagraService.AddSagraAsync(request);
+
             return Ok(
                 ResponseFactory
                 .WithSuccess(SagraMapper.ToDto(result))
-             );
+            );
         }
 
         [HttpPut]
         [Route("sagra")]
+        [Authorize(policy: "IS_ORG")]
         public async Task<IActionResult> Edit(EditSagraRequest request)
         {
+            var userId = User.FindFirst("sub")?.Value;
+            CheckUser(userId, request);
+
             var result = await _sagraService.EditSagraAsync(request);
             return Ok(
                 ResponseFactory
                 .WithSuccess(SagraMapper.ToDto(result))
-             );
+            );
         }
 
         [HttpGet]
@@ -55,8 +66,12 @@ namespace Web.Controllers
 
         [HttpDelete]
         [Route("sagra")]
+        [Authorize(policy: "IS_ORG")]
         public async Task<IActionResult> DeleteSagra(DeleteSagraRequest request)
         {
+            var userId = User.FindFirst("sub")?.Value;
+            CheckUser(userId, request);
+
             await _sagraService.DeleteSagraAsync(request);
             return Ok(
                 ResponseFactory

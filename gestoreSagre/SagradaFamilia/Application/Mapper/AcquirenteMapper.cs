@@ -12,7 +12,6 @@ namespace Application.Mapper
             var entity = new Acquirente();
             entity.Nome = request.Nome;
             entity.Cognome = request.Cognome;
-            entity.Mail = request.Mail;
             return entity;
         }
 
@@ -20,19 +19,17 @@ namespace Application.Mapper
         {
             var entity = new Acquirente();
             entity.Nome = request.Nome;
-            entity.IdAcquirente = request.IdAcquirente;
+            entity.Id = (int)request.IdUser;
             entity.Cognome = request.Cognome;
-            entity.Mail = request.Mail;
             return entity;
         }
 
         public static AcquirenteDto ToDto(Acquirente acquirente)
         {
             AcquirenteDto acquirenteDto = new AcquirenteDto();
-            acquirenteDto.IdAcquirente = acquirente.IdAcquirente;
+            acquirenteDto.IdAcquirente = acquirente.Id;
             acquirenteDto.Cognome = acquirente.Cognome;
             acquirenteDto.Nome = acquirente.Nome;
-            acquirenteDto.Mail = acquirente.Mail;
             foreach (Feedback feedback in acquirente.Feedbacks)
             {
                 acquirenteDto.IdFeedBacks.Add(feedback.IdFeedback);

@@ -49,9 +49,7 @@ namespace Application.Services
 
         public async Task<List<Sagra>> GetSagreAsync()
         {
-            {
-                return await _context.Sagre.ToListAsync();
-            }
+            return await _context.Sagre.ToListAsync();
         }
     }
 }

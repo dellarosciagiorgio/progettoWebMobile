@@ -13,12 +13,11 @@ namespace Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Admin> builder)
         {
-            builder.HasKey(p => p.IdAdmin);
-            builder.Property(p => p.IdAdmin).HasColumnName("IdAdmin");
+            builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).HasColumnName("IdAdmin");
             builder.Property(p => p.Nome).HasColumnName("NomeAdmin");
-            builder.Property(p => p.Cognome).HasColumnName("CognomeAdmin");
-            builder.Property(p => p.Mail).HasColumnName("MailAdmin");
-
+            builder.Property(p => p.Cognome).HasColumnName("CognomeAdmin"); 
+            builder.HasOne(p => p.User).WithOne().HasForeignKey<Admin>(p => p.IdUser);
         }
     }
 }

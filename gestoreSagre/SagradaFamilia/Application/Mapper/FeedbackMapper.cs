@@ -11,7 +11,7 @@ namespace Application.Mapper
         public static Feedback ToEntity(AddFeedbackRequest request)
         {
             var entity = new Feedback();
-            entity.IdAcquirente = request.IdAcquirente;
+            entity.IdAcquirente = (int)request.IdUser;
             entity.Titolo = request.Titolo;
             entity.Descrizione = request.Descrizione;
             entity.IdSagra = request.IdSagra;

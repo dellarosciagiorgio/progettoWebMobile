@@ -1,6 +1,8 @@
-﻿namespace Application.Models.Request
+﻿using Application.Abstraction.Requests;
+
+namespace Application.Models.Request
 {
-    public class EditSagraRequest
+    public class EditSagraRequest : BaseRequest
     {
         public int IdSagra { get; set; }
         public string NomeSagra { get; set; }

@@ -4,7 +4,9 @@ using Application.Mapper;
 using Application.Models.Request;
 using Application.Models.Requests;
 using Application.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static Application.Functions.StaticFunctions;
 
 namespace Web.Controllers
 {
@@ -21,8 +23,12 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("feedback")]
+        [Authorize(policy: "IS_ACQ")]
         public async Task<IActionResult> Add(AddFeedbackRequest request)
         {
+            var userId = User.FindFirst("sub")?.Value;
+            CheckUser(userId, request);
+
             var result = await _feedbackService.AddFeedbackAsync(request);
             return Ok(
                 ResponseFactory
@@ -32,6 +38,7 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("feedbacks")]
+        [Authorize(policy: "IS_ADM")]
         public async Task<IActionResult> Get()
         {
             var result = await _feedbackService.GetFeedbacksAsync();
@@ -47,8 +54,12 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("feedbacks/acquirente")]
+        [Authorize(policy: "IS_ACQ")]
         public async Task<IActionResult> GetFeedbackByAcquirente(GetFeedbackByAcquirenteRequest request)
         {
+            var userId = User.FindFirst("sub")?.Value;
+            CheckUser(userId, request);
+
             var result = await _feedbackService.GetFeedbacksByAcquirenteAsync(request);
             return Ok(
                ResponseFactory

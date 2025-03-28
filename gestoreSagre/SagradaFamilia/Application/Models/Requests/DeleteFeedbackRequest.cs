@@ -1,6 +1,8 @@
-﻿namespace Application.Models.Requests
+﻿using Application.Abstraction.Requests;
+
+namespace Application.Models.Requests
 {
-    public class DeleteFeedbackRequest
+    public class DeleteFeedbackRequest : BaseRequest
     {
         public int IdFeedback { get; set; }
     }

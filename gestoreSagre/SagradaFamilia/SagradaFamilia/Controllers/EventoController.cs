@@ -2,7 +2,9 @@
 using Application.Factories;
 using Application.Mapper;
 using Application.Models.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static Application.Functions.StaticFunctions;
 
 namespace Web.Controllers
 {
@@ -19,8 +21,13 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("evento")]
+        [Authorize(policy: "IS_ORG")]
         public async Task<IActionResult> Add(AddEventoRequest request)
         {
+
+            var userId = User.FindFirst("sub")?.Value;
+
+            CheckUser(userId, request);
             var result = await _eventoService.AddEventoAsync(request);
             return Ok(
                 ResponseFactory
@@ -30,8 +37,12 @@ namespace Web.Controllers
 
         [HttpPut]
         [Route("evento")]
+        [Authorize(policy: "IS_ORG")]
         public async Task<IActionResult> Edit(EditEventoRequest request)
         {
+            var userId = User.FindFirst("sub")?.Value;
+            CheckUser(userId, request);
+
             var result = await _eventoService.EditEventoAsync(request);
             return Ok(
                 ResponseFactory
@@ -71,8 +82,12 @@ namespace Web.Controllers
 
         [HttpDelete]
         [Route("evento")]
+        [Authorize(policy: "IS_ORG")]
         public async Task<IActionResult> DeleteEvento(DeleteEventoRequest request)
         {
+            var userId = User.FindFirst("sub")?.Value;
+            CheckUser(userId, request);
+
             await _eventoService.DeleteEventoAsync(request);
             return Ok(
                 ResponseFactory

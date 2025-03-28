@@ -8,9 +8,10 @@ namespace Infrastructure.Configurations
     {
         public void Configure(EntityTypeBuilder<Organizzatore> builder)
         {
-            builder.HasKey(p => p.IdOrganizzatore);
-            builder.Property(p => p.IdOrganizzatore).HasColumnName("IdOrganizzatore");
-            builder.Property(p => p.Mail).HasColumnName("MailOrganizzatore");
+            builder.HasKey(p => p.Id);
+            builder.Property(p => p.Id).HasColumnName("IdOrganizzatore");
+            builder.Property(p => p.NomeOrganizzazione).HasColumnName("NomeOrganizzatore");
+            builder.HasOne(p => p.User).WithOne().HasForeignKey<Organizzatore>(p => p.IdUser);
         }
     }
 }
