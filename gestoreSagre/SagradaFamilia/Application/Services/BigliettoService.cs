@@ -23,12 +23,12 @@ namespace Application.Services
             // _logger = logger;
             _context = context;
         }
-
         public async Task<List<Biglietto>> AddBigliettiAsync(AddBigliettoRequest request)
         {
             List<Biglietto> entity = BigliettoMapper.ToEntity(request);
             var stock = await _context.Stocks
                 .Where(x => x.IdTipoBiglietto == request.IdTipoBiglietto)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
             if(stock == null)
             {

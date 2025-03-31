@@ -3,6 +3,7 @@ using Application.Abstraction.Services;
 using Application.Mapper;
 using Application.Models.Request;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,11 @@ namespace Application.Services
             {
                 throw new Exception("L'organizzatore non è autorizzato a creare eventi per questa sagra");
             }
+            //la data dell'evento non può essere antecedente alla data successiva alla data odierna 
+            if (request.DataEvento < DateTime.Now.AddDays(1))
+            {
+                throw new Exception("La data dell'evento non può essere antecedente alla data successiva alla data odierna");
+            }
             var entity = EventoMapper.ToEntity(request);
             await _context.Eventi.AddAsync(entity);
             await _context.SaveChangesAsync();
@@ -48,7 +54,11 @@ namespace Application.Services
                 throw new Exception("Evento non trovato");
             }
             var sagra = await _context.Sagre.FindAsync(evento.IdSagra);
-            if(sagra.IdOrganizzatore != request.IdUser)
+            if (sagra == null)
+            {
+                throw new Exception("Sagra non trovata");
+            }
+            if (sagra.IdOrganizzatore != request.IdUser)
             {
                 throw new Exception("L'organizzatore non è autorizzato a cancellare eventi per questa sagra");
             }
@@ -59,12 +69,26 @@ namespace Application.Services
 
         public async Task<Evento> EditEventoAsync(EditEventoRequest request)
         {
-            var entity = EventoMapper.ToEntity(request);
-            var entry = _context.Entry<Evento>(entity);
+
+            var evento = EventoMapper.ToEntity(request);
+            if (evento == null)
+            {
+                throw new Exception("Evento non trovato");
+            }
+            var sagra = await _context.Sagre.FindAsync(evento.IdSagra);
+            if (sagra == null)
+            {
+                throw new Exception("Sagra non trovata");
+            }
+            if (sagra.IdOrganizzatore != request.IdUser)
+            {
+                throw new Exception("L'organizzatore non è autorizzato a cancellare eventi per questa sagra");
+            }
+            var entry = _context.Entry<Evento>(evento);
             entry.Property(x => x.InformazioniAggiuntive).IsModified = true;
             entry.Property(x => x.DataEvento).IsModified = true;
             await _context.SaveChangesAsync();
-            return entity;
+            return evento;
         }
 
         public async Task<List<Evento>> GetEventiAsync()
@@ -74,6 +98,10 @@ namespace Application.Services
 
         public async Task<List<Evento>> GetEventiBySagraAsync(int idSagra)
         {
+            if (idSagra < 1)
+            {
+                throw new Exception("Id sagra non valido");
+            }
             var list =  await _context.Eventi
                 .Where(x => x.IdSagra == idSagra)
                 .ToListAsync();

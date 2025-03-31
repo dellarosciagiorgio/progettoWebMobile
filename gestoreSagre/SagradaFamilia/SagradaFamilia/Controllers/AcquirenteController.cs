@@ -34,7 +34,7 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("acquirenti")]
-        //[Authorize(policy: "IS_ADM")]
+        [Authorize(policy: "IS_ADM")]
         public async Task<IActionResult> Get()
         {
             var result = await _acquirenteService.GetAcquirentiAsync();

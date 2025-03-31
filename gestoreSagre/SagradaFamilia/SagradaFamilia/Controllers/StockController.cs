@@ -2,6 +2,7 @@
 using Application.Factories;
 using Application.Mapper;
 using Application.Models.Request;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Application.Functions.StaticFunctions;
 
@@ -21,6 +22,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Route("stock")]
+        [Authorize(policy: "IS_ORG")]
         public async Task<IActionResult> Add(AddStockRequest request)
         {
             var userId = User.FindFirst("sub")?.Value;
@@ -35,6 +37,7 @@ namespace Web.Controllers
 
         [HttpPut]
         [Route("stock")]
+        [Authorize(policy: "IS_ORG")]
         public async Task<IActionResult> Edit(EditQuantitaStockRequest request)
         {
             var userId = User.FindFirst("sub")?.Value;

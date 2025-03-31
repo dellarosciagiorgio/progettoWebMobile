@@ -24,9 +24,7 @@ namespace Web.Controllers
         [Authorize(policy: "IS_ACQ")]
         public async Task<IActionResult> Add(AddBigliettoRequest request)
         {
-
             var userId = User.FindFirst("sub")?.Value;
-
             CheckUser(userId, request);
 
             var result = await _bigliettoService.AddBigliettiAsync(request);

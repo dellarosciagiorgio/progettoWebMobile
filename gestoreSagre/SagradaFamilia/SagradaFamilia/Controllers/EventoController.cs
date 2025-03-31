@@ -26,8 +26,8 @@ namespace Web.Controllers
         {
 
             var userId = User.FindFirst("sub")?.Value;
-
             CheckUser(userId, request);
+
             var result = await _eventoService.AddEventoAsync(request);
             return Ok(
                 ResponseFactory
