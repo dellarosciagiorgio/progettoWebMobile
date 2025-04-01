@@ -22,7 +22,7 @@ namespace Application.Functions
             }
             else if (userId != request.IdUser.ToString())
             {
-                throw new Exception("L'utente non può modificare i dati di un altro utente!");
+                throw new Exception("L'utente non può fingersi un altro utente!");
             }
         }
     }

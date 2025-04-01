@@ -1,0 +1,43 @@
+services:
+  server:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#      target: final  # Specifica il target di build
+    image: mattiadispigno/sagradafamilia-server:latest
+    platform: ${MY_PLATFORM:-linux/amd64}
+    environment:
+      AllowedIpsConfig__AllowedIps: '["http://localhost:8080","http://localhost:8000","http://localhost:5100"]'
+      ConnectionStrings__MyDbContext: ${DB_CONN_STRING}
+      Jwt__Key: ${MY_SECRET}
+      Jwt__Issuer: http://localhost:8080
+      Jwt__Audience: http://localhost:8080
+    ports:
+      - 8080:8080
+    depends_on:
+      - sqlserver
+    networks:
+       - app_network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    #build: .
+    container_name: ${SQL_CONT_NAME:-sqlserver_container}
+    restart: always
+    environment:
+      SA_PASSWORD: ${DB_CONN_PASS}
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlvolume:/var/opt/mssql
+    #  - ./init-scripts:/var/opt/mssql/init-scripts
+    networks:
+      - app_network
+    #user: root
+    #command: /bin/bash -c "chmod +x /var/opt/mssql/init-scripts/entrypoint.sh && /bin/bash /var/opt/mssql/init-scripts/entrypoint.sh && /opt/mssql/bin/sqlservr"
+networks:
+  app_network:
+  
+volumes:
+      sqlvolume:

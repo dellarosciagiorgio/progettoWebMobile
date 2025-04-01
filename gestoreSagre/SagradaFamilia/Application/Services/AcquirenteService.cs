@@ -28,6 +28,16 @@ namespace Application.Services
         public async Task<Acquirente> AddAcquirenteAsync(AddAcquirenteRequest request)
         {
             var entity = AcquirenteMapper.ToEntity(request);
+
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == entity.User.Email);
+            if (user != null)
+            {
+                throw new ArgumentException("Utente già esistente");
+            }
+
+            await _context.Users.AddAsync(entity.User);
+            entity.IdUser = entity.User.IdUser;
+
             await _context.Acquirenti.AddAsync(entity);
             await _context.SaveChangesAsync();
             return entity;

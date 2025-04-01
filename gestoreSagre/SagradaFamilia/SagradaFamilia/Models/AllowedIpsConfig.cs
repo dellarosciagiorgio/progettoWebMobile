@@ -2,6 +2,6 @@
 {
     public class AllowedIpsConfig
     {
-        public List<string> AllowedIps { get; set; }
+        public List<string>? AllowedIps { get; set; }
     }
 }

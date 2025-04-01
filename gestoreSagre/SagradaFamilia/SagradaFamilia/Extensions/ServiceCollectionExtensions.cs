@@ -7,6 +7,7 @@ using System.Text;
 using Web.Factories;
 using Application.Abstraction.Services;
 using Web.Models;
+using System.Text.Json;
 
 namespace Web.Extensions
 {
@@ -15,9 +16,29 @@ namespace Web.Extensions
         public static IServiceCollection AddUiServices(this IServiceCollection services
             , IConfiguration config)
         {
+            AllowedIpsConfig allowedIpsConfig;
             //ATTIVAZIONE CORS verso il frontend
-            var allowedIpsConfig = config.GetSection("AllowedIpsConfig").Get<AllowedIpsConfig>();
-
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+            {
+                allowedIpsConfig = config.GetSection("AllowedIpsConfig").Get<AllowedIpsConfig>();
+            }
+            else
+            {
+                // Legge gli IP consentiti dal file di configurazione
+                var allowedIpsJson = config["AllowedIpsConfig:AllowedIps"];
+                var allowedIps = string.IsNullOrEmpty(allowedIpsJson)
+                    ? new List<string>()
+                    : JsonSerializer.Deserialize<List<string>>(allowedIpsJson);
+                
+                allowedIpsConfig = new AllowedIpsConfig()
+                {
+                    AllowedIps = allowedIps
+                };
+            }
+            if (allowedIpsConfig == null)
+            {
+                throw new Exception("AllowedIpsConfig non configurato");
+            }
             // Configura CORS con gli IP letti dal file di configurazione
             services.AddCors(options =>
             {
@@ -28,6 +49,7 @@ namespace Web.Extensions
                           .AllowAnyHeader();
                 });
             });
+
 
 
             var key = Encoding.UTF8.GetBytes(config["Jwt:Key"]!);

@@ -12,6 +12,13 @@ namespace Application.Mapper
             var entity = new Acquirente();
             entity.Nome = request.Nome;
             entity.Cognome = request.Cognome;
+
+            var user = new User();
+            user.Email = request.Email;
+            user.Password = request.Password;
+            user.Ruolo = Ruolo.Acquirente;
+            entity.User = user;
+
             return entity;
         }
 
