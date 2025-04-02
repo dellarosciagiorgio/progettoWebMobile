@@ -1,10 +1,10 @@
 services:
   server:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#      target: final  # Specifica il target di build
-    image: mattiadispigno/sagradafamilia-server:latest
+    build:
+      context: .
+      dockerfile: DockerfileServer
+      target: final  # Specifica il target di build
+    #image: mattiadispigno/sagradafamilia-server:latest
     platform: ${MY_PLATFORM:-linux/amd64}
     environment:
       AllowedIpsConfig__AllowedIps: '["http://localhost:8080","http://localhost:8000","http://localhost:5100"]'
@@ -16,28 +16,41 @@ services:
       - 8080:8080
     depends_on:
       - sqlserver
-    networks:
-       - app_network
 
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    #build: .
-    container_name: ${SQL_CONT_NAME:-sqlserver_container}
-    restart: always
+    build:
+      context: .
+      dockerfile: ${DOCKERFILE_DB:-DockerfileSQLServer}
+ #   image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: ${SQL_CONT_NAME:-sqlserver}
     environment:
-      SA_PASSWORD: ${DB_CONN_PASS}
-      ACCEPT_EULA: "Y"
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=${SA_PASSWORD}
+      - MSSQL_PID=Developer
     ports:
-      - "1433:1433"
+      - 1433:1433
     volumes:
-      - sqlvolume:/var/opt/mssql
-    #  - ./init-scripts:/var/opt/mssql/init-scripts
-    networks:
-      - app_network
-    #user: root
-    #command: /bin/bash -c "chmod +x /var/opt/mssql/init-scripts/entrypoint.sh && /bin/bash /var/opt/mssql/init-scripts/entrypoint.sh && /opt/mssql/bin/sqlservr"
-networks:
-  app_network:
-  
+      - database_volume:/var/opt/mssql
+    restart: always
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$${SA_PASSWORD}" -Q "SELECT 1" -b -o /dev/null
+      interval: 10s
+      retries: 10
+      start_period: 10s
+      timeout: 5s
+
+  sqlserver.configurator:
+    image: mcr.microsoft.com/mssql-tools
+    container_name: sqlserver.configurator
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    command: >
+      bash -c '
+      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SA_PASSWORD} -d master -i docker-entrypoint-initdb.d/init.sql;
+      echo "All done!";
+      '
 volumes:
-      sqlvolume:
+  database_volume:

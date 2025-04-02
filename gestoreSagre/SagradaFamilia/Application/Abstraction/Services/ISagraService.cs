@@ -14,5 +14,6 @@ namespace Application.Abstraction.Services
         Task<Sagra> AddSagraAsync(AddSagraRequest request);
         Task<Sagra> EditSagraAsync(EditSagraRequest request);
         Task DeleteSagraAsync(DeleteSagraRequest request);
+        Task<Sagra> GetSagreAsync(int id);
     }
 }

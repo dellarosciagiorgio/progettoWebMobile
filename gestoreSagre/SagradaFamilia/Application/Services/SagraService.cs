@@ -96,5 +96,12 @@ namespace Application.Services
         {
             return await _context.Sagre.ToListAsync();
         }
+
+        public async Task<Sagra> GetSagreAsync(int id)
+        {
+            return await _context.Sagre
+                .Where(p => p.IdSagra == id)
+                .FirstAsync();
+        }
     }
 }
