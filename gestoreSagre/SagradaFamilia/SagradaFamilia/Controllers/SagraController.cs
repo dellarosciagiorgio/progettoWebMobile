@@ -67,7 +67,7 @@ namespace Web.Controllers
         [Route("sagre/{id: int}")]
         public async Task<IActionResult> GetSagre(int id)
         {
-            var result = await _sagraService.GetSagreAsync();
+            var result = await _sagraService.GetSagreAsync(id);
             return Ok(
                ResponseFactory
                .WithSuccess(
