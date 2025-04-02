@@ -4,17 +4,15 @@
     import { browser } from '$app/environment';
     import { onMount } from 'svelte';
 
-    // Carica Bootstrap solo nel browser
     onMount(() => {
-        if (browser) {
+        if (browser)
             import('bootstrap/dist/js/bootstrap.bundle.min.js');
-        }
     });
 </script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/">
             <img src="/logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
             Village Festival
         </a>
@@ -95,5 +93,4 @@
     </div>
 </nav>
 
-<!-- Passa i children -->
 <slot />

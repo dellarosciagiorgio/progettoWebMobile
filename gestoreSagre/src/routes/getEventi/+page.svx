@@ -1,7 +1,0 @@
-# get eventi
-
-<script>
-	import Eventi from './../../components/getEventi/Eventi.svelte';
-</script>
-
-<Eventi/>

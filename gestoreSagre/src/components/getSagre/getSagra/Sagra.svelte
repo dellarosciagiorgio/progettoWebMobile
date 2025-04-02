@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import { getData } from "../../lib/get.js";
+    import { getData } from "../../../lib/get.js";
 
     let sagre = [];
     let loading = true;
@@ -36,7 +36,10 @@
                         <div class="card-body">
                             <h5 class="card-title">{sagra.nomeSagra}</h5>
                             <p class="card-text">{sagra.descrizione}</p>
-                            <a href="/getSagre/getSagra" class="btn btn-primary">Dettagli</a>
+                            <!-- <p>"idFeedbacks": null,</p>
+                            <p>"idEventi": null,</p>
+                            <p>"idOrganizzatore": 2</p>
+                            orari, luogo, ... -->
                         </div>
                     </div>
                 </div>
