@@ -1,13 +1,13 @@
 # Use the Azure SQL Edge base image
-FROM mcr.microsoft.com/azure-sql-edge
+FROM mcr.microsoft.com/azure-sql-edge:latest
 
 # Install sqlcmd
-RUN apt-get update && \
-    apt-get install -y curl apt-transport-https gnupg2 && \
-    curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
-    curl https://packages.microsoft.com/mssql-tools/debian/9/prod.list > /etc/apt/sources.list.d/mssql-tools.list && \
-    apt-get update && \
-    apt-get install -y mssql-tools unixodbc-dev
+#RUN apt-get update && \
+#    apt-get install -y curl apt-transport-https gnupg2 && \
+#    curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
+#    curl https://packages.microsoft.com/mssql-tools/debian/9/prod.list > /etc/apt/sources.list.d/mssql-tools.list && \
+#    apt-get update && \
+#    apt-get install -y mssql-tools unixodbc-dev
 
 # Set the PATH for sqlcmd
-ENV PATH="${PATH}:/opt/mssql-tools/bin"
+#ENV PATH="${PATH}:/opt/mssql-tools/bin"
