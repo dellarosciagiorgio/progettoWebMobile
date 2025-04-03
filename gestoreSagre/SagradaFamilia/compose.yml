@@ -18,9 +18,8 @@ services:
       - sqlserver
 
   sqlserver:
-    build:
-      context: .
-      dockerfile: ${DOCKERFILE_DB:-DockerfileSQLServer}
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    platform: ${MY_PLATFORM:-linux/amd64}
     container_name: ${SQL_CONT_NAME:-sqlserver}
     environment:
       - ACCEPT_EULA=Y
@@ -40,6 +39,7 @@ services:
 
   sqlserver.configurator:
     image: mcr.microsoft.com/mssql-tools
+    platform: ${MY_PLATFORM:-linux/amd64}
     container_name: sqlserver.configurator
     volumes:
       - ./init:/docker-entrypoint-initdb.d
