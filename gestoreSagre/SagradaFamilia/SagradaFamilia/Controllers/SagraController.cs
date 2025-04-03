@@ -64,16 +64,14 @@ namespace Web.Controllers
             );
         }
         [HttpGet]
-        [Route("sagre/{id: int}")]
+        [Route("sagre/{id:int}")]
         public async Task<IActionResult> GetSagre(int id)
         {
             var result = await _sagraService.GetSagreAsync(id);
             return Ok(
                ResponseFactory
                .WithSuccess(
-                   result.Select(s =>
-                   SagraMapper.ToDto(s)
-                   ).ToList()
+                   SagraMapper.ToDto(result)
                    )
             );
         }

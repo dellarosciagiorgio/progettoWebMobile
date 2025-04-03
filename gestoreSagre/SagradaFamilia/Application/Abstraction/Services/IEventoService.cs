@@ -12,6 +12,7 @@ namespace Application.Abstraction.Services
     {
         Task<List<Evento>> GetEventiAsync();
         Task<List<Evento>> GetEventiBySagraAsync(int idSagra);
+        Task<List<Evento>> GetEventiAsync(int idUser, Ruolo ruolo, bool eventiFuturi);
         Task<Evento> AddEventoAsync(AddEventoRequest request);
         Task<Evento> EditEventoAsync(EditEventoRequest request);
         Task DeleteEventoAsync(DeleteEventoRequest request);

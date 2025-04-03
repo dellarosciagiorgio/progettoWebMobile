@@ -1,7 +1,9 @@
-﻿using Application.Abstraction.Services;
+﻿using Application.Abstraction.Requests;
+using Application.Abstraction.Services;
 using Application.Factories;
 using Application.Mapper;
 using Application.Models.Request;
+using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Application.Functions.StaticFunctions;
@@ -51,10 +53,10 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        [Route("eventi/{id:int}")]
-        public async Task<IActionResult> GetEventi(int id)
+        [Route("eventi/{idSagra:int}")]
+        public async Task<IActionResult> GetEventi(int idSagra)
         {
-            var result = await _eventoService.GetEventiBySagraAsync(id);
+            var result = await _eventoService.GetEventiBySagraAsync(idSagra);
             return Ok(
                ResponseFactory
                .WithSuccess(
@@ -65,6 +67,25 @@ namespace Web.Controllers
             );
         }
 
+        [HttpGet]
+        [Route("eventi/bytime")]
+        [Authorize(policy: "ANY_AUTH_USER")]
+        public async Task<IActionResult> GetEventiPassati([FromBody]SomethingByUserRequest request, [FromQuery] bool checkByFuture)
+        {
+            var userId = User.FindFirst("sub")?.Value;
+            var role = User.FindFirst("Ruolo")?.Value;
+            CheckUser(userId, request);
+            var ruoloEnum = GetRuoloByString(role);
+            var result = await _eventoService.GetEventiAsync(int.Parse(userId), ruoloEnum, checkByFuture);
+            return Ok(
+               ResponseFactory
+               .WithSuccess(
+                   result.Select(s =>
+                   EventoMapper.ToDto(s)
+                   ).ToList()
+                   )
+            );
+        }
         [HttpGet]
         [Route("eventi")]
         public async Task<IActionResult> GetEventi()

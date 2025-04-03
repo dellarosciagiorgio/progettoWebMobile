@@ -1,7 +1,9 @@
 ﻿using Application.Abstraction.Requests;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +26,14 @@ namespace Application.Functions
             {
                 throw new Exception("L'utente non può fingersi un altro utente!");
             }
+        }
+        static public Ruolo GetRuoloByString(string ruolo)
+        {
+            if (ruolo == null)
+            {
+                throw new Exception("Ruolo non valido");
+            }
+            return Enum.Parse<Ruolo>(ruolo);
         }
     }
 }

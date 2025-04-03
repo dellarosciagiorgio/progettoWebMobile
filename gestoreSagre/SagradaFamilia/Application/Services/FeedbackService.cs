@@ -95,7 +95,7 @@ namespace Application.Services
             return await _context.Feedbacks.ToListAsync();
         }
 
-        public async Task<List<Feedback>> GetFeedbacksByAcquirenteAsync(GetFeedbackByAcquirenteRequest request)
+        public async Task<List<Feedback>> GetFeedbacksByAcquirenteAsync(SomethingByUserRequest request)
         {
             return await _context.Feedbacks
                 .Where(x => x.IdAcquirente == request.IdUser)

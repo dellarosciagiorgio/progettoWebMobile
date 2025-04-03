@@ -8,6 +8,7 @@ using Web.Factories;
 using Application.Abstraction.Services;
 using Web.Models;
 using System.Text.Json;
+using Models.Entities;
 
 namespace Web.Extensions
 {
@@ -49,8 +50,6 @@ namespace Web.Extensions
                           .AllowAnyHeader();
                 });
             });
-
-
 
             var key = Encoding.UTF8.GetBytes(config["Jwt:Key"]!);
 
@@ -110,7 +109,12 @@ namespace Web.Extensions
                     policy.RequireAuthenticatedUser();
                     policy.RequireClaim("Ruolo", ["Organizzatore"]);
 
-                });                
+                });
+                opt.AddPolicy("ANY_AUTH_USER", policy =>
+                {
+                    policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+                    policy.RequireAuthenticatedUser();
+                });
             });
             services.AddEndpointsApiExplorer();
 

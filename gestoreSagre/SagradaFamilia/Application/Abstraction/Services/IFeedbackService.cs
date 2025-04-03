@@ -12,7 +12,7 @@ namespace Application.Abstraction.Services
     public interface IFeedbackService
     {
         Task<List<Feedback>> GetFeedbacksAsync();
-        Task<List<Feedback>> GetFeedbacksByAcquirenteAsync(GetFeedbackByAcquirenteRequest request);
+        Task<List<Feedback>> GetFeedbacksByAcquirenteAsync(SomethingByUserRequest request);
         Task<List<Feedback>> GetFeedbacksBySagraAsync(GetFeedbackBySagraRequest request);
         Task<Feedback> AddFeedbackAsync(AddFeedbackRequest request);
         Task<Feedback> EditFeedbackAsync(EditFeedbackRequest request);

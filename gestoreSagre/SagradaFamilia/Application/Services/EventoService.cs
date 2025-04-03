@@ -111,5 +111,33 @@ namespace Application.Services
             }
             return list;
         }
+
+        public async Task<List<Evento>> GetEventiAsync(int idUser, Ruolo ruolo, bool eventiFuturi)
+        {
+            DateTime now = DateTime.Now;
+            switch (ruolo)
+            {
+                case Ruolo.Acquirente:
+                    var myIdEvento = await _context.Biglietti
+                        .Where(x => x.IdAcquirente == idUser && x.TipoBiglietto != null)
+                        .Select(x => x.TipoBiglietto!.IdEvento)
+                        .ToListAsync();
+
+                    return await _context.Eventi
+                        .Where(x => myIdEvento.Contains(x.IdEvento) &&
+                                    (eventiFuturi ? x.DataEvento > now : x.DataEvento <= now))
+                        .ToListAsync();
+            
+                case Ruolo.Organizzatore:
+                
+                    return await _context.Eventi
+                        .Where(x => x.Sagra != null && x.Sagra.IdOrganizzatore == idUser &&
+                                    (eventiFuturi ? x.DataEvento > now : x.DataEvento <= now))
+                        .ToListAsync();
+
+                default: 
+                    throw new Exception("Ruolo non valido");
+            }
+        }
     }
 }

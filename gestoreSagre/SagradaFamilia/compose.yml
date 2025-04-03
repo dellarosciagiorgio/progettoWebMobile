@@ -1,10 +1,10 @@
 services:
   server:
-    build:
-      context: .
-      dockerfile: DockerfileServer
-      target: final  # Specifica il target di build
-    #image: mattiadispigno/sagradafamilia-server:latest
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#      target: final  # Specifica il target di build
+    image: mattiadispigno/sagradafamilia-server:latest
     platform: ${MY_PLATFORM:-linux/amd64}
     environment:
       AllowedIpsConfig__AllowedIps: '["http://localhost:8080","http://localhost:8000","http://localhost:5100"]'
@@ -32,12 +32,12 @@ services:
     volumes:
       - database_volume:/var/opt/mssql
     restart: always
-    healthcheck:
-      test: /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$${SA_PASSWORD}" -Q "SELECT 1" -b -o /dev/null
-      interval: 10s
-      retries: 10
-      start_period: 10s
-      timeout: 5s
+#    healthcheck:
+#      test: /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$${SA_PASSWORD}" -Q "SELECT 1" -b -o /dev/null
+#      interval: 10s
+#      retries: 10
+#      start_period: 10s
+#      timeout: 5s
 
   sqlserver.configurator:
     image: mcr.microsoft.com/mssql-tools
@@ -45,11 +45,12 @@ services:
     volumes:
       - ./init:/docker-entrypoint-initdb.d
     depends_on:
-      sqlserver:
-        condition: service_healthy
+    -  sqlserver
+ #       condition: service_healthy
     command: >
       bash -c '
-      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SA_PASSWORD} -d master -i docker-entrypoint-initdb.d/init.sql;
+      sleep 15;
+      /opt/mssql-tools/bin/sqlcmd -S ${SQL_CONT_NAME:-sqlserver} -U sa -P ${SA_PASSWORD} -d master -i docker-entrypoint-initdb.d/init.sql;
       echo "All done!";
       '
 volumes:

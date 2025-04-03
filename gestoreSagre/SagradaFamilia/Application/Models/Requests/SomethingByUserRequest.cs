@@ -2,7 +2,7 @@
 
 namespace Application.Abstraction.Services
 {
-    public class GetFeedbackByAcquirenteRequest : BaseRequest
+    public class SomethingByUserRequest : BaseRequest
     {
         
     }

@@ -55,7 +55,7 @@ namespace Web.Controllers
         [HttpGet]
         [Route("feedbacks/acquirente")]
         [Authorize(policy: "IS_ACQ")]
-        public async Task<IActionResult> GetFeedbackByAcquirente(GetFeedbackByAcquirenteRequest request)
+        public async Task<IActionResult> GetFeedbackByAcquirente(SomethingByUserRequest request)
         {
             var userId = User.FindFirst("sub")?.Value;
             CheckUser(userId, request);
