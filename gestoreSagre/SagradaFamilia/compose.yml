@@ -49,7 +49,7 @@ services:
         condition: service_healthy
     command: >
       bash -c '
-      /opt/mssql-tools/bin/sqlcmd -S sqlserver -U sa -P ${SA_PASSWORD} -d master -i docker-entrypoint-initdb.d/init.sql;
+      /opt/mssql-tools/bin/sqlcmd -S ${SQL_CONT_NAME:-sqlserver} -U sa -P ${SA_PASSWORD} -d master -i docker-entrypoint-initdb.d/init.sql;
       echo "All done!";
       '
 volumes:
