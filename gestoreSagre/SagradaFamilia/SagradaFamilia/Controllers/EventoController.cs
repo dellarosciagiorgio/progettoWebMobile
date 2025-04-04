@@ -68,9 +68,9 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        [Route("eventi/bytime")]
+        [Route("eventi/byuser/bytime")]
         [Authorize(policy: "ANY_AUTH_USER")]
-        public async Task<IActionResult> GetEventiPassati([FromBody]SomethingByUserRequest request, [FromQuery] bool checkByFuture)
+        public async Task<IActionResult> GetEventiByTime([FromBody]SomethingByUserRequest request, [FromQuery] bool checkByFuture)
         {
             var userId = User.FindFirst("sub")?.Value;
             var role = User.FindFirst("Ruolo")?.Value;
@@ -86,6 +86,21 @@ namespace Web.Controllers
                    )
             );
         }
+        [HttpGet]
+        [Route("eventi/bytime")]
+        public async Task<IActionResult> GetEventiByTime([FromQuery] bool checkByFuture)
+        {
+            var result = await _eventoService.GetEventiAsync(checkByFuture);
+            return Ok(
+               ResponseFactory
+               .WithSuccess(
+                   result.Select(s =>
+                   EventoMapper.ToDto(s)
+                   ).ToList()
+                   )
+            );
+        }
+
         [HttpGet]
         [Route("eventi")]
         public async Task<IActionResult> GetEventi()
