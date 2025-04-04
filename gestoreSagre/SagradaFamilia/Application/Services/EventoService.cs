@@ -139,5 +139,13 @@ namespace Application.Services
                     throw new Exception("Ruolo non valido");
             }
         }
+
+        public async Task<List<Evento>> GetEventiAsync(bool eventiFuturi)
+        {
+            DateTime now = DateTime.Now;
+            return await _context.Eventi
+                .Where(x => eventiFuturi ? x.DataEvento > now : x.DataEvento <= now)
+                .ToListAsync();
+        }
     }
 }

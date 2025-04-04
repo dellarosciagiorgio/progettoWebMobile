@@ -144,3 +144,21 @@ ASALocalRun/
 *.nvuser
 .localhistory/
 .vshistory/
+
+# gestoreSagre
+gestoreSagre/node_modules
+gestoreSagre/.output
+gestoreSagre/.vercel
+gestoreSagre/.netlify
+gestoreSagre/.wrangler
+gestoreSagre/.svelte-kit
+gestoreSagre/build
+gestoreSagre/.DS_Store
+gestoreSagre/Thumbs.db
+gestoreSagre/.env.*
+gestoreSagre/!.env.example
+gestoreSagre/!.env.test
+gestoreSagre/vite.config.js.timestamp-*
+gestoreSagre/vite.config.ts.timestamp-*
+gestoreSagre/*/.dockerignore
+gestoreSagre/SagradaFamilia/compose.yml

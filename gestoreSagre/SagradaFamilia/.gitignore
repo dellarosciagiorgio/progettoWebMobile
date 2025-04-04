@@ -1,7 +1,0 @@
-#Ignore le componenti di docker
-Dockerfile
-*.yaml
-*.yaml
-*.env
-.env
-.dockerignore

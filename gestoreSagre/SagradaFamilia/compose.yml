@@ -1,7 +1,11 @@
 services:
   server:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#      target: final  # Specifica il target di build
     image: mattiadispigno/sagradafamilia-server:latest
-    platform: ${MY_PLATFORM:-linux/arm64}
+    platform: ${MY_PLATFORM:-linux/amd64}
     environment:
       AllowedIpsConfig__AllowedIps: '["http://localhost:8080","http://localhost:8000","http://localhost:5173"]'
       ConnectionStrings__MyDbContext: ${DB_CONN_STRING}
@@ -11,7 +15,9 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - sqlserver
+      - azure-sql-edge
+    networks:
+       - app_network
 
   sqlserver:
     image: mcr.microsoft.com/azure-sql-edge:latest
@@ -39,14 +45,12 @@ services:
     platform: linux/amd64
     container_name: sqlserver.configurator
     volumes:
-      - ./init:/docker-entrypoint-initdb.d
-    depends_on:
-      sqlserver:
-        condition: service_healthy
-    command: >
-      bash -c '
-      /opt/mssql-tools/bin/sqlcmd -S ${SQL_CONT_NAME:-sqlserver} -U sa -P ${SA_PASSWORD} -d master -i docker-entrypoint-initdb.d/init.sql;
-      echo "All done!";
-      '
+      - sql-edge-data:/var/opt/mssql
+    networks:
+       - app_network
+
+networks:
+      app_network:
+    
 volumes:
-  database_volume:
+      sql-edge-data:

@@ -16,5 +16,6 @@ namespace Application.Abstraction.Services
         Task<Evento> AddEventoAsync(AddEventoRequest request);
         Task<Evento> EditEventoAsync(EditEventoRequest request);
         Task DeleteEventoAsync(DeleteEventoRequest request);
+        Task<List<Evento>> GetEventiAsync(bool checkByFuture);
     }
 }
