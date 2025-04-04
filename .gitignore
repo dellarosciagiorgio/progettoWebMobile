@@ -161,4 +161,4 @@ gestoreSagre/!.env.test
 gestoreSagre/vite.config.js.timestamp-*
 gestoreSagre/vite.config.ts.timestamp-*
 gestoreSagre/*/.dockerignore
-gestoreSagre/SagradaFamilia/*.yml
+gestoreSagre/SagradaFamilia/compose.yml

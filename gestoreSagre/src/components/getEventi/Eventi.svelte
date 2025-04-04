@@ -12,7 +12,7 @@
         if (eventiFuturi == true) {
             const data = await getData("eventi/bytime?checkByFuture=true")
         } else {
-            const data = await getData("eventi/bytime?checkByFuture=else")
+            const data = await getData("eventi/bytime?checkByFuture=false")
         }
         if (data) {
             eventi = data.data;
