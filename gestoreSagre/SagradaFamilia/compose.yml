@@ -14,7 +14,7 @@ services:
       - sqlserver
 
   sqlserver:
-    image: mcr.microsoft.com/azure-sql-edge
+    image: mcr.microsoft.com/azure-sql-edge:latest
     platform: linux/amd64
     container_name: ${SQL_CONT_NAME:-sqlserver}
     environment:
@@ -35,7 +35,7 @@ services:
       timeout: 5s
 
   sqlserver.configurator:
-    image: mcr.microsoft.com/azure-sql-edge
+    image: mcr.microsoft.com/azure-sql-edge:latest
     platform: linux/amd64
     container_name: sqlserver.configurator
     volumes:
