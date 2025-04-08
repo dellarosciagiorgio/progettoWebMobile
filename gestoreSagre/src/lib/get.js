@@ -1,9 +1,7 @@
 export async function getData(endpoint) {
-    const response = await fetch(`http://localhost:8080/api/${endpoint}`);
-    if (response.ok) {
-        const json = await response.json();
-        return json;
-    } else {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}${endpoint}`);
+    if (response.ok)
+        return await response.json();
+    else
         throw new Error('Errore nella risposta del server');
-    }
 }
