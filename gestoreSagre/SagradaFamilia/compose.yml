@@ -4,7 +4,7 @@ services:
     platform: ${MY_PLATFORM:-linux/amd64}
     environment:
       ASPNETCORE_URLS: "https://+:443;http://+:80"
-      ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/https-devmycert.pfx"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/https-devcert.pfx"
       ASPNETCORE_Kestrel__Certificates__Default__Password: ${CERT_PASSWORD}
     
       AllowedIpsConfig__AllowedIps: '["http://localhost:443","http://localhost:5173"]'
@@ -13,7 +13,7 @@ services:
       Jwt__Issuer: https://localhost:443
       Jwt__Audience: https://localhost:443
     volumes:
-      - ./server_certificate/https-devcert.pfx:/https/https-devmycert.pfx
+      - ./server_certificate/https-devcert.pfx:/https/https-devcert.pfx
     ports:
       - "443:443"
       - "80:80"
