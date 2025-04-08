@@ -39,7 +39,7 @@
             {#each eventi as evento}
                 <div class="col-md-4 mb-4">
                     <div class="card" style="width: 100%;">
-                        <img src="/imgs/evento.jpg" class="card-img-top" alt="Immagine dell'evento">
+                        <img src="/imgs/evento.png" class="card-img-top" alt="Immagine dell'evento">
                         <div class="card-body">
                             <h5 class="card-title">{evento.dataEvento.split('T')[0]}</h5>
                             <p class="card-text">{evento.informazioniAggiuntive}</p>
