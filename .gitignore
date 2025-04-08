@@ -155,7 +155,6 @@ gestoreSagre/.svelte-kit
 gestoreSagre/build
 gestoreSagre/.DS_Store
 gestoreSagre/Thumbs.db
-gestoreSagre/.env.*
 gestoreSagre/!.env.example
 gestoreSagre/!.env.test
 gestoreSagre/vite.config.js.timestamp-*
@@ -163,4 +162,5 @@ gestoreSagre/vite.config.ts.timestamp-*
 gestoreSagre/*/.dockerignore
 gestoreSagre/SagradaFamilia/compose.yml
 gestoreSagre/SagradaFamilia/Dockerfile
-gestoreSagre/SagradaFamilia/*.env
+# gestoreSagre/src/.env
+# gestoreSagre/SagradaFamilia/.env
