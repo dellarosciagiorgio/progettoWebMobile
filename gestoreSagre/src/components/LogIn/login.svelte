@@ -18,11 +18,11 @@
   
       <form on:submit|preventDefault={handleLogin}>
         <div class="mb-3 text-start">
-          <label class="form-label">Email</label>
+          <label for="email" class="form-label">Email</label>
           <input type="email" class="form-control" bind:value={email} required />
         </div>
         <div class="mb-3 text-start">
-          <label class="form-label">Password</label>
+          <label for="password" class="form-label">Password</label>
           <input type="password" class="form-control" bind:value={password} required />
         </div>
         <button type="submit" class="btn btn-primary w-100">Accedi</button>
@@ -30,7 +30,7 @@
   
       <div class="text-center mt-3">
         <small>Non hai un account? 
-          <a href="/registrazione">Registrati</a>
+          <a href="/Registrazione">Registrati</a>
         </small>
       </div>
     </div>

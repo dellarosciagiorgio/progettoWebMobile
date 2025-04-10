@@ -18,8 +18,8 @@
         </a>
         <a
             class="nav-link me-3"
-            class:active={$page.url.pathname === '/login'}
-            href="/login"
+            class:active={$page.url.pathname === '/LogIn'}
+            href="/LogIn"
         >
             <i class="bi bi-person-circle"></i> Login
         </a>
@@ -50,7 +50,7 @@
                 <li class="nav-item dropdown">
                     <a
                         class="nav-link dropdown-toggle"
-                        href="/getEventi"
+                        href="/Eventi"
                         id="navbarEventiDropdown"
                         role="button"
                         data-bs-toggle="dropdown"
@@ -62,8 +62,8 @@
                         <li>
                             <a
                                 class="dropdown-item"
-                                class:active={$page.url.pathname === '/getEventi/getEventiPassati'}
-                                href="/getEventi/getEventiPassati"
+                                class:active={$page.url.pathname === '/Eventi/EventiPassati'}
+                                href="/Eventi/EventiPassati"
                             >
                                 Eventi passati
                             </a>
@@ -71,8 +71,8 @@
                         <li>
                             <a
                                 class="dropdown-item"
-                                class:active={$page.url.pathname === '/getEventi/getEventiFuturi'}
-                                href="/getEventi/getEventiFuturi"
+                                class:active={$page.url.pathname === '/Eventi/EventiFuturi'}
+                                href="/Eventi/EventiFuturi"
                             >
                                 Eventi futuri
                             </a>
@@ -82,8 +82,8 @@
                 <li class="nav-item">
                     <a
                         class="nav-link"
-                        class:active={$page.url.pathname === '/getSagre'}
-                        href="/getSagre"
+                        class:active={$page.url.pathname === '/Sagre'}
+                        href="/Sagre"
                     >
                         Sagre
                     </a>

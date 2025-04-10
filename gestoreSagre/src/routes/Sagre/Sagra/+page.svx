@@ -1,0 +1,7 @@
+# Sagre
+
+<script>
+	import Sagre from './../../../components/Sagre/Sagra/sagra.svelte';
+</script>
+
+<Sagre/>

@@ -36,7 +36,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{sagra.nomeSagra}</h5>
                             <p class="card-text">{sagra.descrizione}</p>
-                            <a href="/getSagre/getSagra" class="btn btn-primary">Dettagli</a>
+                            <a href={`/Sagre/Sagra/${sagra.idSagra}`} class="btn btn-primary">Dettagli</a>
                         </div>
                     </div>
                 </div>

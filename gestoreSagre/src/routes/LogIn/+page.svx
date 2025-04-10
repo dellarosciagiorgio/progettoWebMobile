@@ -1,0 +1,7 @@
+# login
+
+<script>
+	import Login from './../../components/LogIn/login.svelte';
+</script>
+
+<Login/>

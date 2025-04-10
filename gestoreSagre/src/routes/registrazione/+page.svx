@@ -1,7 +1,0 @@
-# login
-
-<script>
-	import Login from './../../components/registrazione/registrazione.svelte';
-</script>
-
-<Login/>

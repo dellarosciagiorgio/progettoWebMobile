@@ -1,0 +1,7 @@
+# get eventi futuri
+
+<script>
+	import EventiFuturi from '../../../components/Eventi/EventiFuturi/eventiFuturi.svelte';
+</script>
+
+<EventiFuturi/>
