@@ -7,13 +7,8 @@
     let error = "";
 
     onMount(async () => {
-        const data = await getData("sagre");
-        if (data) {
-            sagre = data.data;
-			console.log(sagre);
-        } else {
-            error = "Errore nel recupero dei dati.";
-        }
+        let data = await getData("sagre");
+        data ? console.log(sagre = data.data) : error = "Errore nel recupero dei dati.";
         loading = false;
     });
 </script>
@@ -36,7 +31,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{sagra.nomeSagra}</h5>
                             <p class="card-text">{sagra.descrizione}</p>
-                            <a href={`/Sagre/Sagra/${sagra.idSagra}`} class="btn btn-primary">Dettagli</a>
+                            <a href='/Sagre/Sagra?id={sagra.idSagra}' class="btn btn-primary">Dettagli</a>
                         </div>
                     </div>
                 </div>

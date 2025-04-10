@@ -1,49 +1,11 @@
 <script>
-    import { onMount } from "svelte";
-    import { getData } from "../../../lib/get.js";
+    import { onMount } from 'svelte';
 
-    let sagre = [];
-    let loading = true;
-    let error = "";
+    export let id;
 
-    onMount(async () => {
-        const data = await getData("sagre");
-        if (data) {
-            sagre = data.data;
-			console.log(sagre);
-        } else {
-            error = "Errore nel recupero dei dati.";
-        }
-        loading = false;
+    onMount(() => {
+        id = new URLSearchParams(window.location.search).get('id');
     });
 </script>
 
-{#if loading}
-	 <div class="d-flex justify-content-center my-5">
-		<div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
-		  <span class="visually-hidden">Caricamento...</span>
-		</div>
-	  </div>
-{:else if error}
-    <p style="color: red;">{error}</p>
-{:else}
-    <div class="container mt-4">
-        <div class="row">
-            {#each sagre as sagra}
-                <div class="col-md-4 mb-4">
-                    <div class="card" style="width: 100%;">
-                        <img src="/imgs/sagra.jpg" class="card-img-top" alt="Immagine della sagra">
-                        <div class="card-body">
-                            <h5 class="card-title">{sagra.nomeSagra}</h5>
-                            <p class="card-text">{sagra.descrizione}</p>
-                            <!-- <p>"idFeedbacks": null,</p>
-                            <p>"idEventi": null,</p>
-                            <p>"idOrganizzatore": 2</p>
-                            orari, luogo, ... -->
-                        </div>
-                    </div>
-                </div>
-            {/each}
-        </div>
-    </div>
-{/if}
+id sagra: {id}

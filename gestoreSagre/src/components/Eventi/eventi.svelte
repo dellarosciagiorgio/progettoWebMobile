@@ -9,18 +9,8 @@
     let error = "";
 
     onMount(async () => {
-        let data;
-        if (eventiFuturi == true) {
-            data = await getData("eventi/bytime?checkByFuture=true")
-        } else {
-            data = await getData("eventi/bytime?checkByFuture=false")
-        }
-        if (data) {
-            eventi = data.data;
-			console.log(eventi);
-        } else {
-            error = "Errore nel recupero dei dati.";
-        }
+        let data = await getData(`eventi/bytime?checkByFuture=${eventiFuturi}`);
+        data ? console.log(eventi = data.data) : error = "Errore nel recupero dei dati.";
         loading = false;
     });
 </script>

@@ -1,4 +1,4 @@
-# get eventi passati
+# eventi passati
 
 <script>
 	import EventiPassati from '../../../components/Eventi/EventiPassati/eventiPassati.svelte';
