@@ -58,6 +58,12 @@ app.UseExceptionHandler(appError =>
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
+app.UseDefaultFiles(); // cerca index.html
+app.UseStaticFiles();  // serve da wwwroot/
+
+app.MapControllers();  // le tue API
+
+// fallback per routing client-side (SPA)
+app.MapFallbackToFile("index.html");
 
 app.Run();
