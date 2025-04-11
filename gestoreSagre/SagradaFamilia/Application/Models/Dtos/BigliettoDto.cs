@@ -8,5 +8,7 @@ namespace Application.Models.Dtos
         public int IdTipoBiglietto { get; set; }
         public string Nominativo { get; set; }
         public int IdAcquirente { get; set; }
+        public double Prezzo { get; set; }
+        public int IdEvento { get; set; }
     }
 }

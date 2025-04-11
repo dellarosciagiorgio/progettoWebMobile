@@ -1,4 +1,4 @@
-﻿using Application.Models.Request;
+﻿using Application.Models.Requests;
 using Application.Models.Requests;
 using Models.Entities;
 using System;
@@ -14,7 +14,8 @@ namespace Application.Abstraction.Services
         Task<List<Feedback>> GetFeedbacksAsync();
         Task<List<Feedback>> GetFeedbacksByAcquirenteAsync(SomethingByUserRequest request);
         Task<List<Feedback>> GetFeedbacksBySagraAsync(GetFeedbackBySagraRequest request);
-        Task<Feedback> AddFeedbackAsync(AddFeedbackRequest request);
+        Task<Feedback> AddFeedbackBySagraAsync(AddFeedbackBySagraRequest request);
+        Task<Feedback> AddFeedbackByEventoAsync(AddFeedbackByEventoRequest request);
         Task<Feedback> EditFeedbackAsync(EditFeedbackRequest request);
         Task DeleteFeedback(DeleteFeedbackRequest request);
     }

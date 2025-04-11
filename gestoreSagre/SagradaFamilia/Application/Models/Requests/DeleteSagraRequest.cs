@@ -1,6 +1,6 @@
 ﻿using Application.Abstraction.Requests;
 
-namespace Application.Models.Request
+namespace Application.Models.Requests
 {
     public class DeleteSagraRequest : BaseRequest
     {

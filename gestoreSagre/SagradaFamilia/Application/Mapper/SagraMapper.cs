@@ -1,5 +1,5 @@
 ﻿using Application.Models.Dtos;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Models.Entities;
 
 namespace Application.Mapper
@@ -44,5 +44,7 @@ namespace Application.Mapper
             }
             return sagraDto;
         }
+
+
     }
 }

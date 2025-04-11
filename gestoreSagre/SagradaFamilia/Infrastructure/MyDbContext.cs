@@ -1,6 +1,7 @@
 ﻿using Abstraction.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Models.DetailedEntities;
 using Models.Entities;
 using System;
 using System.Collections.Generic;

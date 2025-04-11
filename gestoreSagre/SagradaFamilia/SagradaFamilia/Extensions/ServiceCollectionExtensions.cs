@@ -51,6 +51,11 @@ namespace Web.Extensions
                 });
             });
 
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<SanitizeInputFilter>();
+            });
+
             var key = Encoding.UTF8.GetBytes(config["Jwt:Key"]!);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

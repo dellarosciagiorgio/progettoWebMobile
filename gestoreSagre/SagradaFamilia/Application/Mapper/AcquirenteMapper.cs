@@ -1,6 +1,7 @@
 ﻿using Application.Models.Dtos;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Microsoft.Extensions.DependencyInjection;
+using Models.DetailedEntities;
 using Models.Entities;
 
 namespace Application.Mapper

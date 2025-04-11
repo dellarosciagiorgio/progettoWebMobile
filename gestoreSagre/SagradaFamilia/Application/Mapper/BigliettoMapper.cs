@@ -1,5 +1,5 @@
 ﻿using Application.Models.Dtos;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Models.Entities;
 
 namespace Application.Mapper
@@ -37,8 +37,11 @@ namespace Application.Mapper
             BigliettoDto bigliettoDto = new BigliettoDto();
             bigliettoDto.IdBiglietto = biglietto.IdBiglietto;
             bigliettoDto.Nominativo = biglietto.Nominativo;
-            bigliettoDto.IdTipoBiglietto = biglietto.IdTipoBiglietto;
+            bigliettoDto.IdTipoBiglietto = biglietto.TipoBiglietto.IdTipo;
             bigliettoDto.IdAcquirente = biglietto.IdAcquirente;
+            bigliettoDto.Prezzo = biglietto.TipoBiglietto.Prezzo;
+            bigliettoDto.IdEvento = biglietto.TipoBiglietto.IdEvento;
+
             return bigliettoDto;
         }
     }

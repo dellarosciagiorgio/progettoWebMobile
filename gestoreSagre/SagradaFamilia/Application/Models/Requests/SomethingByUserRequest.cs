@@ -1,6 +1,6 @@
 ﻿using Application.Abstraction.Requests;
 
-namespace Application.Abstraction.Services
+namespace Application.Models.Requests
 {
     public class SomethingByUserRequest : BaseRequest
     {

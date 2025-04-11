@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using Models.Entities;
 using System.Reflection.Emit;
+using Models.DetailedEntities;
 
 namespace Infrastructure.Configurations
 {

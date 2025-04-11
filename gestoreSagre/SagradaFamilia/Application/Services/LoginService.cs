@@ -1,10 +1,10 @@
 ﻿using Abstraction.Context;
 using Application.Abstraction.Services;
 using Application.Mapper;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Application.Models.Requests;
 using Microsoft.EntityFrameworkCore;
-using Models.Entities;
+using Models.DetailedEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
