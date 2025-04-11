@@ -1,6 +1,9 @@
 services:
   server:
     image: mattiadispigno/sagradafamilia-server:latest
+#    build:
+#      context: .
+#      target: final
     platform: ${MY_PLATFORM:-linux/amd64}
     environment:
       ASPNETCORE_URLS: "https://+:443;http://+:80"
@@ -14,6 +17,9 @@ services:
       Jwt__Audience: https://localhost:443
     volumes:
       - ./server_certificate/https-devcert.pfx:/https/https-devcert.pfx
+
+      #per inserire le pagine statiche direttamente in .net, inserire la cartella build nella cartella wwwroot
+      #- ./wwwroot/build:/app/wwwroot:ro
     ports:
       - "443:443"
       - "80:80"

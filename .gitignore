@@ -163,3 +163,5 @@ gestoreSagre/*/.dockerignore
 gestoreSagre/SagradaFamilia/Dockerfile
 # gestoreSagre/src/.env
 # gestoreSagre/SagradaFamilia/.env
+
+gestoreSagre/SagradaFamilia/wwwroot/*

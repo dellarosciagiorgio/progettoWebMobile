@@ -318,7 +318,7 @@ INSERT INTO [dbo].[Sagre]
            ,[DescrizioneSagra]
            ,[IdOrganizzatore])
      VALUES
-	 ('Sagra della Coratella', 'Nun poi manca, alla sagra della coratella de scapezz�', 2),
+	 ('Sagra della Coratella', 'Nun poi manca, alla sagra della coratella de scapezzà', 2),
 	 ('Sagra del Pesce', 'Sagra del pesce fresco di Numana', 1),
 	 ('Sagra del Carciofo', 'Carciofi fritti, lessi, gratinati. Insomma, di tutti i tipi', 3);
 
@@ -327,13 +327,13 @@ INSERT INTO [dbo].[Sagre]
 INSERT INTO Eventi(DataEvento, InformazioniAggiuntive,IdSagra)  
 VALUES 
 ('2025-03-13', 'Si mangia e si beve, alla festa di paese. Dj set dalle 23 con Pippo DJ', 1),
-('2025-03-14', 'Mangia a volont�, la polenta di pesce ti sazier�. Live band country dalle 22, Yeehaw!', 1),
+('2025-03-14', 'Mangia a volontà, la polenta di pesce ti sazierà. Live band country dalle 22, Yeehaw!', 1),
 ('2025-03-16', 'Festa finale di chiusura, non mancare. Live band dalla cena con Dj dalle 23 fino a tarda notte!', 1),
 ('2025-04-13', 'Si mangia e si beve, alla festa di paese. Dj set dalle 23 con Pippo DJ', 2),
-('2025-04-14', 'Mangia a volont�, la polenta alla coratella ti sazier�. Live band country dalle 22, Yeehaw!', 2),
+('2025-04-14', 'Mangia a volontà, la polenta alla coratella ti sazierà. Live band country dalle 22, Yeehaw!', 2),
 ('2025-04-16', 'Festa finale di chiusura, non mancare. Live band dalla cena con Dj dalle 23 fino a tarda notte!', 2),
 ('2025-05-23', 'Si mangia e si beve, alla festa di paese. Dj set dalle 23 con Pippo DJ', 3),
-('2025-05-24', 'Mangia a volont�, la polenta di carciofi ti sazier�. Live band country dalle 22, Yeehaw!', 3),
+('2025-05-24', 'Mangia a volontà, la polenta di carciofi ti sazierà. Live band country dalle 22, Yeehaw!', 3),
 ('2025-05-26', 'Festa finale di chiusura, non mancare. Live band dalla cena con Dj dalle 23 fino a tarda notte!', 3);
 
 
@@ -341,24 +341,24 @@ VALUES
 INSERT INTO TipiBiglietto(NomeTipoBiglietto, DescrizioneTipoBiglietto, Prezzo, IdEvento)  
 VALUES 
 ('Entrata', 'Solo Entrata', 10, 1),
-('Mangia','Mangia a volont�', 20, 1),
-('All-inclusive','Mangia e bevi a volont�, posto VIP', 30, 1),
+('Mangia','Mangia a volontà', 20, 1),
+('All-inclusive','Mangia e bevi a volontà, posto VIP', 30, 1),
 ('Entrata','Solo Entrata', 35, 2),
 ('Tavolo','Tavolo davanti al palco', 50, 2),
 ('Entrata','Solo Entrata', 5, 3),
 ('3Beer','Entrata e Tre birre', 15, 3),
 ('Bevii','All you can beer, cheers', 25, 3),
 ('Entrata','Solo Entrata',5, 4),
-('Mangia','Mangia a volont�', 20, 4),
-('All-inclusive', 'Mangia e bevi a volont�, posto VIP',35, 4),
+('Mangia','Mangia a volontà', 20, 4),
+('All-inclusive', 'Mangia e bevi a volontà, posto VIP',35, 4),
 ('Entrata','Solo Entrata',40, 5),
 ('Tavolo Vip','Tavolo davanti al palco',70, 5),
 ('Entrata','Solo Entrata',2, 6),
 ('3Beer','Entrata e Tre birre', 10, 6),
 ('Bevi', 'All you can beer, cheers', 20, 6),
 ('Entrata', 'Solo Entrata',12, 7),
-('Mangia', 'Mangia a volont�',27, 7),
-('All-inclusive','Mangia e bevi a volont�, posto VIP',40, 7),
+('Mangia', 'Mangia a volontà',27, 7),
+('All-inclusive','Mangia e bevi a volontà, posto VIP',40, 7),
 ('Entrata', 'Solo Entrata',20, 8);
 
 
