@@ -2,15 +2,17 @@
     import { onMount } from "svelte";
     import { getData } from "../../lib/get.js";
 
-    export let eventiFuturi;
+    export let idSagra = "";
+    export let percorso = "bytime?checkByFuture=";
+    export let eventiFuturi = "";
 
     let eventi = [];
     let loading = true;
     let error = "";
 
     onMount(async () => {
-        let data = await getData(`eventi/bytime?checkByFuture=${eventiFuturi}`);
-        data ? console.log(eventi = data.data) : error = "Errore nel recupero dei dati.";
+        let data = await getData(`eventi/${idSagra}${percorso}${eventiFuturi}`);
+        data ? eventi = data.data : error = "Errore nel recupero dei dati.";
         loading = false;
     });
 </script>
