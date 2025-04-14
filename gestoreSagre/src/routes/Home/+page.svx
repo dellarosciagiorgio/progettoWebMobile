@@ -1,0 +1,6 @@
+
+<script>
+	import Home from './../../components/Home/home.svelte';
+</script>
+
+<Home/>

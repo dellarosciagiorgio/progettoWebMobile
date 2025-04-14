@@ -1,43 +1,192 @@
 <script>
-    import "bootstrap/dist/css/bootstrap.min.css";
+  import "bootstrap/dist/css/bootstrap.min.css";
   
-    let nome = "";
-    let email = "";
-    let password = "";
-  
-    const handleRegister = () => {
-      console.log("Registrazione con Nome:", nome, "Email:", email, "Password:", password);
+  let nome = "";
+  let cognome = "";
+  let email = "";
+  let password = "";
+  let confermaPassword = "";
+  let selectedRole = "acquirente";
+  let accettoTermini = false;
+
+  const handleRegistration = async () => {
+    if (password !== confermaPassword) {
+      alert("Le password non coincidono!");
+      return;
+    }
+
+    const userData = {
+      nome,
+      cognome,
+      email,
+      password,
+      selectedRole,
+      accettoTermini
     };
-  </script>
-  
-  <div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card p-4 shadow-lg text-center" style="width: 400px;">
-      <div class="mb-3">
-        <img src="/logo.png" alt="Logo" class="img-fluid" style="max-width: 150px;" />
-      </div>
-      <h2 class="text-success">Registrazione</h2>
-  
-      <form on:submit|preventDefault={handleRegister}>
-        <div class="mb-3 text-start">
-          <label class="form-label">Nome</label>
-          <input type="text" class="form-control" bind:value={nome} required />
+
+    try {
+      const response = await fetch("https://localhost:443/api/login", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert("Registrazione avvenuta con successo!");
+        // Eventualmente, puoi fare un redirect o altre operazioni
+        console.log("Dati risposta backend:", data);
+      } else {
+        const errorData = await response.json();
+        alert(`Errore: ${errorData.message || 'Registrazione fallita'}`);
+      }
+    } catch (error) {
+      console.error("Errore nella richiesta:", error);
+      alert("Errore di connessione. Riprova più tardi.");
+    }
+  };
+</script>
+
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+  <div class="row w-100 justify-content-center">
+    <div class="col-md-8 col-lg-7 col-xl-6">
+      <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+        <div class="card-header text-white p-0">
+          <div class="text-center py-4" style="background: linear-gradient(to right, #d62828, #f77f00);">
+            <h3 class="mb-0 fw-bold">Sagre Italiane</h3>
+            <p class="mb-0">Scopri e organizza eventi gastronomici</p>
+          </div>
         </div>
-        <div class="mb-3 text-start">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-control" bind:value={email} required />
+        
+        <div class="card-body p-4 p-md-5">
+          <div class="text-center mb-4">
+            <div class="mb-3 position-relative d-inline-block">
+              <img src="/logo.png" alt="Logo" class="img-fluid" style="max-width: 150px; z-index: 1; position: relative;" />
+              <div class="position-absolute" style="width: 160px; height: 160px; background-color: rgba(247, 127, 0, 0.1); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0;"></div>
+            </div>
+            <h4 class="fw-bold text-dark mb-1">Crea il tuo account</h4>
+            <p class="text-muted mb-4">Inserisci i tuoi dati per registrarti</p>
+          </div>
+          
+          <form on:submit|preventDefault={handleRegistration}>
+            <div class="form-floating mb-4">
+              <select class="form-select border-0 bg-light" style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);" id="role" bind:value={selectedRole}>
+                <option value="acquirente">Acquirente</option>
+                <option value="organizzatore">Organizzatore</option>
+                <option value="amministratore">Amministratore</option>
+              </select>
+              <label for="role" class="text-muted">Registrati come</label>
+            </div>
+            
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input 
+                    type="text" 
+                    class="form-control border-0 bg-light" 
+                    style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);"
+                    id="nome" 
+                    placeholder="Nome" 
+                    bind:value={nome} 
+                    required
+                  />
+                  <label for="nome" class="text-muted">Nome</label>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-floating">
+                  <input 
+                    type="text" 
+                    class="form-control border-0 bg-light" 
+                    style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);"
+                    id="cognome" 
+                    placeholder="Cognome" 
+                    bind:value={cognome} 
+                    required
+                  />
+                  <label for="cognome" class="text-muted">Cognome</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-floating mb-3">
+              <input 
+                type="email" 
+                class="form-control border-0 bg-light" 
+                style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);"
+                id="email" 
+                placeholder="nome@esempio.com" 
+                bind:value={email} 
+                required
+              />
+              <label for="email" class="text-muted">Email</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+              <input 
+                type="password" 
+                class="form-control border-0 bg-light" 
+                style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);"
+                id="password" 
+                placeholder="Password" 
+                bind:value={password} 
+                required
+              />
+              <label for="password" class="text-muted">Password</label>
+            </div>
+            
+            <div class="form-floating mb-4">
+              <input 
+                type="password" 
+                class="form-control border-0 bg-light" 
+                style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);"
+                id="confermaPassword" 
+                placeholder="Conferma Password" 
+                bind:value={confermaPassword} 
+                required
+              />
+              <label for="confermaPassword" class="text-muted">Conferma Password</label>
+            </div>
+            
+            <div class="form-check mb-4">
+              <input class="form-check-input" type="checkbox" bind:checked={accettoTermini} id="accettoTermini" required>
+              <label class="form-check-label text-muted" for="accettoTermini">
+                Accetto i 
+                <button class="btn btn-link text-decoration-none p-0" on:click={() => window.location.href = "/terms"}>
+                  Termini e Condizioni
+                </button>
+                e la 
+                <button class="btn btn-link text-decoration-none p-0" on:click={() => window.location.href = "/privacy-policy"}>
+                  Privacy Policy
+                </button>
+              </label>
+            </div>
+            
+            <button type="submit" class="btn btn-lg w-100 text-white mb-4 py-3" style="background-color: #f77f00; border: none; box-shadow: 0 4px 12px rgba(247, 127, 0, 0.25);">
+              Registrati
+            </button>
+            
+            <div class="d-flex align-items-center my-4">
+              <div class="flex-grow-1 border-bottom"></div>
+              <div class="px-3 text-muted small">oppure</div>
+              <div class="flex-grow-1 border-bottom"></div>
+            </div>
+            
+            <div class="text-center">
+              <p class="mb-0">Hai già un account?</p>
+              <button class="btn btn-link text-decoration-none p-0" on:click={() => window.location.href = "/LogIn"}>
+                Accedi ora
+              </button>
+            </div>
+          </form>
         </div>
-        <div class="mb-3 text-start">
-          <label class="form-label">Password</label>
-          <input type="password" class="form-control" bind:value={password} required />
+        
+        <div class="card-footer bg-white text-center p-3 border-0">
+          <p class="text-muted small mb-0">© 2025 Sagre Italiane - Tutti i diritti riservati</p>
         </div>
-        <button type="submit" class="btn btn-success w-100">Registrati</button>
-      </form>
-  
-      <div class="text-center mt-3">
-        <small>Hai già un account? 
-          <a href="/login">Accedi</a>
-        </small>
       </div>
     </div>
   </div>
-  
+</div>
