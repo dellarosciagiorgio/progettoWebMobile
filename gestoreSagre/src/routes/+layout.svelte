@@ -21,7 +21,7 @@
     }
     
     .navbar-wrapper {
-        background-color: #e0d6cf;
+        background-color:var(--cottage-light);
         padding: 1rem;
     }
     
