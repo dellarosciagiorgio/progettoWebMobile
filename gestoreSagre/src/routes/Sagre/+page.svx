@@ -1,4 +1,3 @@
-# sagre
 
 <script>
 	import Sagre from './../../components/Sagre/sagre.svelte';

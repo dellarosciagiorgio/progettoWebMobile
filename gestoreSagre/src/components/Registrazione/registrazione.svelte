@@ -8,21 +8,44 @@
   let confermaPassword = "";
   let selectedRole = "acquirente";
   let accettoTermini = false;
-  
-  const handleRegistration = () => {
+
+  const handleRegistration = async () => {
     if (password !== confermaPassword) {
       alert("Le password non coincidono!");
       return;
     }
-    
-    console.log("Registrazione: ", {
+
+    const userData = {
       nome,
       cognome,
       email,
       password,
       selectedRole,
       accettoTermini
-    });
+    };
+
+    try {
+      const response = await fetch("https://localhost:443/api/login", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert("Registrazione avvenuta con successo!");
+        // Eventualmente, puoi fare un redirect o altre operazioni
+        console.log("Dati risposta backend:", data);
+      } else {
+        const errorData = await response.json();
+        alert(`Errore: ${errorData.message || 'Registrazione fallita'}`);
+      }
+    } catch (error) {
+      console.error("Errore nella richiesta:", error);
+      alert("Errore di connessione. Riprova più tardi.");
+    }
   };
 </script>
 
@@ -130,7 +153,14 @@
             <div class="form-check mb-4">
               <input class="form-check-input" type="checkbox" bind:checked={accettoTermini} id="accettoTermini" required>
               <label class="form-check-label text-muted" for="accettoTermini">
-                Accetto i <a href="#" class="text-decoration-none" style="color: #f77f00;">Termini e Condizioni</a> e la <a href="#" class="text-decoration-none" style="color: #f77f00;">Privacy Policy</a>
+                Accetto i 
+                <button class="btn btn-link text-decoration-none p-0" on:click={() => window.location.href = "/terms"}>
+                  Termini e Condizioni
+                </button>
+                e la 
+                <button class="btn btn-link text-decoration-none p-0" on:click={() => window.location.href = "/privacy-policy"}>
+                  Privacy Policy
+                </button>
               </label>
             </div>
             
@@ -146,9 +176,9 @@
             
             <div class="text-center">
               <p class="mb-0">Hai già un account?</p>
-              <a href="/LogIn" class="fw-bold text-decoration-none" style="color: #d62828;">
+              <button class="btn btn-link text-decoration-none p-0" on:click={() => window.location.href = "/LogIn"}>
                 Accedi ora
-              </a>
+              </button>
             </div>
           </form>
         </div>
