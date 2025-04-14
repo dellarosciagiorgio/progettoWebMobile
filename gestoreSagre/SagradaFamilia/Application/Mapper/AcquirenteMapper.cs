@@ -17,6 +17,7 @@ namespace Application.Mapper
             user.Email = request.Email;
             user.Password = request.Password;
             user.Ruolo = Ruolo.Acquirente;
+
             entity.User = user;
 
             return entity;

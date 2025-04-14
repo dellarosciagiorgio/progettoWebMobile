@@ -35,5 +35,7 @@ namespace Application.Functions
             }
             return Enum.Parse<Ruolo>(ruolo);
         }
+
+
     }
 }

@@ -273,18 +273,18 @@ use GestoreSagre;
 
 INSERT INTO Users(Ruolo, Pass, Mail)
 VALUES
-('Acquirente', '1234', 'marco.neri@example.com'),
-('Acquirente', '1234', 'mattia.dispigno@example.com'),
-('Acquirente', '1234', 'giorgio.dellaroscia@example.com'),
-('Acquirente', '1234', 'daniela.dilucchio@example.com'),
-('Acquirente', '1234', 'marione94@example.com'),
-('Acquirente', '1234', 'sagraiolo.franchino65@example.com'),
-('Organizzatore', '1234',  'sagre@ascolieventi.it'),
-('Organizzatore',  '1234', 'sagra@master.it'),
-('Organizzatore',  '1234', 'live.tour@example.com'),
-('Admin', '1234', 'loredana.bruni@sagradafamilia.com'),
-('Admin', '1234', 'gennaro.sagra@sagradafamilia.com'),
-('Admin', '1234', 'maria.leggiadra@sagradafamilia.com');
+('Acquirente', '$2a$11$2Y72Bw9a4DFHQYQ0WAhC/ehml07O3DgHLscymeuRxFoxOglDg.l0K', 'marco.neri@example.com'),
+('Acquirente', '$2a$11$MJoUQt/QSnHUNObuM0CgKePTVqC3gY7eza1EX4SLlaOJTfOTDbeHy', 'mattia.dispigno@example.com'),
+('Acquirente', '$2a$11$xIiIcLpDzpartxufJoGnteLatFx/4SXVtGa9qFXtVb9rbQHl9TdRO', 'giorgio.dellaroscia@example.com'),
+('Acquirente', '$2a$11$8kmlkQO6hk5GuxrWKAMTc.ncwAomtCiGKO.XVCkfsfbSDdPPqTNJ.', 'daniela.dilucchio@example.com'),
+('Acquirente', '$2a$11$Cpx8CEPruYhEQqPfMEhsce0URf5nNu2X7u1/q9cp98yvUhNwSpzSy', 'marione94@example.com'),
+('Acquirente', '$2a$11$6.cugJObK/UX4kOaU0Zjc.h.UzGSLn7fWZNrasEfM/w.ESa.iAztG', 'sagraiolo.franchino65@example.com'),
+('Organizzatore', '$2a$11$oPoxwW8t1NlsG7uPfJH6p.nk.uwumhjOwaAqL2Kh4P7qlgkb5pvzG',  'sagre@ascolieventi.it'),
+('Organizzatore',  '$2a$11$pAhkutuM41ij1aN/.KHRp.fDNfMLUtdUsl.KkW40MwbMY5HeLtJei', 'sagra@master.it'),
+('Organizzatore',  '$2a$11$bOicXirRB56EoSYpJtnL0eGjkFms7/RsjOno/3ciZu4CUBYZf/PhS', 'live.tour@example.com'),
+('Admin', '$2a$11$brRdqj/wjK86ugArPwmFgeuHQKPoTqBiPo.4RCbp9gzu3GhdUdh6W', 'loredana.bruni@sagradafamilia.com'),
+('Admin', '$2a$11$MNsSPcPWKejuRN/WQX2bhOrMKTTQ8bDHVJRczKRRaxU8mqSAGApba', 'gennaro.sagra@sagradafamilia.com'),
+('Admin', '$2a$11$RYpAJ1kMyBCxkhKbl/D7rOm4h8xZbackAsVFzCZRETeTHUt0vOJZq', 'maria.leggiadra@sagradafamilia.com');
 
 INSERT INTO Acquirenti(NomeAcquirente, CognomeAcquirente, IdUser)  
 VALUES 

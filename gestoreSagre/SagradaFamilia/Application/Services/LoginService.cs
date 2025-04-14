@@ -1,5 +1,6 @@
 ﻿using Abstraction.Context;
 using Application.Abstraction.Services;
+using Application.Functions;
 using Application.Mapper;
 using Application.Models.Request;
 using Application.Models.Requests;
@@ -16,39 +17,35 @@ namespace Application.Services
     public class LoginService : ILoginService
     {
         private readonly IMyDbContext _context;
+        private readonly IPasswordService _passwordService;
         //private readonly ILogger _logger;
         public LoginService(
             //ILogger<AcquirenteService> logger,
+            IPasswordService passwordService,
             IMyDbContext context)
         {
             // _logger = logger;
             _context = context;
+            _passwordService = passwordService;
         }
 
-        public async Task<UserGenerico> GetUserInformation(User ut)
+        public async Task<UserGenerico?> GetUserInformation(User ut)
         {
-            if(ut == null)
-            {
-                throw new ArgumentNullException("Utente non valido");
-            }
+            ArgumentNullException.ThrowIfNull(ut, nameof(ut));
 
-            switch (ut.Ruolo)
+            return ut.Ruolo switch
             {
-                case Ruolo.Acquirente:
-                    return await _context.Acquirenti
-                        .Where(x => x.IdUser == ut.IdUser)
-                        .FirstOrDefaultAsync();
-                case Ruolo.Organizzatore:
-                    return await _context.Organizzatori
-                        .Where(x => x.IdUser == ut.IdUser)
-                        .FirstOrDefaultAsync();
-                case Ruolo.Admin:
-                    return await _context.Admins
-                        .Where(x => x.IdUser == ut.IdUser)
-                        .FirstOrDefaultAsync();
-                default:
-                    throw new ArgumentException("Ruolo non valido");
-            }
+                Ruolo.Acquirente => await _context.Acquirenti
+                    .Where(x => x.IdUser == ut.IdUser)
+                    .FirstOrDefaultAsync(),
+                Ruolo.Organizzatore => await _context.Organizzatori
+                    .Where(x => x.IdUser == ut.IdUser)
+                    .FirstOrDefaultAsync(),
+                Ruolo.Admin => await _context.Admins
+                    .Where(x => x.IdUser == ut.IdUser)
+                    .FirstOrDefaultAsync(),
+                _ => throw new ArgumentException("Ruolo non valido", nameof(ut.Ruolo))
+            };
         }
 
 
@@ -65,7 +62,8 @@ namespace Application.Services
             {
                 throw new Exception("Utente non trovato");
             }
-            if (user.Password != request.Password)
+
+            if (!_passwordService.VerifyPassword(request.Password, user.Password).Result) 
             {
                 throw new Exception("Password errata");
             }

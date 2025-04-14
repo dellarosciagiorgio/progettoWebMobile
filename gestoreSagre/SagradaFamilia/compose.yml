@@ -2,15 +2,15 @@ services:
   server:
     image: mattiadispigno/sagradafamilia-server:latest
 #    build:
-#      context: .
+#     context: .
 #      target: final
     platform: ${MY_PLATFORM:-linux/amd64}
     environment:
       ASPNETCORE_URLS: "https://+:443;http://+:80"
       ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/https-devcert.pfx"
       ASPNETCORE_Kestrel__Certificates__Default__Password: ${CERT_PASSWORD}
-    
-      AllowedIpsConfig__AllowedIps: '["http://localhost:443","http://localhost:5173"]'
+      ASPNETCORE_ENVIRONMENT: Development
+      AllowedIpsConfig__AllowedIps: '["https://localhost:443","http://localhost:5173"]'
       ConnectionStrings__MyDbContext: ${DB_CONN_STRING}
       Jwt__Key: ${MY_SECRET}
       Jwt__Issuer: https://localhost:443

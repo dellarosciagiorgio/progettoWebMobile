@@ -1,28 +1,26 @@
 ﻿using Abstraction.Context;
 using Application.Abstraction.Services;
+using Application.Functions;
 using Application.Mapper;
 using Application.Models.Request;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
     public class AcquirenteService : IAcquirenteService
     {
         private readonly IMyDbContext _context;
+        private readonly IPasswordService _passwordService;
         //private readonly ILogger _logger;
         public AcquirenteService(
             //ILogger<AcquirenteService> logger,
+            IPasswordService passwordService,
             IMyDbContext context)
         {
            // _logger = logger;
             _context = context;
+            _passwordService = passwordService;
         }
 
         public async Task<Acquirente> AddAcquirenteAsync(AddAcquirenteRequest request)
@@ -35,6 +33,7 @@ namespace Application.Services
                 throw new ArgumentException("Utente già esistente");
             }
 
+            entity.User.Password = await _passwordService.HashPassword(entity.User.Password);
             await _context.Users.AddAsync(entity.User);
             entity.IdUser = entity.User.IdUser;
 

@@ -14,8 +14,10 @@ builder.Configuration
 
 builder.Services
     .AddUiServices(builder.Configuration)
-    .AddApplicationServices()
-    .AddInfrastructureServices(builder.Configuration);
+    .AddInfrastructureServices(builder.Configuration)
+    .AddApplicationServices();
+
+
 // Add services to the container.
 
 
@@ -23,15 +25,16 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseCors("CustomCORS");
+
 // Configure the HTTP request pipeline.
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors("DevelopmentCORS");
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseExceptionHandler(appError =>
 {
@@ -61,7 +64,7 @@ app.UseHttpsRedirection();
 app.UseDefaultFiles(); // cerca index.html
 app.UseStaticFiles();  // serve da wwwroot/
 
-app.MapControllers();  // le tue API
+app.MapControllers();  // mie API
 
 // fallback per routing client-side (SPA)
 app.MapFallbackToFile("index.html");

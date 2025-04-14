@@ -43,7 +43,7 @@ namespace Web.Controllers
             var key = Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!);
 
             List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(ClaimTypes.Email, user.User.Email));
+            claims.Add(new Claim("Email", user.User.Email));
             claims.Add(new Claim("Ruolo", user.User.Ruolo.ToString()));
             claims.Add(new Claim("sub", user.User.IdUser.ToString()));
             //mettere altre claims

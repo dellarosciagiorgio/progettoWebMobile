@@ -9,6 +9,7 @@ using Application.Abstraction.Services;
 using Web.Models;
 using System.Text.Json;
 using Models.Entities;
+using Application.Options;
 
 namespace Web.Extensions
 {
@@ -21,37 +22,40 @@ namespace Web.Extensions
             //ATTIVAZIONE CORS verso il frontend
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
-                allowedIpsConfig = config.GetSection("AllowedIpsConfig").Get<AllowedIpsConfig>();
-            }
-            else
-            {
                 // Legge gli IP consentiti dal file di configurazione
                 var allowedIpsJson = config["AllowedIpsConfig:AllowedIps"];
                 var allowedIps = string.IsNullOrEmpty(allowedIpsJson)
                     ? new List<string>()
                     : JsonSerializer.Deserialize<List<string>>(allowedIpsJson);
-                
+
                 allowedIpsConfig = new AllowedIpsConfig()
                 {
                     AllowedIps = allowedIps
                 };
-            }
-            if (allowedIpsConfig == null)
-            {
-                throw new Exception("AllowedIpsConfig non configurato");
-            }
-            // Configura CORS con gli IP letti dal file di configurazione
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CustomCORS", policy =>
+                if (allowedIpsConfig == null)
                 {
-                    policy.WithOrigins(allowedIpsConfig.AllowedIps.ToArray())
-                          .AllowAnyMethod()
-                          .AllowAnyHeader();
-                });
-            });
+                    throw new Exception("AllowedIpsConfig non configurato");
+                }
 
-            var key = Encoding.UTF8.GetBytes(config["Jwt:Key"]!);
+
+                // Configura CORS con gli IP letti dal file di configurazione
+                services.AddCors(options =>
+                {
+                    options.AddPolicy("DevelopmentCORS", policy =>
+                    {
+                        policy.WithOrigins(allowedIpsConfig.AllowedIps.ToArray())
+                              .AllowAnyMethod()
+                              .AllowAnyHeader();
+                    });
+                });
+            }
+            //CORS non attivato per la parte di produzione
+            services.Configure<JwtOptions>(config.GetSection(JwtOptions.SECTION_NAME));
+
+            var jwtOptions = new JwtOptions();
+            config.GetSection(JwtOptions.SECTION_NAME).Bind(jwtOptions);
+
+            var key = Encoding.UTF8.GetBytes(jwtOptions.Key);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -64,8 +68,8 @@ namespace Web.Extensions
                         IssuerSigningKey = new SymmetricSecurityKey(key),
                         ValidateIssuer = true,
                         ValidateAudience = true,
-                        ValidIssuer = config["Jwt:Issuer"],
-                        ValidAudience = config["Jwt:Audience"],
+                        ValidIssuer = jwtOptions.Issuer,
+                        ValidAudience = jwtOptions.Audience,
                         ClockSkew = TimeSpan.Zero,
                         RoleClaimType = "Ruolo"
                     };
@@ -88,6 +92,8 @@ namespace Web.Extensions
                         }
                     };
                 });
+            services.Configure<JwtOptions>(config.GetSection(JwtOptions.SECTION_NAME));
+
             services.AddAuthorization(opt =>
             {
                 opt.AddPolicy("IS_ADM", policy =>

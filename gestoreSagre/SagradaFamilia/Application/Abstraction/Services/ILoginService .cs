@@ -11,7 +11,7 @@ namespace Application.Abstraction.Services
 {
     public interface ILoginService
     {
-        Task<UserGenerico> GetUserInformation(User ut);
+        Task<UserGenerico?> GetUserInformation(User ut);
         Task<User> GetUtenteByEmailAsync(string email);
         Task<User> LoginAsync(LoginRequest request);
 
