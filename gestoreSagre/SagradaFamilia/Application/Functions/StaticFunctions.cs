@@ -1,6 +1,6 @@
 ﻿using Application.Abstraction.Requests;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using Models.Entities;
+using Models.DetailedEntities;
 using System;
 using System.Collections.Generic;
 using System.Data;

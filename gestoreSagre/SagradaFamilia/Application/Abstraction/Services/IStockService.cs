@@ -1,4 +1,4 @@
-﻿using Application.Models.Request;
+﻿using Application.Models.Requests;
 using Models.Entities;
 using System;
 using System.Collections;

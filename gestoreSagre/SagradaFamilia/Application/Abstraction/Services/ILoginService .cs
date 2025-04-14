@@ -1,6 +1,6 @@
-﻿using Application.Models.Request;
+﻿using Application.Models.Requests;
 using Application.Models.Requests;
-using Models.Entities;
+using Models.DetailedEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

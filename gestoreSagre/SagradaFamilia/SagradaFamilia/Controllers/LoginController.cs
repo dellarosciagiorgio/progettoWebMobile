@@ -1,13 +1,13 @@
 ﻿using Application.Abstraction.Services;
 using Application.Factories;
 using Application.Mapper;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Application.Models.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using Models.Entities;
+using Models.DetailedEntities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

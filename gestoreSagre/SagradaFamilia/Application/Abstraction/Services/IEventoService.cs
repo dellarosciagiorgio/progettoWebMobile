@@ -1,4 +1,5 @@
-﻿using Application.Models.Request;
+﻿using Application.Models.Requests;
+using Models.DetailedEntities;
 using Models.Entities;
 using System;
 using System.Collections.Generic;

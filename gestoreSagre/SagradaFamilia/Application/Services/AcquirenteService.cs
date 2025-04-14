@@ -2,7 +2,7 @@
 using Application.Abstraction.Services;
 using Application.Functions;
 using Application.Mapper;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
 
@@ -54,7 +54,9 @@ namespace Application.Services
 
         public async Task<List<Acquirente>> GetAcquirentiAsync()
         {
-            return await _context.Acquirenti.ToListAsync();
+            return await _context.Acquirenti
+                .Include(a => a.BigliettiComprati)
+                .ToListAsync();
         }
     }
 }

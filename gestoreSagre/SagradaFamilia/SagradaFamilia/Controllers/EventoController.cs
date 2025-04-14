@@ -2,7 +2,7 @@
 using Application.Abstraction.Services;
 using Application.Factories;
 using Application.Mapper;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

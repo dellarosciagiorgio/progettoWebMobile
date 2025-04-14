@@ -1,7 +1,7 @@
 ﻿using Abstraction.Context;
 using Application.Abstraction.Services;
 using Application.Mapper;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
 using System;
@@ -84,8 +84,6 @@ namespace Application.Services
             {
                 throw new Exception("L'organizzatore non è autorizzato a modificare questa sagra");
             }
-
-
             var entry = _context.Entry<Sagra>(sagra);
             entry.Property(x => x.Descrizione).IsModified = true;
             await _context.SaveChangesAsync();
@@ -94,14 +92,27 @@ namespace Application.Services
 
         public async Task<List<Sagra>> GetSagreAsync()
         {
-            return await _context.Sagre.ToListAsync();
+            return await _context.Sagre
+                .Include(s => s.Feedbacks)
+                .ToListAsync();
         }
 
         public async Task<Sagra> GetSagreAsync(int id)
         {
             return await _context.Sagre
                 .Where(p => p.IdSagra == id)
+                .Include(s => s.Feedbacks)
                 .FirstAsync();
+        }
+        public async Task<double> GetRatingSagraAsync(int id)
+        {
+            var sagra = await _context.Sagre
+                .Where(p => p.IdSagra == id)
+                .Include(s => s.Feedbacks)
+                .FirstAsync();
+            return sagra.Feedbacks
+                .Where(f => f != null && f.Rating > 0)
+                .Average(f => f.Rating);
         }
     }
 }

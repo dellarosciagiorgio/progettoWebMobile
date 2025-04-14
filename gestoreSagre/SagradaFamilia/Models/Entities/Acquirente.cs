@@ -1,4 +1,6 @@
-﻿namespace Models.Entities
+﻿using Models.DetailedEntities;
+
+namespace Models.Entities
 {
     public class Acquirente : UserGenerico
     {

@@ -1,7 +1,7 @@
 ﻿using Abstraction.Context;
 using Application.Abstraction.Services;
 using Application.Mapper;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
 using System;

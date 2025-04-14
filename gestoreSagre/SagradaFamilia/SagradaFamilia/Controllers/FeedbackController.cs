@@ -1,7 +1,6 @@
 ﻿using Application.Abstraction.Services;
 using Application.Factories;
 using Application.Mapper;
-using Application.Models.Request;
 using Application.Models.Requests;
 using Application.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -22,14 +21,29 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route("feedback")]
+        [Route("feedback/bysagra")]
         [Authorize(policy: "IS_ACQ")]
-        public async Task<IActionResult> Add(AddFeedbackRequest request)
+        public async Task<IActionResult> AddBySagra(AddFeedbackBySagraRequest request)
         {
             var userId = User.FindFirst("sub")?.Value;
             CheckUser(userId, request);
 
-            var result = await _feedbackService.AddFeedbackAsync(request);
+            var result = await _feedbackService.AddFeedbackBySagraAsync(request);
+            return Ok(
+                ResponseFactory
+                .WithSuccess(FeedbackMapper.ToDto(result))
+             );
+        }
+
+        [HttpPost]
+        [Route("feedback/byevento")]
+        [Authorize(policy: "IS_ACQ")]
+        public async Task<IActionResult> AddByEvento(AddFeedbackByEventoRequest request)
+        {
+            var userId = User.FindFirst("sub")?.Value;
+            CheckUser(userId, request);
+
+            var result = await _feedbackService.AddFeedbackByEventoAsync(request);
             return Ok(
                 ResponseFactory
                 .WithSuccess(FeedbackMapper.ToDto(result))
@@ -38,7 +52,7 @@ namespace Web.Controllers
 
         [HttpGet]
         [Route("feedbacks")]
-        [Authorize(policy: "IS_ADM")]
+        //[Authorize(policy: "IS_ADM")]
         public async Task<IActionResult> Get()
         {
             var result = await _feedbackService.GetFeedbacksAsync();
@@ -107,7 +121,5 @@ namespace Web.Controllers
                     $"Il Feedback con identificativo: {request.IdFeedback} è stato eliminato")
             );
         }
-
-
     }
 }

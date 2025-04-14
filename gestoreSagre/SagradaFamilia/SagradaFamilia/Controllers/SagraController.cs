@@ -1,6 +1,6 @@
 ﻿using Application.Abstraction.Services;
 using Application.Factories;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
 using Application.Mapper;
 using Microsoft.AspNetCore.Authorization;
@@ -89,6 +89,17 @@ namespace Web.Controllers
                 ResponseFactory
                 .WithSuccess(
                     $"La sagra con identificativo: {request.IdSagra} è stata eliminata")
+            );
+        }
+        [HttpGet]
+        [Route("sagra/ratingbyid/{id:int}")]
+        public async Task<IActionResult> GetRating(int id)
+        {
+            var result = await _sagraService.GetRatingSagraAsync(id);
+
+            return Ok(
+                ResponseFactory
+                .WithSuccess(result)
             );
         }
     }

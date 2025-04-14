@@ -1,7 +1,7 @@
 ﻿using Application.Abstraction.Services;
 using Application.Factories;
 using Application.Mapper;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static Application.Functions.StaticFunctions;

@@ -1,4 +1,4 @@
-﻿namespace Models.Entities
+﻿namespace Models.DetailedEntities
 {
     public enum Ruolo
     {

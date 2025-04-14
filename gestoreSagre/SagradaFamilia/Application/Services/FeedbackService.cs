@@ -1,7 +1,8 @@
 ﻿using Abstraction.Context;
+using Application.Abstraction.Requests;
 using Application.Abstraction.Services;
 using Application.Mapper;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Application.Models.Requests;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
@@ -24,23 +25,45 @@ namespace Application.Services
             // _logger = logger;
             _context = context;
         }
- 
-        public async Task<Feedback> AddFeedbackAsync(AddFeedbackRequest request)
+
+        public async Task<Feedback> AddFeedbackBySagraAsync(AddFeedbackBySagraRequest request)
         {
             var entity = FeedbackMapper.ToEntity(request);
 
-            var eventi2 = await _context.Sagre
-                 .Where(x => x.IdSagra == entity.IdSagra)
-                 .Select(x => x.Eventi)
-                 .FirstOrDefaultAsync();
-            var eventi = await _context.Biglietti
+            return await AddFeedback(entity);
+        }
+
+        public async Task<Feedback> AddFeedbackByEventoAsync(AddFeedbackByEventoRequest request)
+        {
+            var entity = FeedbackMapper.ToEntity(request);
+
+            Sagra sagra = await _context.Sagre
+                .Include(x => x.Eventi)
+                .FirstOrDefaultAsync(x => x.Eventi.Any(e => e.IdEvento == request.IdEvento));
+            if(sagra == null)
+            {
+                throw new Exception("Sagra non trovata");
+            }
+            entity.IdSagra = sagra.IdSagra;
+            return await AddFeedback(entity);
+        }
+
+
+
+        private async Task<Feedback> AddFeedback( Feedback entity )
+        {
+            var eventiSagra = await _context.Sagre
+             .Where(x => x.IdSagra == entity.IdSagra)
+             .Select(x => x.Eventi)
+             .FirstOrDefaultAsync();
+            var eventiAcquirente = await _context.Biglietti
                 .Where(x => x.IdAcquirente == entity.IdAcquirente)
                 .Include(x => x.TipoBiglietto)
                 .Select(x => x.TipoBiglietto.Evento)
                 .ToListAsync();
 
             //list di eventi a cui l'utente ha partecipato/parteciperà e che sono comuni con la sagra
-            var eventiComuni = eventi2.Intersect(eventi).ToList();
+            var eventiComuni = eventiSagra.Intersect(eventiAcquirente).ToList();
 
             if (eventiComuni.Count == 0)
             {
@@ -60,8 +83,8 @@ namespace Application.Services
 
             foreach (var evento in eventiComuni)
             {
-                if(evento.DataEvento < DateTime.Now)
-                
+                if (evento.DataEvento < DateTime.Now)
+
                 {
                     await _context.Feedbacks.AddAsync(entity);
                     await _context.SaveChangesAsync();
@@ -69,7 +92,6 @@ namespace Application.Services
                 }
             }
             throw new Exception("L'acquirente non ha ancora partecipato all'evento, non può quindi lasciare un feedback");
-
 
         }
 
@@ -108,5 +130,7 @@ namespace Application.Services
                 .Where(x => x.IdSagra == request.IdSagra)
                 .ToListAsync();
         }
+
+
     }
 }

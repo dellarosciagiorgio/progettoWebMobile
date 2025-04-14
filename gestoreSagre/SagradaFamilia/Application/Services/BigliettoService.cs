@@ -1,7 +1,7 @@
 ﻿using Abstraction.Context;
 using Application.Abstraction.Services;
 using Application.Mapper;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Microsoft.EntityFrameworkCore;
 using Models.Entities;
 using System;
@@ -59,6 +59,20 @@ namespace Application.Services
         {
             return await _context.Biglietti
                 .Where(x => x.IdAcquirente == idAcquirente)
+                .Include(x => x.TipoBiglietto!)
+                //.ThenInclude(tb => tb.Evento!)
+                .Select(selector => new Biglietto
+                {
+                    IdBiglietto = selector.IdBiglietto,
+                    IdAcquirente = selector.IdAcquirente,
+                    Nominativo = selector.Nominativo,
+                    TipoBiglietto = new TipoBiglietto
+                    {
+                        IdTipo = selector.TipoBiglietto!.IdTipo,
+                        Prezzo = selector.TipoBiglietto.Prezzo,
+                        IdEvento = selector.TipoBiglietto.IdEvento,
+                    }
+                })
                 .ToListAsync();
         }
     }

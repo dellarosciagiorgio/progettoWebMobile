@@ -2,8 +2,9 @@
 
 namespace Application.Models.Requests
 {
-    public class DeleteEventoRequest : BaseRequest
+    public class AddFeedbackByEventoRequest : BaseAddFeedbackrequests
     {
         public int IdEvento { get; set; }
+
     }
 }

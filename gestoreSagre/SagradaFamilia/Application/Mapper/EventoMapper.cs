@@ -1,6 +1,6 @@
 ﻿using Application.Abstraction.Services;
 using Application.Models.Dtos;
-using Application.Models.Request;
+using Application.Models.Requests;
 using Models.Entities;
 
 namespace Application.Mapper

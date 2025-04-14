@@ -55,6 +55,11 @@ namespace Web.Extensions
             var jwtOptions = new JwtOptions();
             config.GetSection(JwtOptions.SECTION_NAME).Bind(jwtOptions);
 
+            services.AddControllers(options =>
+            {
+                options.Filters.Add<SanitizeInputFilter>();
+            });
+            
             var key = Encoding.UTF8.GetBytes(jwtOptions.Key);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
