@@ -83,7 +83,7 @@ namespace Web.Extensions
                         OnTokenValidated = async (context) =>
                         {
                             var identity = context.Principal.Identity as ClaimsIdentity;
-                            var emailClaim = identity.FindFirst(ClaimTypes.Email);
+                            var emailClaim = identity.FindFirst("Email");
                             //var emailClaim = identity.Claims.Where(w => w.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").FirstOrDefault();
                             if (emailClaim != null)
                             {
@@ -97,7 +97,6 @@ namespace Web.Extensions
                         }
                     };
                 });
-            services.Configure<JwtOptions>(config.GetSection(JwtOptions.SECTION_NAME));
 
             services.AddAuthorization(opt =>
             {
