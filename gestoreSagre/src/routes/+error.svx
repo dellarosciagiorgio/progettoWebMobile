@@ -19,7 +19,5 @@
   <h1 class="display-1 text-danger">404</h1>
   <h2 class="mb-3">Ops! Pagina non trovata</h2>
   <p class="mb-4">Sembra che questa pagina non esista. Verrai reindirizzato alla homepage tra qualche secondo...</p>
-  
   <a href="/Home" class="btn btn-primary">Torna alla Homepage</a>
-
 </div>

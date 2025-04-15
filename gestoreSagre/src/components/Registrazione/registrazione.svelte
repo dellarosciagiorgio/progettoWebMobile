@@ -154,11 +154,11 @@
               <input class="form-check-input" type="checkbox" bind:checked={accettoTermini} id="accettoTermini" required>
               <label class="form-check-label text-muted" for="accettoTermini">
                 Accetto i 
-                <button class="btn btn-link text-decoration-none p-0" on:click={() => window.location.href = "/terms"}>
+                <button class="btn btn-link text-decoration-none p-0" on:click={() => window.location.href = "/Registrazione/TermsAndPolicy"}>
                   Termini e Condizioni
                 </button>
                 e la 
-                <button class="btn btn-link text-decoration-none p-0" on:click={() => window.location.href = "/privacy-policy"}>
+                <button class="btn btn-link text-decoration-none p-0" on:click={() => window.location.href = "/Registrazione/TermsAndPolicy"}>
                   Privacy Policy
                 </button>
               </label>

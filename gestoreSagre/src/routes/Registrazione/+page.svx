@@ -1,5 +1,3 @@
-# registrazione
-
 <script>
 	import Registrazione from './../../components/Registrazione/registrazione.svelte';
 </script>

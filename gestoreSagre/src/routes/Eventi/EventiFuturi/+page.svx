@@ -1,5 +1,3 @@
-
-
 <script>
 	import EventiFuturi from '../../../components/Eventi/EventiFuturi/eventiFuturi.svelte';
 </script>
