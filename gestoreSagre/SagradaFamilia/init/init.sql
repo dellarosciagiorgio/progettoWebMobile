@@ -340,14 +340,6 @@ VALUES
 -- TRUNCATE TABLE TipiBiglietto;
 INSERT INTO TipiBiglietto(NomeTipoBiglietto, DescrizioneTipoBiglietto, Prezzo, IdEvento)  
 VALUES 
-('Entrata', 'Solo Entrata', 10, 1),
-('Mangia','Mangia a volontà', 20, 1),
-('All-inclusive','Mangia e bevi a volontà, posto VIP', 30, 1),
-('Entrata','Solo Entrata', 35, 2),
-('Tavolo','Tavolo davanti al palco', 50, 2),
-('Entrata','Solo Entrata', 5, 3),
-('3Beer','Entrata e Tre birre', 15, 3),
-('Bevii','All you can beer, cheers', 25, 3),
 ('Entrata','Solo Entrata',5, 4),
 ('Mangia','Mangia a volontà', 20, 4),
 ('All-inclusive', 'Mangia e bevi a volontà, posto VIP',35, 4),
@@ -393,4 +385,21 @@ VALUES
 ('Marco Neri', 1, 3),
 ('Gianmarco Neri', 1, 3),
 ('Mattia Di Spigno ',2, 5),
-('Franco Gialli', 6, 7);
+('Franco Gialli', 6, 7),
+('Giorgio Della Roscia', 3, 8),
+('Daniela Di Lucchio', 4, 9),
+('Mario Rossi', 5, 10),
+('Mauro Bianchi', 6, 11),
+('Marco Neri', 1, 12),
+('Mattia Di Spigno ',2, 13),
+('Pierpaolo Della Roscia', 3, 14),
+('Franco Gilli', 4, 15),
+('Rossana Rossi', 5, 16);
+
+INSERT INTO Feedbacks(Titolo, Descrizione, Rating, IdAcquirente, IdSagra)
+VALUES
+('Bellissima sagra', 'La sagra della coratella è stata fantastica! Cibo delizioso e atmosfera coinvolgente.', 10, 1, 1),
+('Ottimo cibo', 'Il pesce fresco era eccezionale. Tornerò sicuramente!', 7, 2, 2),
+('Da migliorare', 'La sagra del carciofo era buona, ma il servizio era lento.', 7, 3, 3),
+('Fantastica esperienza', 'Ho adorato la musica dal vivo e il cibo. Un evento da non perdere!', 9, 4, 3),
+('Soddisfatto', 'Tutto perfetto, ci tornerò sicuramente!', 8, 4, 2);
