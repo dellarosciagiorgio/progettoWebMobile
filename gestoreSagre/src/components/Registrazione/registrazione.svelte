@@ -1,5 +1,6 @@
 <script>
   import "bootstrap/dist/css/bootstrap.min.css";
+  import "./registrazione.css";
   
   let nome = "";
   let cognome = "";
@@ -49,12 +50,12 @@
   };
 </script>
 
-<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center registration-background">
   <div class="row w-100 justify-content-center">
     <div class="col-md-8 col-lg-7 col-xl-6">
       <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
         <div class="card-header text-white p-0">
-          <div class="text-center py-4" style="background: linear-gradient(to right, #d62828, #f77f00);">
+          <div class="text-center py-4 header-gradient">
             <h3 class="mb-0 fw-bold">Sagre Italiane</h3>
             <p class="mb-0">Scopri e organizza eventi gastronomici</p>
           </div>
@@ -63,8 +64,8 @@
         <div class="card-body p-4 p-md-5">
           <div class="text-center mb-4">
             <div class="mb-3 position-relative d-inline-block">
-              <img src="/logo.png" alt="Logo" class="img-fluid" style="max-width: 150px; z-index: 1; position: relative;" />
-              <div class="position-absolute" style="width: 160px; height: 160px; background-color: rgba(247, 127, 0, 0.1); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0;"></div>
+              <img src="/logo.png" alt="Logo" class="img-fluid logo-image" />
+              <div class="logo-background"></div>
             </div>
             <h4 class="fw-bold text-dark mb-1">Crea il tuo account</h4>
             <p class="text-muted mb-4">Inserisci i tuoi dati per registrarti</p>
@@ -72,7 +73,7 @@
           
           <form on:submit|preventDefault={handleRegistration}>
             <div class="form-floating mb-4">
-              <select class="form-select border-0 bg-light" style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);" id="role" bind:value={selectedRole}>
+              <select class="form-select border-0 bg-light form-input-shadow" id="role" bind:value={selectedRole}>
                 <option value="acquirente">Acquirente</option>
                 <option value="organizzatore">Organizzatore</option>
                 <option value="amministratore">Amministratore</option>
@@ -85,8 +86,7 @@
                 <div class="form-floating">
                   <input 
                     type="text" 
-                    class="form-control border-0 bg-light" 
-                    style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);"
+                    class="form-control border-0 bg-light form-input-shadow" 
                     id="nome" 
                     placeholder="Nome" 
                     bind:value={nome} 
@@ -99,8 +99,7 @@
                 <div class="form-floating">
                   <input 
                     type="text" 
-                    class="form-control border-0 bg-light" 
-                    style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);"
+                    class="form-control border-0 bg-light form-input-shadow" 
                     id="cognome" 
                     placeholder="Cognome" 
                     bind:value={cognome} 
@@ -114,8 +113,7 @@
             <div class="form-floating mb-3">
               <input 
                 type="email" 
-                class="form-control border-0 bg-light" 
-                style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);"
+                class="form-control border-0 bg-light form-input-shadow" 
                 id="email" 
                 placeholder="nome@esempio.com" 
                 bind:value={email} 
@@ -127,8 +125,7 @@
             <div class="form-floating mb-3">
               <input 
                 type="password" 
-                class="form-control border-0 bg-light" 
-                style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);"
+                class="form-control border-0 bg-light form-input-shadow" 
                 id="password" 
                 placeholder="Password" 
                 bind:value={password} 
@@ -140,8 +137,7 @@
             <div class="form-floating mb-4">
               <input 
                 type="password" 
-                class="form-control border-0 bg-light" 
-                style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);"
+                class="form-control border-0 bg-light form-input-shadow" 
                 id="confermaPassword" 
                 placeholder="Conferma Password" 
                 bind:value={confermaPassword} 
@@ -164,7 +160,7 @@
               </label>
             </div>
             
-            <button type="submit" class="btn btn-lg w-100 text-white mb-4 py-3" style="background-color: #f77f00; border: none; box-shadow: 0 4px 12px rgba(247, 127, 0, 0.25);">
+            <button type="submit" class="btn btn-lg w-100 text-white mb-4 py-3 register-button">
               Registrati
             </button>
             

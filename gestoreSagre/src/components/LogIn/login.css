@@ -1,0 +1,362 @@
+/* Stili generali */
+:root {
+    --font-base: 'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-base: 16px;
+    --font-size-sm: 14px;
+    --font-size-lg: 20px;
+    --font-size-xl: 28px;
+    --font-weight-regular: 400;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --line-height-base: 1.6;
+}
+
+body {
+    font-family: var(--font-base);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: #333;
+}
+
+.login-container {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Stili per la card di login */
+.login-card {
+    width: 100%;
+    max-width: 450px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+.login-header {
+    background: linear-gradient(to right, #e63946, #f77f00);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.login-header h1 {
+    margin: 0;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.login-header p {
+    margin: 5px 0 0;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+}
+
+.login-body {
+    padding: 30px;
+    text-align: center;
+}
+
+.logo-container {
+    margin: 0 auto 20px;
+    width: 120px;
+    height: 120px;
+    background-color: #fff5eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-image {
+    width: 80%;
+    height: auto;
+}
+
+.login-body h2 {
+    margin: 0;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+}
+
+.login-body .subtitle {
+    margin: 5px 0 25px;
+    color: #666;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-base);
+}
+
+/* Stili per il form */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: var(--font-size-base);
+    font-family: var(--font-base);
+    background-color: #f9f9f9;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #f77f00;
+    box-shadow: 0 0 0 2px rgba(247, 127, 0, 0.2);
+}
+
+/* Checkbox */
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-size: var(--font-size-sm);
+    color: #666;
+    user-select: none;
+    padding-left: 28px;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 3px;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+    background-color: #f0f0f0;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #f77f00;
+    border-color: #f77f00;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.checkbox-container .checkmark:after {
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Pulsante login */
+.login-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #f77f00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    font-family: var(--font-base);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-button:hover {
+    background-color: #e67300;
+}
+
+.login-button:disabled {
+    background-color: #ffa64d;
+    cursor: not-allowed;
+}
+
+/* Divisore */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 25px 0;
+}
+
+.divider-line {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #e0e0e0;
+}
+
+.divider-text {
+    padding: 0 15px;
+    color: #999;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+}
+
+/* Sezione registrazione */
+.register-section {
+    margin-top: 10px;
+}
+
+.register-section p {
+    margin: 0 0 5px;
+    color: #666;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+}
+
+.register-link {
+    color: #e63946;
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+.login-footer {
+    padding: 15px;
+    text-align: center;
+    border-top: 1px solid #f0f0f0;
+}
+
+.login-footer p {
+    margin: 0;
+    color: #999;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+}
+
+/* Schermata successo */
+.success-card {
+    width: 100%;
+    max-width: 500px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.success-logo-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
+.success-logo-image {
+    width: 80px;
+    height: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.success-logo-circle {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    background-color: rgba(40, 167, 69, 0.1);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.success-title {
+    color: #28a745;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin: 0 0 10px;
+}
+
+.success-subtitle {
+    color: #666;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-regular);
+    margin: 0 0 25px;
+    line-height: var(--line-height-base);
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.success-button {
+    padding: 12px 25px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    font-family: var(--font-base);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.success-button:hover {
+    background-color: #218838;
+}
+
+
+/* Alert errore */
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: var(--font-size-sm);
+}
+
+/* Spinner */
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

@@ -1,0 +1,69 @@
+.page-background {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.title-color {
+    color: #d62828;
+}
+
+.logo-background {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(247, 127, 0, 0.1);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.logo-image {
+    max-width: 80px;
+    z-index: 1;
+    position: relative;
+}
+
+.spinner-loading {
+    width: 3rem;
+    height: 3rem;
+    color: #f77f00;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    color: #6c757d;
+}
+
+.sagra-image {
+    height: 200px;
+    object-fit: cover;
+}
+
+.image-overlay {
+    position: absolute;
+    bottom: 0;
+    start: 0;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+}
+
+.details-button {
+    background-color: #f77f00;
+    color: white;
+}
+
+.details-button:hover {
+    background-color: #e67200;
+    color: white;
+}
+
+.hover-scale {
+    transition: all 0.3s ease;
+}
+
+.hover-scale:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
