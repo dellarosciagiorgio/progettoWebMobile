@@ -8,6 +8,25 @@
     // Importa gli store dal file dedicato
     import { isAuthenticated, userEmail } from '$lib/stores';
     
+    // Funzione per controllare i cookie e verificare l'autenticazione all'avvio
+    const checkAuthStatus = () => {
+        if (browser) {
+            const token = getCookie('authToken');
+            const email = getCookie('userEmail');
+            
+            if (token && email) {
+                isAuthenticated.set(true);
+                userEmail.set(email);
+                return true;
+            } else {
+                isAuthenticated.set(false);
+                userEmail.set('');
+                return false;
+            }
+        }
+        return false;
+    };
+    
     // Funzione per ottenere un cookie
     const getCookie = (name) => {
         if (browser) {
@@ -29,135 +48,34 @@
         }
     };
     
-    // URL del backend
-    const API_URL = "https://localhost:443/api";
-    
-    // Funzione per effettuare chiamate API
-    const apiCall = async (endpoint, method = "GET", body = null) => {
-        if (!browser) return null;
-        
-        const headers = {
-            "Content-Type": "application/json"
-        };
-        
-        // Aggiungi token di autorizzazione se disponibile
-        const token = getCookie("authToken");
-        if (token) {
-            headers["Authorization"] = `Bearer ${token}`;
-        }
-        
-        const options = {
-            method,
-            headers,
-            credentials: "same-origin"
-        };
-        
-        if (body) {
-            options.body = JSON.stringify(body);
-        }
-        
-        try {
-            const response = await fetch(`${API_URL}${endpoint}`, options);
-            
-            // Per errori HTTP, lanciamo un'eccezione
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || `Errore ${response.status}`);
-            }
-            
-            // Per risposte senza contenuto
-            if (response.status === 204) {
-                return null;
-            }
-            
-            // parsing della risposta come JSON
-            return await response.json();
-        } catch (error) {
-            console.error(`Errore chiamata API ${endpoint}:`, error);
-            throw error;
-        }
-    };
-    
-    // Funzione per controllare i cookie e verificare l'autenticazione
-    const checkAuthStatus = async () => {
-        if (browser) {
-            const token = getCookie('authToken');
-            const email = getCookie('userEmail');
-            
-            if (token && email) {
-                try {
-                    // Verifica la validità del token
-                    await apiCall("/verify");
-                    
-                    isAuthenticated.set(true);
-                    userEmail.set(email);
-                    
-                    // Notifica altre schede del browser
-                    localStorage.setItem('authStatus', 'true');
-                    localStorage.setItem('userEmail', email);
-                    
-                    return true;
-                } catch (error) {
-                    console.error("Errore durante la verifica del token:", error);
-                    // Token non valido, elimina i cookie
-                    deleteCookie("authToken");
-                    deleteCookie("userEmail");
-                    deleteCookie("userRole");
-                    
-                    // Aggiorna lo stato di autenticazione
-                    isAuthenticated.set(false);
-                    userEmail.set('');
-                    
-                    // Notifica altre schede del browser
-                    localStorage.removeItem('authStatus');
-                    localStorage.removeItem('userEmail');
-                    
-                    return false;
-                }
-            } else {
-                isAuthenticated.set(false);
-                userEmail.set('');
-                return false;
-            }
-        }
-        return false;
-    };
-    
     // Funzione di logout
-    const handleLogout = async () => {
-        try {
-            // Chiamata al server per invalidare il token
-            await apiCall("/logout", "POST");
-        } catch (error) {
-            console.error("Errore durante il logout:", error);
-        } finally {
-            deleteCookie('authToken');
-            deleteCookie('userEmail');
-            deleteCookie('userRole');
-            isAuthenticated.set(false);
-            userEmail.set('');
+    const handleLogout = () => {
+        deleteCookie('authToken');
+        deleteCookie('userEmail');
+        deleteCookie('userRole');
+        isAuthenticated.set(false);
+        userEmail.set('');
+        
+        // Notifica altre schede del browser
+        if (browser) {
+            localStorage.removeItem('authStatus');
+            localStorage.removeItem('userEmail');
             
-            // Notifica altre schede del browser
-            if (browser) {
-                localStorage.removeItem('authStatus');
-                localStorage.removeItem('userEmail');
-                
-                // Reindirizza alla home dopo il logout
-                window.location.href = '/Home';
-            }
+            // Reindirizza alla home dopo il logout
+            window.location.href = '/Home';
         }
     };
     
-    onMount(async () => {
+    onMount(() => {
         if (browser) {
             import('bootstrap/dist/js/bootstrap.bundle.min.js');
             
             // Controlla lo stato di autenticazione all'avvio
-            await checkAuthStatus();
+            checkAuthStatus();
             
             // Aggiungiamo un listener per ricontrollare lo stato di autenticazione
             // quando cambia il valore dei cookie o localStorage (ad esempio quando l'utente fa login in un'altra tab)
-            window.addEventListener('storage', async (event) => {
+            window.addEventListener('storage', (event) => {
                 if (event.key === 'authStatus' || event.key === 'userEmail') {
                     if (event.key === 'authStatus' && event.newValue === 'true') {
                         isAuthenticated.set(true);
@@ -176,9 +94,7 @@
     // Aggiungiamo un listener per il cambio di pagina per ricontrollare lo stato di autenticazione
     $: {
         if ($page && browser) {
-            checkAuthStatus().catch(error => {
-                console.error("Errore durante la verifica dell'autenticazione:", error);
-            });
+            checkAuthStatus();
         }
     }
 </script>
