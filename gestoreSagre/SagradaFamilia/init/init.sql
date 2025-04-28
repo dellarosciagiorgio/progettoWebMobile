@@ -379,6 +379,7 @@ VALUES
 (42, 20, 8);
 
 -- TRUNCATE TABLE Biglietti;
+use GestoreSagre;
 INSERT INTO Biglietti(Nominativo, IdAcquirente, IdTipoBiglietto)  
 VALUES
 ('Loredana Bruni', 1, 3),
@@ -391,10 +392,10 @@ VALUES
 ('Mario Rossi', 5, 10),
 ('Mauro Bianchi', 6, 11),
 ('Marco Neri', 1, 12),
-('Mattia Di Spigno ',2, 13),
-('Pierpaolo Della Roscia', 3, 14),
-('Franco Gilli', 4, 15),
-('Rossana Rossi', 5, 16);
+('Mattia Di Spigno ',2, 10),
+('Pierpaolo Della Roscia', 3, 8),
+('Franco Gilli', 4, 6),
+('Rossana Rossi', 5, 8);
 
 INSERT INTO Feedbacks(Titolo, Descrizione, Rating, IdAcquirente, IdSagra)
 VALUES
