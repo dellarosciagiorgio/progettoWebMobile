@@ -101,6 +101,11 @@
 
 <div class="navbar-wrapper">
     <nav class="navbar d-flex align-items-center">
+        
+        
+        <a class:active={$page.url.pathname === '/Biglietto'} href="/Biglietto">Biglietto</a>
+        
+        
         <a class="navbar-brand me-4" href="/Home">
             <img src="/logo.png" alt="Logo" width="28" height="28" class="me-2" />
             Village Festival

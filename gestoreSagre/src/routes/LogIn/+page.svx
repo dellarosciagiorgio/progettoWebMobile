@@ -1,5 +1,99 @@
 <script>
-	import Login from './../../components/LogIn/login.svelte';
+    import { onMount } from 'svelte';
+    let email = "";
+    let password = "";
+    let role = "";
+    let expiration = null;
+    let loginSuccess = false;
+    let errorMessage = "";
+
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/; Secure; SameSite=Strict";
+        console.log(`Cookie set: ${name}`);
+        console.log(`Document cookie: ${document.cookie}`);
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0)==' ')
+				c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0)
+				return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    // optional: check for token on component mount
+    // onMount(() => {
+    //     const existingtoken = getCookie("authtoken");
+    //     existingtoken ? console.log("user already has a token:", existingtoken) : loginSuccess = true;
+    // });
+
+    const handleLogin = async () => {
+        loginSuccess = false;
+        errorMessage = "";
+        try {
+            const response = await fetch("https://localhost:443/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", },
+                body: JSON.stringify({ email, password }),
+            });
+            const data = await response.json();
+            if (!response.ok)
+				throw new Error(data.message || "Login fallito: Status " + response.status);
+            console.log("Login avvenuto con successo:", data);
+            if (data.success && data.data) {
+                const jwtToken = data.data;
+                console.log(jwtToken);
+                // todo: get expiration time from jwt
+                setCookie("authToken", jwtToken, 7);
+                loginSuccess = true;
+            } else
+                 throw new Error("Login response received, but token data is missing.");
+        } catch (error) {
+            console.error("Errore durante il login:", error);
+            errorMessage = error.message || "Credenziali non valide o errore di connessione";
+        }
+    };
+
+    const handleLogout = () => {
+        setCookie("authToken", "", -1);
+        loginSuccess = false;
+        email = "";
+        password = "";
+        console.log("User logged out, cookie deleted.");
+		window.location.href = "/Home";
+    };
 </script>
 
-<Login/>
+<div>
+    {#if !loginSuccess}
+        <form on:submit|preventDefault={handleLogin}>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" bind:value={email} required/>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" bind:value={password} required/>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        {#if errorMessage}
+            <p>Error: {errorMessage}</p>
+        {/if}
+    {:else}
+        <h2>Logged in!</h2>
+        <p>Token stored in cookie.</p>
+        <button on:click={handleLogout}>Logout</button>
+    {/if}
+</div>
