@@ -7,3 +7,15 @@ export function getCookie(name) {
     }
     return null; // todo: replace not found warning
 }
+
+// Funzione per impostare un cookie con scadenza estesa
+export function setCookie(name, value, days = 30) {
+    const expirationDate = new Date();
+    expirationDate.setDate(expirationDate.getDate() + days);
+    document.cookie = `${name}=${value}; expires=${expirationDate.toUTCString()}; path=/; SameSite=Strict`;
+}
+
+// Funzione per eliminare un cookie
+export function deleteCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+}

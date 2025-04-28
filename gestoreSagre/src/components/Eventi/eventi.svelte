@@ -24,7 +24,7 @@
 	<div class="container">
 		<div class="row justify-content-center mb-5">
 			<div class="col-lg-8 text-center">
-				<h2 class="fw-bold mb-3 text-title-custom">I miei eventi</h2>
+				<h2 class="fw-bold mb-3 text-title-custom">Eventi</h2>
 				<div class="d-inline-block position-relative mb-4">
 					<div class="logo-background-circle"></div>
 					<img src="/logo.png" alt="Logo" class="img-fluid logo-img" />

@@ -8,6 +8,9 @@
     // Importa gli store dal file dedicato
     import { isAuthenticated, userEmail } from '$lib/stores';
     
+    // Importa le funzioni per i cookie
+    import { getCookie, setCookie, deleteCookie } from '$lib/cookies';
+    
     // Funzione per controllare i cookie e verificare l'autenticazione all'avvio
     const checkAuthStatus = () => {
         if (browser) {
@@ -17,6 +20,9 @@
             if (token && email) {
                 isAuthenticated.set(true);
                 userEmail.set(email);
+                // Aggiorniamo anche localStorage per sincronizzazione tra tab
+                localStorage.setItem('authStatus', 'true');
+                localStorage.setItem('userEmail', email);
                 return true;
             } else {
                 isAuthenticated.set(false);
@@ -27,24 +33,16 @@
         return false;
     };
     
-    // Funzione per ottenere un cookie
-    const getCookie = (name) => {
-        if (browser) {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.startsWith(name + '=')) {
-                    return decodeURIComponent(cookie.substring(name.length + 1));
-                }
-            }
-        }
-        return null;
-    };
-    
-    // Funzione per eliminare i cookie
-    const deleteCookie = (name) => {
-        if (browser) {
-            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    // Funzione per prolungare la durata dei cookie ad ogni accesso
+    const refreshAuthCookies = () => {
+        if (browser && $isAuthenticated) {
+            const token = getCookie('authToken');
+            const email = getCookie('userEmail');
+            const role = getCookie('userRole');
+            
+            if (token) setCookie('authToken', token);
+            if (email) setCookie('userEmail', email);
+            if (role) setCookie('userRole', role);
         }
     };
     
@@ -70,11 +68,11 @@
         if (browser) {
             import('bootstrap/dist/js/bootstrap.bundle.min.js');
             
-            // Controlla lo stato di autenticazione all'avvio
-            checkAuthStatus();
-            
-            // Aggiungiamo un listener per ricontrollare lo stato di autenticazione
-            // quando cambia il valore dei cookie o localStorage (ad esempio quando l'utente fa login in un'altra tab)
+            // Controlla lo stato di autenticazione all'avvio, Se autenticato, aggiorna i cookie per prolungare la durata
+            if (checkAuthStatus()) {
+                refreshAuthCookies();
+            }
+            // Un listener per il logout da altre schede
             window.addEventListener('storage', (event) => {
                 if (event.key === 'authStatus' || event.key === 'userEmail') {
                     if (event.key === 'authStatus' && event.newValue === 'true') {
@@ -88,23 +86,31 @@
                     }
                 }
             });
+            
+            // Controlla e rinnova i cookie ogni 5 minuti se l'utente è attivo
+            const refreshInterval = setInterval(() => {
+                if ($isAuthenticated) {
+                    refreshAuthCookies();
+                }
+            }, 300000); 
+            
+            return () => {
+                clearInterval(refreshInterval);
+            };
         }
     });
     
-    // Aggiungiamo un listener per il cambio di pagina per ricontrollare lo stato di autenticazione
+    // listener per il cambio di pagina per ricontrollare lo stato di autenticazione
     $: {
         if ($page && browser) {
             checkAuthStatus();
+            refreshAuthCookies();
         }
     }
 </script>
 
 <div class="navbar-wrapper">
     <nav class="navbar d-flex align-items-center">
-        
-        
-        <a class:active={$page.url.pathname === '/Biglietto'} href="/Biglietto">Biglietto</a>
-        
         
         <a class="navbar-brand me-4" href="/Home">
             <img src="/logo.png" alt="Logo" width="28" height="28" class="me-2" />
@@ -127,6 +133,11 @@
             <li class="nav-item">
                 <a class="nav-link" class:active={$page.url.pathname === '/Sagre'} href="/Sagre">Sagre</a>
             </li>
+            {#if $isAuthenticated}
+                <li class="nav-item">
+                    <a class="nav-link" class:active={$page.url.pathname === '/Biglietto'} href="/Biglietto">I miei biglietti</a>
+                </li>
+            {/if}
         </ul>
         
         <div class="ms-auto d-flex align-items-center">
