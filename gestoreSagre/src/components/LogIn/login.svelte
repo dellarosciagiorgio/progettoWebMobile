@@ -1,8 +1,9 @@
 <script>
     import "bootstrap/dist/css/bootstrap.min.css";
+    import { jwtDecode } from "jwt-decode";
     import "./login.css";
     import { onMount } from 'svelte';
-    import { isAuthenticated, userEmail } from '$lib/stores';
+    import { isAuthenticated, userEmail, role } from '$lib/stores';
     
     let emailInput = "";
     let password = "";
@@ -57,19 +58,24 @@
             if (data.success && data.data) {
                 const jwtToken = data.data;
                 console.log(jwtToken);
+                const decodedToken = jwtDecode(jwtToken);
+                console.log(decodedToken);
                 
                 // Imposta il cookie per il token e l'email
                 const cookieDuration = rememberMe ? 30 : 1;
                 setCookie("authToken", jwtToken, cookieDuration);
-                setCookie("userEmail", emailInput, cookieDuration);
+                setCookie("userEmail", decodedToken.Email, cookieDuration);
+                setCookie("userRole", decodedToken.Ruolo, cookieDuration);
                 
                 // Aggiorna gli store Svelte
                 isAuthenticated.set(true);
                 userEmail.set(emailInput);
+                role.set(decodedToken.Ruolo); // Aggiungiamo lo store del ruolo
                 
                 // Aggiorna localStorage per sincronizzazione tra tab
                 localStorage.setItem('authStatus', 'true');
                 localStorage.setItem('userEmail', emailInput);
+                localStorage.setItem('userRole', decodedToken.Ruolo); // Aggiungiamo il ruolo anche in localStorage
                 
                 loginSuccess = true;
                 
@@ -91,6 +97,7 @@
     const handleLogout = () => {
         setCookie("authToken", "", -1);
         setCookie("userEmail", "", -1);
+        setCookie("userRole", "", -1); // Aggiungiamo la pulizia del cookie del ruolo
         loginSuccess = false;
         emailInput = "";
         password = "";
@@ -98,10 +105,12 @@
         // Aggiorna gli store
         isAuthenticated.set(false);
         userEmail.set('');
+        role.set(''); // Aggiorniamo anche lo store del ruolo
         
         // Aggiorna localStorage
         localStorage.removeItem('authStatus');
         localStorage.removeItem('userEmail');
+        localStorage.removeItem('userRole'); // Rimuoviamo anche il ruolo da localStorage
         
         console.log("User logged out, cookies deleted.");
         window.location.href = "/Home";
@@ -115,6 +124,7 @@
     onMount(() => {
         const existingToken = getCookie("authToken");
         const savedEmail = getCookie("userEmail");
+        const savedRole = getCookie("userRole");
         
         if (existingToken) {
             console.log("User already has a token");
@@ -125,6 +135,9 @@
             if (savedEmail) {
                 userEmail.set(savedEmail);
                 emailInput = savedEmail;
+            }
+            if (savedRole) {
+                role.set(savedRole);
             }
         }
     });

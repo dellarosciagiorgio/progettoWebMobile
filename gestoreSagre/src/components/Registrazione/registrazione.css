@@ -37,3 +37,35 @@
   .register-button:hover {
     background-color: #e67200;
   }
+  .success-card {
+		background-color: white;
+		transition: all 0.3s ease;
+	}
+	
+	.success-icon-wrapper {
+		width: 90px;
+		height: 90px;
+		background-color: rgba(25, 135, 84, 0.1);
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: 0 auto;
+	}
+	
+	.success-icon {
+		font-size: 45px;
+		color: #198754;
+	}
+	
+	.login-now-button {
+		background-color: #198754;
+		color: white;
+		border-radius: 50px;
+		padding: 0.75rem 2.5rem;
+		transition: all 0.3s ease;
+	}
+	
+	.login-now-button:hover {
+		background-color: #146c43;
+		color: white;}
