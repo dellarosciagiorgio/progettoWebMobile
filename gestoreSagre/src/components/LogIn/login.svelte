@@ -38,9 +38,10 @@
         isLoading = true;
         loginSuccess = false;
         errorMessage = "";
+        const endpoint = "login";
         
         try {
-            const response = await fetch("https://localhost:443/api/login", {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}${endpoint}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email: emailInput, password }),
