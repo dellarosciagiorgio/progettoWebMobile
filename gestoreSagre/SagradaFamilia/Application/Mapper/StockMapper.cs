@@ -15,7 +15,6 @@ namespace Application.Mapper
             var tipo = new TipoBiglietto();
             tipo.Prezzo = request.Prezzo;
             tipo.Descrizione = request.Descrizione;
-            tipo.IdEvento = request.IdEventoEsistente;
             tipo.Tipo = request.Tipo;
 
             stock.TipoBiglietto = tipo;
@@ -45,8 +44,8 @@ namespace Application.Mapper
             stockDto.Prezzo = stock.TipoBiglietto.Prezzo;
             stockDto.Descrizione = stock.TipoBiglietto.Descrizione;
             stockDto.Tipo = stock.TipoBiglietto.Tipo;
-            stockDto.IdEvento = stock.TipoBiglietto.IdEvento;
             stockDto.Quantita = stock.Quantita;
+            stockDto.IdEvento = stock.IdEvento;
             return stockDto;
         }
     }

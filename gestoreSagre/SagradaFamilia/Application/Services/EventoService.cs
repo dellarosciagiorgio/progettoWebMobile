@@ -6,11 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Models.DetailedEntities;
 using Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Services
 {
@@ -63,8 +58,8 @@ namespace Application.Services
             {
                 throw new Exception("L'organizzatore non è autorizzato a cancellare eventi per questa sagra");
             }
-            var eventoToDelete = EventoMapper.ToEntity(request);
-            _context.Entry(eventoToDelete).State = EntityState.Deleted;
+            
+            _context.Entry(evento).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
         }
 
@@ -119,9 +114,13 @@ namespace Application.Services
             switch (ruolo)
             {
                 case Ruolo.Acquirente:
-                    var myIdEvento = await _context.Biglietti
+                    var myTipoBiglietto = await _context.Biglietti
                         .Where(x => x.IdAcquirente == idUser && x.TipoBiglietto != null)
-                        .Select(x => x.TipoBiglietto!.IdEvento)
+                        .Select(x => x.TipoBiglietto!.IdTipo)
+                        .ToListAsync();
+                    var myIdEvento = await _context.Stocks
+                        .Where(x => myTipoBiglietto.Contains(x.IdTipoBiglietto))
+                        .Select(x => x.IdEvento)
                         .ToListAsync();
 
                     return await _context.Eventi

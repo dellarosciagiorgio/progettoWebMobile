@@ -139,9 +139,9 @@ CREATE TABLE Sagre(
 Go
 CREATE TABLE Stocks(
 	IdStock INT identity (1,1),
-	IdTipoBiglietto INT not null,
-	Quantita INT not null,
-	IdEvento INT not null,
+	IdTipoBiglietto INT ,
+	Quantita INT ,
+	IdEvento INT ,
 	CONSTRAINT [PK_Stock] primary key clustered
 	(
 		IdStock ASC
@@ -154,7 +154,6 @@ Go
 CREATE TABLE TipiBiglietto(
 	IdTipoBiglietto INT identity (1,1),
 	DescrizioneTipoBiglietto VARCHAR(1000) not null,
-	IdEvento INT not null,
 	NomeTipoBiglietto varchar(100) not null,
 	Prezzo FLOAT not null,
 	CONSTRAINT [PK_TipiBiglietto] primary key clustered
@@ -191,12 +190,12 @@ references TipiBiglietto (IdTipoBiglietto)
     ON DELETE SET NULL
     ON UPDATE CASCADE;
 
-GO
-Alter table TipiBiglietto
-add constraint FK_TipiBiglietto_Eventi foreign key (IdEvento)
-references Eventi (IdEvento)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE;
+--GO
+--Alter table TipiBiglietto
+--add constraint FK_TipiBiglietto_Eventi foreign key (IdEvento)
+--references Eventi (IdEvento)
+--    ON DELETE CASCADE
+--    ON UPDATE CASCADE;
 
 GO
 alter table Eventi
@@ -239,8 +238,8 @@ GO
 Alter table Stocks
 add constraint FK_Stocks_Eventi foreign key (IdEvento)
 references Eventi (IdEvento)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
+    ON DELETE CASCADE
+    ON UPDATE CASCADE;
 
 GO
 Alter table Acquirenti
@@ -338,20 +337,20 @@ VALUES
 
 
 -- TRUNCATE TABLE TipiBiglietto;
-INSERT INTO TipiBiglietto(NomeTipoBiglietto, DescrizioneTipoBiglietto, Prezzo, IdEvento)  
+INSERT INTO TipiBiglietto(NomeTipoBiglietto, DescrizioneTipoBiglietto, Prezzo)  
 VALUES 
-('Entrata','Solo Entrata',5, 4),
-('Mangia','Mangia a volontà', 20, 4),
-('All-inclusive', 'Mangia e bevi a volontà, posto VIP',35, 4),
-('Entrata','Solo Entrata',40, 5),
-('Tavolo Vip','Tavolo davanti al palco',70, 5),
-('Entrata','Solo Entrata',2, 6),
-('3Beer','Entrata e Tre birre', 10, 6),
-('Bevi', 'All you can beer, cheers', 20, 6),
-('Entrata', 'Solo Entrata',12, 7),
-('Mangia', 'Mangia a volontà',27, 7),
-('All-inclusive','Mangia e bevi a volontà, posto VIP',40, 7),
-('Entrata', 'Solo Entrata',20, 8);
+('Entrata','Solo Entrata',5),
+('Mangia','Mangia a volontà', 20),
+('All-inclusive', 'Mangia e bevi a volontà, posto VIP',35),
+('Entrata','Solo Entrata',4),
+('Tavolo Vip','Tavolo davanti al palco',70),
+('Entrata','Solo Entrata',2),
+('3Beer','Entrata e Tre birre', 10),
+('Bevi', 'All you can beer, cheers', 20),
+('Entrata', 'Solo Entrata',12),
+('Mangia', 'Mangia a volontà',27),
+('All-inclusive','Mangia e bevi a volontà, posto VIP',40),
+('Entrata', 'Solo Entrata',20);
 
 
 -- TRUNCATE TABLE Stocks;
@@ -369,14 +368,14 @@ VALUES
 (45, 10, 4),
 (33, 11, 4),
 (42, 12, 5),
-(42, 13, 5),
-(37, 14, 6),
-(32, 15, 6),
-(36, 16, 6),
-(46, 17, 7),
-(43, 18, 7),
-(30, 19, 7),
-(42, 20, 8);
+(42, 1, 5),
+(37, 2, 6),
+(32, 3, 6),
+(36, 4, 6),
+(46, 5, 7),
+(43, 6, 7),
+(30, 7, 7),
+(42, 8, 8);
 
 -- TRUNCATE TABLE Biglietti;
 use GestoreSagre;

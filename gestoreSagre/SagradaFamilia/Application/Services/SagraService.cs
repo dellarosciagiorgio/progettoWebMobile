@@ -15,11 +15,13 @@ namespace Application.Services
     public class SagraService : ISagraService
     {
         private readonly IMyDbContext _context;
+        private readonly IUserService _userService;
         //private readonly ILogger _logger;
         public SagraService(
             //ILogger<AcquirenteService> logger,
-            IMyDbContext context)
+            IMyDbContext context, IUserService userService)
         {
+            _userService = userService;
             // _logger = logger;
             _context = context;
         }
@@ -41,7 +43,6 @@ namespace Application.Services
 
         public async Task DeleteSagraAsync(DeleteSagraRequest request)
         {
-
             var sagraToDelete = SagraMapper.ToEntity(request);
             if (sagraToDelete == null)
             {
@@ -60,12 +61,14 @@ namespace Application.Services
             {
                 throw new Exception("L'organizzatore non è autorizzato a modificare questa sagra");
             }
-            _context.Entry(sagraToDelete).State = EntityState.Deleted;
+            _context.Sagre.Remove(sagraCheck);
             await _context.SaveChangesAsync();
+
         }
 
         public async Task<Sagra> EditSagraAsync(EditSagraRequest request)
         {
+            int? org = await _userService.GetOrgIdByUserIdAsync(request.IdUser);
             var sagra = SagraMapper.ToEntity(request);
             if (sagra == null)
             {
@@ -73,9 +76,12 @@ namespace Application.Services
             }
             if (sagra.IdOrganizzatore != request.IdUser)
             {
-                throw new Exception("L'organizzatore non è autorizzato a creare eventi per questa sagra");
+                throw new Exception("L'organizzatore non è autorizzato a modificare questa sagra");
             }
-            var sagraCheck = await _context.Sagre.FindAsync(sagra.IdSagra);
+            var sagraCheck = await _context.Sagre
+                .AsNoTracking()
+                .Where(s => s.IdSagra == sagra.IdSagra)
+                .FirstAsync();
             if (sagraCheck == null)
             {
                 throw new Exception("Sagra non trovata");
@@ -102,6 +108,7 @@ namespace Application.Services
             return await _context.Sagre
                 .Where(p => p.IdSagra == id)
                 .Include(s => s.Feedbacks)
+                .Include(t => t.Eventi)
                 .FirstAsync();
         }
         public async Task<double> GetRatingSagraAsync(int id)
@@ -113,6 +120,13 @@ namespace Application.Services
             return sagra.Feedbacks
                 .Where(f => f != null && f.Rating > 0)
                 .Average(f => f.Rating);
+        }
+
+        public async Task<List<Sagra>> GetSagreByOrgAsync(int idOrg)
+        {
+            return await _context.Sagre
+                .Where(p => p.IdOrganizzatore == idOrg)
+                .ToListAsync();
         }
     }
 }

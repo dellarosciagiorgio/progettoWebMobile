@@ -26,6 +26,7 @@ namespace Application.Extensions
             services.AddScoped<IFeedbackService, FeedbackService>();
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IPasswordService, PasswordService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

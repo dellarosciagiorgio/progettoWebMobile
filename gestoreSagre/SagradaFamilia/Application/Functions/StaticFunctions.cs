@@ -27,6 +27,22 @@ namespace Application.Functions
                 throw new Exception("L'utente non può fingersi un altro utente!");
             }
         }
+
+        static public void CheckUser(string userId, int idUser)
+        {
+            if (userId == null)
+            {
+                throw new Exception("Utente non autorizzato");
+            }
+            if (idUser <= 0)
+            {
+                throw new Exception("Id non valido");
+            }
+            else if (userId != idUser.ToString())
+            {
+                throw new Exception("L'utente non può fingersi un altro utente!");
+            }
+        }
         static public Ruolo GetRuoloByString(string ruolo)
         {
             if (ruolo == null)

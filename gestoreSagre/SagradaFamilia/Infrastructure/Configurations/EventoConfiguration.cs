@@ -11,7 +11,10 @@ namespace Infrastructure.Configurations
             builder.HasKey(p => p.IdEvento);
             builder.Property(p => p.IdEvento).HasColumnName("IdEvento");
             builder.Property(p => p.InformazioniAggiuntive).HasColumnName("InformazioniAggiuntive");
-            builder.HasOne(p => p.Sagra).WithMany(p => p.Eventi).HasForeignKey(p => p.IdSagra);
+            builder.HasOne(p => p.Sagra)
+                .WithMany(p => p.Eventi)
+                .HasForeignKey(p => p.IdSagra)
+                .OnDelete(DeleteBehavior.Cascade); 
         }
     }
 }

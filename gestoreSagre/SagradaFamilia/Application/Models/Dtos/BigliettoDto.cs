@@ -9,6 +9,5 @@ namespace Application.Models.Dtos
         public string Nominativo { get; set; }
         public int IdAcquirente { get; set; }
         public double Prezzo { get; set; }
-        public int IdEvento { get; set; }
     }
 }

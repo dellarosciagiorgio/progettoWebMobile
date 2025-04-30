@@ -13,9 +13,11 @@ namespace Web.Controllers
     public class SagraController : Controller
     {
         private readonly ISagraService _sagraService;
-        public SagraController(ISagraService sagraService)
+        private readonly IUserService _userService;
+        public SagraController(ISagraService sagraService, IUserService userService)
         {
             _sagraService = sagraService;
+            _userService = userService;
         }
 
         [HttpPost]
@@ -40,14 +42,33 @@ namespace Web.Controllers
         public async Task<IActionResult> Edit(EditSagraRequest request)
         {
             var userId = User.FindFirst("sub")?.Value;
+            var idorg = await _userService.GetOrgIdByUserIdAsync(int.Parse(userId));
             CheckUser(userId, request);
-
+            //request.IdUser = idorg;
             var result = await _sagraService.EditSagraAsync(request);
             return Ok(
                 ResponseFactory
                 .WithSuccess(SagraMapper.ToDto(result))
             );
         }
+
+        [HttpGet]
+        [Route("sagre/mysagre")]
+        [Authorize(policy: "IS_ORG")]
+        public async Task<IActionResult> GetSagreByOrg()
+        {
+            var userId = User.FindFirst("sub")?.Value;
+            var result = await _sagraService.GetSagreByOrgAsync(int.Parse(userId));
+            return Ok(
+               ResponseFactory
+               .WithSuccess(
+                   result.Select(s =>
+                   SagraMapper.ToDto(s)
+                   ).ToList()
+                   )
+            );
+        }
+
 
         [HttpGet]
         [Route("sagre")]

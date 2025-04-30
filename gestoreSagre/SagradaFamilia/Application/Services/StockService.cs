@@ -71,7 +71,12 @@ namespace Application.Services
         public async Task<StockBiglietto> EditQuantitaStockAsync(EditQuantitaStockRequest request)
         {
             var entity = StockMapper.ToEntity(request);
-            var evento = await _context.Eventi.FindAsync(entity.IdEvento);
+            var idEvento = await _context.Stocks
+                .Where(x => x.IdStock == entity.IdStock)
+                .AsNoTracking()
+                .Select(x => x.IdEvento)
+                .FirstOrDefaultAsync();
+            var evento = await _context.Eventi.FindAsync(idEvento);
             var sagra = await _context.Sagre
                 .Where(p => p.IdSagra == evento.IdSagra)
                 .FirstOrDefaultAsync();
@@ -79,10 +84,7 @@ namespace Application.Services
             {
                 throw new Exception("Evento non trovato");
             }
-            if (sagra.IdOrganizzatore != request.IdUser)
-            {
-                throw new Exception("L'organizzatore non è autorizzato a creare eventi per questa sagra");
-            }
+            
             var entry = _context.Entry(entity);
             entry.Property(x => x.Quantita).IsModified = true;
             await _context.SaveChangesAsync();

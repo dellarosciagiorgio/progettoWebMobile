@@ -18,6 +18,7 @@ namespace Application.Mapper
         public static Sagra ToEntity(DeleteSagraRequest request)
         {
             var entity = new Sagra();
+            entity.IdOrganizzatore = (int)request.IdUser;
             entity.IdSagra = request.IdSagra;
             return entity;
         }
@@ -26,6 +27,7 @@ namespace Application.Mapper
         {
             var entity = new Sagra();
             entity.IdSagra = request.IdSagra;
+            entity.IdOrganizzatore = (int)request.IdUser;
             entity.NomeSagra = request.NomeSagra;
             entity.Descrizione = request.Descrizione;
             return entity;
@@ -42,9 +44,11 @@ namespace Application.Mapper
             {
                 sagraDto.IdFeedbacks.Add(feedback.IdFeedback);
             }
+            foreach (Evento evento in sagra.Eventi)
+            {
+                sagraDto.IdEventi.Add(evento.IdEvento);
+            }
             return sagraDto;
         }
-
-
     }
 }

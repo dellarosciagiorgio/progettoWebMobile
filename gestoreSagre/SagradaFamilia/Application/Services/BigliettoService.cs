@@ -69,8 +69,7 @@ namespace Application.Services
                     TipoBiglietto = new TipoBiglietto
                     {
                         IdTipo = selector.TipoBiglietto!.IdTipo,
-                        Prezzo = selector.TipoBiglietto.Prezzo,
-                        IdEvento = selector.TipoBiglietto.IdEvento,
+                        Prezzo = selector.TipoBiglietto.Prezzo
                     }
                 })
                 .ToListAsync();

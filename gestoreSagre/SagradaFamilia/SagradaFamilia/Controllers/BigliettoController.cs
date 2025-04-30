@@ -35,7 +35,7 @@ namespace Web.Controllers
                     BigliettoMapper.ToDto(s)
                     ).ToList()
                     )
-             );
+            );
         }
 
         [HttpGet]

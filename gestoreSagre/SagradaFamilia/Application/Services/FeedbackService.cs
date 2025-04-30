@@ -5,6 +5,7 @@ using Application.Mapper;
 using Application.Models.Requests;
 using Application.Models.Requests;
 using Microsoft.EntityFrameworkCore;
+using Models.DetailedEntities;
 using Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -56,14 +57,22 @@ namespace Application.Services
              .Where(x => x.IdSagra == entity.IdSagra)
              .Select(x => x.Eventi)
              .FirstOrDefaultAsync();
-            var eventiAcquirente = await _context.Biglietti
-                .Where(x => x.IdAcquirente == entity.IdAcquirente)
-                .Include(x => x.TipoBiglietto)
-                .Select(x => x.TipoBiglietto.Evento)
+
+            var myTipoBiglietto = await _context.Biglietti
+               .Where(x => x.IdAcquirente == entity.IdAcquirente && x.TipoBiglietto != null)
+               .Select(x => x.TipoBiglietto!.IdTipo)
+               .ToListAsync();
+            var myIdEvento = await _context.Stocks
+                .Where(x => myTipoBiglietto.Contains(x.IdTipoBiglietto))
+                .Select(x => x.IdEvento)
+                .ToListAsync();
+
+            var myeventi = await _context.Eventi
+                .Where(x => myIdEvento.Contains(x.IdEvento))
                 .ToListAsync();
 
             //list di eventi a cui l'utente ha partecipato/parteciperà e che sono comuni con la sagra
-            var eventiComuni = eventiSagra.Intersect(eventiAcquirente).ToList();
+            var eventiComuni = eventiSagra.Intersect(myeventi).ToList();
 
             if (eventiComuni.Count == 0)
             {
