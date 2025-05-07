@@ -57,6 +57,16 @@ cd progettoWebMobile/
 ```
 
 ### Backend
+Creare un file .env nella stessa cartella del compose.yml file, ovvero in SagradaFamilia. Inserire in questo file le seguenti variabili:
+``` bash
+DB_CONN_STRING="Data Source=sqlserver,1433;Initial Catalog=GestoreSagre;User ID=sa;Password=sagre_admin!1234;Trust Server Certificate=True;"
+SA_PASSWORD=sagre_admin!1234
+SQL_CONT_NAME=sqlserver
+MY_SECRET=laTuaChiaveSegretaMoltoLunga123456789
+MY_PLATFORM=linux/amd64
+CERT_PASSWORD=laTuaChiaveSegretaMoltoLunga123456789
+```
+
 
 Per avviare il server eseguire i seguenti comandi:
 
@@ -70,6 +80,21 @@ Al termine, per chiudere il servizio occorre spegnere il container docker:
 ```bash
 docker compose down
 ```
+
+Il servizio di backend è stato sviluppato usando .NET seguendo quella che viene chiamata CLEAN architecture.
+Il codice si divide in 4 macro aree:
+- Application, parte dedicata alle logiche di business.
+- Model, entità e modelli.
+- Infrastructure, parte di collegamento al database e mapping delle entità.
+- Web, route path e api.
+
+Il servizio di backend comunica con un database relazionale, SQL Server.
+
+È stato scelto l'utilizzo di docker, in modo da ottenere una maggiore indipendenza nello sviluppo di frontend e backend. In questo modo i progettisti di frontend devono solamente cambiare qualche variabile d'ambiente, se necessario, e avviare il sistema.
+Questo avvierà i seguenti servizi:
+- backend, avviabile sulla porta 443
+- sql server
+- sql server configurator, servizio che permette di inizializzare il database creando il database, se non esiste, crea le tabelle e inserisce alcuni dati di esempio.
 
 ### Frontend
 
