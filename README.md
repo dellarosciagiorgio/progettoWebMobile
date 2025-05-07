@@ -4,26 +4,101 @@ A.A. 2024/25
 
 Giorgio Della Roscia, Daniela Di Lucchio e Mattia Di Spigno
 
-## Backend
+## Contesto
+
+<div align='center' width='100%'>
+    <img width='30%' src='gestoreSagre/static/logo.png' alt="Logo">
+</div>
+
+Il sito web realizzato è una piattaforma multiutente per la gestione di sagre paesane.
+
+Ogni sagra è considerata come entità astratta, in quanto non trova una connotazione spazio-temporale se non con gli eventi: le relative istanze.
+
+### Attori
+
+Ci sono tre possibili soggetti utilizzatori: gli acquirenti, gli organizzatori e gli admin. Oltre a questi abbiamo anche predisposto la navigabilità ristretta ad utenti non autenticati.
+
+Andiamo ora a vederli rispetto alle possibili interazioni col database.
+
+> [!NOTE]
+> Tutti gli use cases menzionati hanno relative API, ma non sempre una corrispettiva implementazione frontend. Ciò per due primarie motivazioni:
+> + non è richiesto dai requisiti imposti presentare un prodotto completo;
+> + vincoli temporali per cui abbiamo preferito svolgere almeno una chiamata per attore, in modo tale da poter validare il connubio autenticazione, quindi ruolo, e _poteri_.
+
+#### Utente non autenticato
+
+Sono disponibili le `GET` per la visualizzazione di sagre ed eventi, questi ultimi sia con data passata che futura rispetto quella attuale.
+
+Possibile utilizzo delle schermate di log in e sign up per autenticarsi al portale.
+
+#### Acquirente
+
+Si ha la possibilità di prenotare il biglietto per un evento, con relativa pagina dedicata alla visualizzazione di tutti i biglietti disponibili.
+
+È inoltre capace di rilasciare un feedback rispetto la sagra, non l'evento.
+
+#### Organizzatore
+
+Può caricare sagre ed eventi. Così come gestirne modifiche e rimozioni.
+
+#### Admin
+
+L'utente che intende registrarsi come organizzatore deve essere approvato dall'admin.
+
+Si ha inoltre la capacità di rimuovere un organizzatore o acquirente esistente.
+
+## Avvio
+
+Clonare innanzitutto la repository
+
+```bash
+git clone https://github.com/dellarosciagiorgio/progettoWebMobile
+cd progettoWebMobile/
+```
+
+### Backend
 
 Per avviare il server eseguire i seguenti comandi:
 
 ```bash
-cd gestoreSagre/SagradaFamilia
-sudo docker compose up --build -d
+cd gestoreSagre/SagradaFamilia/
+docker compose up --build -d
 ```
 
 Al termine, per chiudere il servizio occorre spegnere il container docker:
 
 ```bash
-sudo docker compose down
+docker compose down
 ```
 
-## Frontend
+### Frontend
 
 L'applicazione va lanciata eseguendo i seguenti comandi:
 
 ```bash
-cd gestoreSagre
+cd gestoreSagre/
 npm run dev -- --open
 ```
+
+In questo modo verrà automaticamente lanciata una scheda del browser all'indirizzo `http://localhost:5173/`
+
+## Tecnologie
+
+Avendo costruito pressoché un gestionale, necessitiamo di un backend che fornisca delle chiamate HTTP ad un database ed un frontend che permetta solamente agli utenti col giusto ruolo di effettuarle.
+
+### Backend
+
+<!-- C#, Docker -->
+
+### Frontend
+
+Come framework Javascript abbiamo scelto l'accoppiata [Svelte](https://svelte.dev/docs/svelte/overview)+[SvelteKit](https://svelte.dev/docs/kit/introduction).
+
+In fase di creazione del progetto ci siamo accorti che venivano messi a disposizione dei plugin, uno di questi era [mdsvex](https://mdsvex.pngwn.io/) che permette di scrivere pagine in Markdown anziché HTML. I file non avranno estensione _svelte_, ma _svx_.
+
+Non ne abbiamo sfruttato tutte le potenzialità in quanto abbiamo preferito creare i componenti da importare in routes, per far sì di mantenere ben organizzati i file delle pagine, che in Svelte prendono il nome di `+page`.
+
+> [!NOTE]
+> I componenti non possono utilizzare mdsvex!
+
+Abbiamo poi introdotto [Bootstrap](https://getbootstrap.com/) per gestire graficamente i fogli di stile con elementi già pronti all'uso.
