@@ -14,12 +14,12 @@
     
     // Form data per nuova sagra o modifica
     let formData = {
-        nome: '',
-        descrizione: '',
-        luogo: '',
-        dataInizio: '',
-        dataFine: '',
-        immagine: ''
+        NomeSagra: '',
+        Descrizione: '',
+        Luogo: '',
+        DataInizio: '',
+        DataFine: '',
+        Immagine: ''
     };
     
     // Funzione per ottenere un cookie
@@ -66,7 +66,7 @@
             }
             
             // In base all'API di Postman, usiamo l'endpoint Get Sagre
-            const response = await fetch(`${import.meta.env.VITE_API_URL}Get Sagre`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}sagre/mysagre`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -133,7 +133,7 @@
             console.log("Dati da inviare:", formData);
             
             // Usa l'endpoint "Add Sagra" come mostrato in Postman
-            const response = await fetch(`${import.meta.env.VITE_API_URL}Add Sagra`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}sagra`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -309,7 +309,7 @@
   function openEditModal(sagra) {
       currentSagra = sagra;
       formData = {
-          nome: sagra.nome,
+          NomeSagra: sagra.nome,
           descrizione: sagra.descrizione,
           luogo: sagra.luogo,
           dataInizio: formatDateForInput(sagra.dataInizio),
@@ -328,7 +328,7 @@
   // Resetta il form
   function resetForm() {
       formData = {
-          nome: '',
+          NomeSagra: '',
           descrizione: '',
           luogo: '',
           dataInizio: '',
