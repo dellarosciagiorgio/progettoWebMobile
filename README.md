@@ -23,7 +23,7 @@ Andiamo ora a vederli rispetto alle possibili interazioni col database.
 > [!NOTE]
 > Tutti gli use cases menzionati hanno relative API, ma non sempre una corrispettiva implementazione frontend. Ciò per due primarie motivazioni:
 > + non è richiesto dai requisiti imposti presentare un prodotto completo;
-> + vincoli temporali per cui abbiamo preferito svolgere almeno una chiamata per attore, in modo tale da poter validare il connubio autenticazione, quindi ruolo, e _poteri_.
+> + vincoli temporali.
 
 #### Utente non autenticato
 
@@ -57,8 +57,10 @@ cd progettoWebMobile/
 ```
 
 ### Backend
-Creare un file .env nella stessa cartella del compose.yml file, ovvero in SagradaFamilia. Inserire in questo file le seguenti variabili:
-``` bash
+
+Creare un file `.env` nella stessa cartella del `compose.yml` file, ovvero in `gestoreSagre/SagradaFamilia/`. Inserire in questo file le seguenti variabili:
+
+```
 DB_CONN_STRING="Data Source=sqlserver,1433;Initial Catalog=GestoreSagre;User ID=sa;Password=sagre_admin!1234;Trust Server Certificate=True;"
 SA_PASSWORD=sagre_admin!1234
 SQL_CONT_NAME=sqlserver
@@ -66,7 +68,6 @@ MY_SECRET=laTuaChiaveSegretaMoltoLunga123456789
 MY_PLATFORM=linux/amd64
 CERT_PASSWORD=laTuaChiaveSegretaMoltoLunga123456789
 ```
-
 
 Per avviare il server eseguire i seguenti comandi:
 
@@ -80,21 +81,6 @@ Al termine, per chiudere il servizio occorre spegnere il container docker:
 ```bash
 docker compose down
 ```
-
-Il servizio di backend è stato sviluppato usando .NET seguendo quella che viene chiamata CLEAN architecture.
-Il codice si divide in 4 macro aree:
-- Application, parte dedicata alle logiche di business.
-- Model, entità e modelli.
-- Infrastructure, parte di collegamento al database e mapping delle entità.
-- Web, route path e api.
-
-Il servizio di backend comunica con un database relazionale, SQL Server.
-
-È stato scelto l'utilizzo di docker, in modo da ottenere una maggiore indipendenza nello sviluppo di frontend e backend. In questo modo i progettisti di frontend devono solamente cambiare qualche variabile d'ambiente, se necessario, e avviare il sistema.
-Questo avvierà i seguenti servizi:
-- backend, avviabile sulla porta 443
-- sql server
-- sql server configurator, servizio che permette di inizializzare il database creando il database, se non esiste, crea le tabelle e inserisce alcuni dati di esempio.
 
 ### Frontend
 
@@ -113,7 +99,20 @@ Avendo costruito pressoché un gestionale, necessitiamo di un backend che fornis
 
 ### Backend
 
-<!-- C#, Docker -->
+Il servizio di backend è stato sviluppato usando .NET seguendo quella che viene chiamata CLEAN architecture.
+Il codice si divide in 4 macro aree:
++ **Application**, parte dedicata alle logiche di business;
++ **Model**, entità e modelli;
++ **Infrastructure**, parte di collegamento al database e mapping delle entità;
++ **Web**, route path e api.
+
+Il servizio di backend comunica con un database relazionale, SQL Server.
+
+È stato scelto l'utilizzo di docker, in modo da ottenere una maggiore indipendenza nello sviluppo di frontend e backend. In questo modo i progettisti di frontend devono solamente cambiare qualche variabile d'ambiente, se necessario, e avviare il sistema.
+Questo avvierà i seguenti servizi:
++ backend, avviabile sulla porta `443`
++ SQL server
++ SQL server configurator, servizio che permette di inizializzare il database creando il database, se non esiste, crea le tabelle e inserisce alcuni dati di esempio.
 
 ### Frontend
 
