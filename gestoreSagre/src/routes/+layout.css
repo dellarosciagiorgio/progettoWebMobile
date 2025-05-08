@@ -5,8 +5,9 @@
     --cottage-yellow: #f1e480;
 }
 
+/* ========== STRUTTURA NAVBAR ========== */
 .navbar-wrapper {
-    background-color:var(--cottage-light);
+    background-color: var(--cottage-light);
     padding: 1rem;
 }
 
@@ -16,14 +17,40 @@
     padding: 0.75rem 2rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     font-family: Georgia, serif;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
 }
 
+/* ========== LOGO/BRAND ========== */
 .navbar-brand {
     font-weight: bold;
     color: var(--cottage-orange) !important;
     font-size: 1.5rem;
     display: flex;
     align-items: center;
+    text-decoration: none;
+}
+
+.brand-text {
+    display: inline-block;
+}
+
+/* ========== MENU PRINCIPALE ========== */
+.main-nav {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+/* NUOVO STILE PER LINKS CENTRATI */
+.nav-links-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 auto;
 }
 
 .nav-link {
@@ -32,6 +59,8 @@
     padding: 0.5rem 1rem;
     border-radius: 1rem;
     transition: background-color 0.2s;
+    text-decoration: none;
+    display: block;
 }
 
 .nav-link:hover,
@@ -40,90 +69,10 @@
     color: white !important;
 }
 
-.btn-signin {
-    background: none;
-    border: none;
-    color: var(--cottage-dark);
-    font-weight: 500;
-    margin-right: 0.5rem;
-}
-
-.btn-signup {
-    background-color: var(--cottage-yellow);
-    border: none;
-    padding: 0.4rem 1rem;
-    border-radius: 1rem;
-    font-weight: 600;
-    color: var(--cottage-dark);
-}
-
-.nav-center {
-    flex: 1;
-    justify-content: center;
-}
-
-.dropdown-menu {
-    background-color: var(--cottage-light);
-    border-radius: 1rem;
-    border: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.dropdown-item {
-    color: var(--cottage-dark);
-    font-size: 0.95rem;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.2s;
-}
-
-.dropdown-item:hover {
-    background-color: var(--cottage-yellow);
-    color: var(--cottage-dark);
-    border-radius: 0.5rem;
-}
-
-/* Stili per l'icona del profilo */
-.profile-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--cottage-orange);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.profile-dropdown {
-    min-width: 200px;
-}
-
-.user-email {
-    font-size: 0.9rem;
-    color: var(--cottage-dark);
-    opacity: 0.8;
-    padding: 0.5rem 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin-bottom: 0.5rem;
-}
-
-.logout-btn {
-    color: #d62828;
-    font-weight: 500;
-}
-
-.logout-btn:hover {
-    background-color: rgba(214, 40, 40, 0.1);
-    color: #d62828;
-}
-/* Stile per il dropdown eventi custom */
-.eventi-dropdown {
+/* ========== DROPDOWN EVENTI ========== */
+.nav-link-dropdown {
     position: relative;
+    display: inline-block;
 }
 
 .custom-dropdown {
@@ -158,45 +107,10 @@
     background-color: #f8f9fa;
 }
 
-/* Stile profilo dropdown */
-.profile-dropdown {
-    position: relative;
-}
-
-.profile-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #e67e22;
-    color: white;
+/* ========== SEZIONE AUTENTICAZIONE ========== */
+.auth-section {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.profile-menu {
-    right: 0;
-    left: auto;
-    transform: none;
-    min-width: 200px;
-}
-
-.user-email {
-    padding: 0.5rem 1rem;
-    font-weight: 500;
-    color: #6c757d;
-    border-bottom: 1px solid #dee2e6;
-    margin-bottom: 0.5rem;
-}
-
-.logout-btn {
-    width: 100%;
-    text-align: left;
-    background: none;
-    border: none;
-    color: #dc3545;
 }
 
 /* Stile per i pulsanti di login e registrazione */
@@ -222,4 +136,203 @@
 
 .btn-register:hover {
     background-color: #f39c12;
+}
+
+/* Stili per l'icona del profilo */
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--cottage-orange);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-menu {
+    right: 0;
+    left: auto;
+    transform: none;
+    min-width: 200px;
+}
+
+.user-email {
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    color: #6c757d;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 0.5rem;
+}
+
+.logout-btn {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #dc3545;
+}
+
+.logout-btn:hover {
+    background-color: rgba(214, 40, 40, 0.1);
+    color: #d62828;
+}
+
+/* ========== MENU MOBILE ========== */
+/* Pulsante Menu Mobile */
+.menu-button {
+    background-color: var(--cottage-orange);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.menu-button:hover {
+    background-color: #d46a00;
+}
+
+/* Menu Mobile Dropdown */
+.mobile-menu {
+    position: fixed;
+    top: 85px;
+    left: 0;
+    right: 0;
+    background-color: var(--cottage-light);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem;
+    margin: 0 1rem;
+    padding: 1rem;
+    z-index: 1050;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.mobile-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav-item {
+    margin-bottom: 0.75rem;
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: 0.75rem 1rem;
+    color: var(--cottage-dark);
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+    background-color: var(--cottage-orange);
+    color: white;
+}
+
+.nested-item {
+    margin-left: 1rem;
+    font-size: 0.95rem;
+}
+
+.mobile-nav-divider {
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
+    margin: 1rem 0;
+}
+
+.mobile-user-email {
+    padding: 0.5rem 1rem;
+    color: var(--cottage-dark);
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.mobile-logout-btn {
+    color: #d62828;
+    text-align: center;
+    background: none;
+    border: none;
+    width: 100%;
+}
+
+.mobile-register {
+    background-color: var(--cottage-orange);
+    color: white !important;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+/* Medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    /* Nascondi elementi desktop, mostra elementi mobile */
+    .main-nav, .auth-section {
+        display: none !important;
+    }
+    
+    .menu-button {
+        display: block;
+    }
+    
+    .navbar {
+        padding: 0.75rem 1.25rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.25rem;
+    }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) {
+    .navbar-wrapper {
+        padding: 0.75rem;
+    }
+    
+    .brand-text {
+        max-width: 150px;
+    }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .navbar-wrapper {
+        padding: 0.5rem;
+    }
+    
+    .navbar {
+        border-radius: 1rem;
+        padding: 0.5rem 1rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    
+    .brand-text {
+        max-width: 120px;
+    }
+    
+    .menu-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
 }

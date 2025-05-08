@@ -14,4 +14,4 @@ export async function load({ cookies }) {
   
   // Non carichiamo i dati lato server, lo faremo nel componente client
   return {};
-}
+} 

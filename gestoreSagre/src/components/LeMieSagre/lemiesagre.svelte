@@ -3,6 +3,7 @@
     import { isAuthenticated, userEmail, role } from "$lib/stores";
     import { browser } from "$app/environment";
     import "bootstrap/dist/css/bootstrap.min.css";
+    import "./LeMieSagre.css";
 
     let sagre = [];
     let isLoading = true;
@@ -19,7 +20,7 @@
         luogo: "",
         dataInizio: "",
         dataFine: "",
-        immagine: "",
+        immagine: ""
     };
 
     // Funzione per ottenere un cookie
@@ -55,6 +56,30 @@
         return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
     }
 
+    // Funzione per normalizzare i dati delle sagre (assicura consistenza nei nomi delle proprietà)
+    function normalizzaDatiSagre(sagreData) {
+        return sagreData.map(sagra => {
+            // Log per debug
+            console.log("Struttura sagra originale:", JSON.stringify(sagra));
+            
+            // Assicura che tutte le proprietà necessarie siano presenti
+            const normalizedSagra = {
+                id: sagra.id || sagra.idSagra || sagra.IdSagra || "",
+                idSagra: sagra.idSagra || sagra.IdSagra || sagra.id || "",
+                nome: sagra.nome || sagra.nomeSagra || sagra.NomeSagra || "",
+                nomeSagra: sagra.nomeSagra || sagra.NomeSagra || sagra.nome || "",
+                descrizione: sagra.descrizione || sagra.Descrizione || "",
+                luogo: sagra.luogo || sagra.Luogo || "",
+                dataInizio: sagra.dataInizio || sagra.DataInizio || "",
+                dataFine: sagra.dataFine || sagra.DataFine || "",
+                immagine: sagra.immagine || sagra.Immagine || ""
+            };
+            
+            console.log("Sagra normalizzata:", JSON.stringify(normalizedSagra));
+            return normalizedSagra;
+        });
+    }
+
     // Carica le sagre dell'organizzatore
     async function loadMySagre() {
         isLoading = true;
@@ -73,9 +98,9 @@
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                },
+                        Authorization: `Bearer ${token}`
+                    }
+                }
             );
 
             // Controlla se la risposta è vuota
@@ -94,7 +119,7 @@
             } catch (jsonError) {
                 console.error("Errore nel parsing JSON:", jsonError);
                 throw new Error(
-                    `Errore nel parsing della risposta: ${responseText.substring(0, 100)}...`,
+                    `Errore nel parsing della risposta: ${responseText.substring(0, 100)}...`
                 );
             }
 
@@ -106,21 +131,27 @@
                 throw new Error(errorMsg);
             }
 
-            // Filtra le sagre per quelle dell'organizzatore corrente (assumiamo che ci sia un campo organizzatore_id o simile)
-            // Nota: Questo può essere fatto dal backend, ma se non c'è un endpoint specifico, lo facciamo lato client
-            const userEmail = getCookie("userEmail");
-
-            if (data.success && data.data) {
-                // Se il backend ritorna già le sagre filtrate per organizzatore
-                sagre = data.data;
+            // Log dei dati ricevuti per debug
+            console.log("Struttura dati ricevuti:", data);
+            
+            // Estrai le sagre dai dati ricevuti
+            let sagreData = [];
+            if (data.success === true && Array.isArray(data.data)) {
+                sagreData = data.data;
+                console.log("Dati estratti da data.success.data");
             } else if (Array.isArray(data)) {
-                // Se il backend ritorna un array di sagre
-                sagre = data;
-            } else {
-                sagre = [];
+                sagreData = data;
+                console.log("Dati estratti direttamente dall'array");
+            } else if (typeof data === 'object' && data !== null) {
+                // Se data è un oggetto singolo, probabilmente è una sagra
+                sagreData = [data];
+                console.log("Dati estratti da oggetto singolo");
             }
-
-            console.log("Sagre caricate:", sagre);
+            
+            // Normalizza i dati delle sagre
+            sagre = normalizzaDatiSagre(sagreData);
+            
+            console.log("Sagre normalizzate:", sagre);
         } catch (err) {
             console.error("Errore nel caricamento delle sagre:", err);
             error = err.message;
@@ -141,13 +172,13 @@
             let nomeSagra, descrizioneSagra;
 
             if (formData) {
-            nomeSagra = formData.nome;
-            descrizioneSagra = formData.descrizione;
-        } else {
-            console.warn("formData.success è false o formData non è definito. Utilizzo valori di default.");
-            nomeSagra = "";
-            descrizioneSagra = "";
-        }
+                nomeSagra = formData.nome;
+                descrizioneSagra = formData.descrizione;
+            } else {
+                console.warn("formData.success è false o formData non è definito. Utilizzo valori di default.");
+                nomeSagra = "";
+                descrizioneSagra = "";
+            }
             // Usa l'endpoint "Add Sagra" come mostrato in Postman
             const response = await fetch(
                 `${import.meta.env.VITE_API_URL}sagra/`,
@@ -155,10 +186,10 @@
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`
                     },
-                    body: JSON.stringify({ NomeSagra: nomeSagra, Descrizione: descrizioneSagra }),
-                },
+                    body: JSON.stringify({ NomeSagra: nomeSagra, Descrizione: descrizioneSagra })
+                }
             );
 
             // Controlla se la risposta è vuota
@@ -177,7 +208,7 @@
             } catch (jsonError) {
                 console.error("Errore nel parsing JSON:", jsonError);
                 throw new Error(
-                    `Errore nel parsing della risposta: ${responseText.substring(0, 100)}...`,
+                    `Errore nel parsing della risposta: ${responseText.substring(0, 100)}...`
                 );
             }
 
@@ -218,13 +249,13 @@
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         id: currentSagra.id,
-                        ...formData,
-                    }),
-                },
+                        ...formData
+                    })
+                }
             );
 
             // Controlla se la risposta è vuota
@@ -243,7 +274,7 @@
             } catch (jsonError) {
                 console.error("Errore nel parsing JSON:", jsonError);
                 throw new Error(
-                    `Errore nel parsing della risposta: ${responseText.substring(0, 100)}...`,
+                    `Errore nel parsing della risposta: ${responseText.substring(0, 100)}...`
                 );
             }
 
@@ -281,10 +312,10 @@
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`
                     },
-                    body: JSON.stringify({ IdSagra: currentSagra.idSagra }),
-                },
+                    body: JSON.stringify({ IdSagra: currentSagra.idSagra })
+                }
             );
 
             // Controlla se la risposta è vuota
@@ -293,7 +324,7 @@
                 // Per DELETE, una risposta vuota può essere normale
                 if (response.ok) {
                     console.log(
-                        "Sagra eliminata con successo (risposta vuota)",
+                        "Sagra eliminata con successo (risposta vuota)"
                     );
                     // Ricarica le sagre dopo l'eliminazione
                     await loadMySagre();
@@ -301,10 +332,10 @@
                     return;
                 } else {
                     console.error(
-                        "Risposta vuota dal server con stato di errore",
+                        "Risposta vuota dal server con stato di errore"
                     );
                     throw new Error(
-                        `Errore durante l'eliminazione della sagra: ${response.status}`,
+                        `Errore durante l'eliminazione della sagra: ${response.status}`
                     );
                 }
             }
@@ -320,14 +351,14 @@
                 // Se il response.ok è true, considera comunque l'operazione come riuscita
                 if (response.ok) {
                     console.log(
-                        "Sagra eliminata con successo (risposta non-JSON)",
+                        "Sagra eliminata con successo (risposta non-JSON)"
                     );
                     await loadMySagre();
                     showDeleteModal = false;
                     return;
                 }
                 throw new Error(
-                    `Errore nel parsing della risposta: ${responseText.substring(0, 100)}...`,
+                    `Errore nel parsing della risposta: ${responseText.substring(0, 100)}...`
                 );
             }
 
@@ -354,12 +385,12 @@
     function openEditModal(sagra) {
         currentSagra = sagra;
         formData = {
-            nome: sagra.nome,
-            descrizione: sagra.descrizione,
-            luogo: sagra.luogo,
-            dataInizio: formatDateForInput(sagra.dataInizio),
-            dataFine: formatDateForInput(sagra.dataFine),
-            immagine: sagra.immagine || "",
+            nome: sagra.nome || "",
+            descrizione: sagra.descrizione || "",
+            luogo: sagra.luogo || "",
+            dataInizio: formatDateForInput(sagra.dataInizio) || "",
+            dataFine: formatDateForInput(sagra.dataFine) || "",
+            immagine: sagra.immagine || ""
         };
         showEditModal = true;
     }
@@ -378,7 +409,7 @@
             luogo: "",
             dataInizio: "",
             dataFine: "",
-            immagine: "",
+            immagine: ""
         };
     }
 
@@ -387,6 +418,7 @@
         window.location.href = `/Sagra/${sagraId}/Eventi`;
     }
 
+    /* Correggi accesso alle proprietà sagra */
     onMount(() => {
         if (!browser) return;
 
@@ -407,21 +439,20 @@
 
 <svelte:head>
     <title>Le Mie Sagre | Village Festival</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </svelte:head>
 
 <div class="container mt-4">
-    <div
-        class="page-header d-flex justify-content-between align-items-center mb-4"
-    >
+    <div class="page-header d-flex justify-content-between align-items-center mb-4">
         <h1>Le Mie Sagre</h1>
         <button
-            class="btn btn-primary"
+            class="btn btn-add-sagra"
             on:click={() => {
                 resetForm();
                 showAddModal = true;
             }}
         >
-            <i class="bi bi-plus-circle me-2"></i>Aggiungi Sagra
+            <span class="add-icon">+</span> Aggiungi Sagra
         </button>
     </div>
 
@@ -443,7 +474,7 @@
             iniziare.
         </div>
     {:else}
-        <div class="row row-cols-1 row-cols-md-2 row-co ls-lg-3 g-4">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
             {#each sagre as sagra}
                 <div class="col">
                     <div class="card h-100 event-card">
@@ -452,53 +483,60 @@
                                 src={sagra.immagine}
                                 class="card-img-top"
                                 alt={sagra.nome}
-                                style="height: 200px; object-fit: cover;"
                             />
                         {:else}
-                            <div
-                                class="card-img-top bg-light d-flex justify-content-center align-items-center"
-                                style="height: 200px;"
-                            >
-                                <i
-                                    class="bi bi-image text-secondary"
-                                    style="font-size: 3rem;"
-                                ></i>
+                            <div class="card-img-placeholder">
+                                <div class="no-image-text">Nessuna immagine</div>
                             </div>
                         {/if}
                         <div class="card-body">
                             <h5 class="card-title">{sagra.nome}</h5>
-                            <p class="card-text">{sagra.descrizione}</p>
-                            <p class="card-text">
-                                <i class="bi bi-geo-alt me-2"></i>{sagra.luogo}
+                            <p class="card-text description">
+                                {#if sagra.descrizione}
+                                    {sagra.descrizione}
+                                {:else}
+                                    <span class="no-description">Nessuna descrizione disponibile</span>
+                                {/if}
                             </p>
-                            <p class="card-text">
-                                <i class="bi bi-calendar-event me-2"></i>
-                                {formatDate(sagra.dataInizio)} - {formatDate(
-                                    sagra.dataFine,
-                                )}
+                            <p class="card-text location">
+                                <span class="location-prefix">Luogo:</span> 
+                                {#if sagra.luogo} 
+                                    {sagra.luogo}
+                                {:else}
+                                    <span class="missing-data">Non specificato</span>
+                                {/if}
+                            </p>
+                            <p class="card-text date">
+                                <span class="date-prefix">Date:</span> 
+                                {#if sagra.dataInizio || sagra.dataFine}
+                                    {formatDate(sagra.dataInizio)} - {formatDate(sagra.dataFine)}
+                                {:else}
+                                    <span class="missing-data">Non specificate</span>
+                                {/if}
                             </p>
                         </div>
-                        <div class="card-footer bg-white border-top-0">
+                        <div class="card-footer">
                             <div class="d-flex justify-content-between">
                                 <button
-                                    class="btn btn-outline-primary"
+                                    class="btn btn-events"
                                     on:click={() => viewEvents(sagra.id)}
                                 >
-                                    <i class="bi bi-calendar2-week me-1"></i>
                                     Eventi
                                 </button>
-                                <div>
+                                <div class="action-buttons">
                                     <button
-                                        class="btn btn-outline-secondary me-2"
+                                        class="btn btn-edit"
                                         on:click={() => openEditModal(sagra)}
+                                        title="Modifica sagra"
                                     >
-                                        <i class="bi bi-pencil"></i>
+                                        <span class="edit-icon">✏️</span>
                                     </button>
                                     <button
-                                        class="btn btn-outline-danger"
+                                        class="btn btn-delete"
                                         on:click={() => openDeleteModal(sagra)}
+                                        title="Elimina sagra"
                                     >
-                                        <i class="bi bi-trash"></i>
+                                        <span class="delete-icon">🗑️</span>
                                     </button>
                                 </div>
                             </div>
@@ -512,8 +550,8 @@
 
 <!-- Modal Aggiungi Sagra -->
 {#if showAddModal}
-    <div class="modal fade show" style="display: block;" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+    <div class="modal-overlay">
+        <div class="modal-wrapper">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Aggiungi Nuova Sagra</h5>
@@ -536,9 +574,7 @@
                             />
                         </div>
                         <div class="mb-3">
-                            <label for="descrizione" class="form-label"
-                                >Descrizione*</label
-                            >
+                            <label for="descrizione" class="form-label">Descrizione*</label>
                             <textarea
                                 class="form-control"
                                 id="descrizione"
@@ -559,9 +595,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="dataInizio" class="form-label"
-                                    >Data Inizio*</label
-                                >
+                                <label for="dataInizio" class="form-label">Data Inizio*</label>
                                 <input
                                     type="date"
                                     class="form-control"
@@ -571,9 +605,7 @@
                                 />
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="dataFine" class="form-label"
-                                    >Data Fine*</label
-                                >
+                                <label for="dataFine" class="form-label">Data Fine*</label>
                                 <input
                                     type="date"
                                     class="form-control"
@@ -584,9 +616,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="immagine" class="form-label"
-                                >URL Immagine</label
-                            >
+                            <label for="immagine" class="form-label">URL Immagine</label>
                             <input
                                 type="url"
                                 class="form-control"
@@ -594,33 +624,30 @@
                                 bind:value={formData.immagine}
                             />
                             <div class="form-text">
-                                Inserisci un URL valido per l'immagine della
-                                sagra
+                                Inserisci un URL valido per l'immagine della sagra
                             </div>
                         </div>
-                        <div class="text-end">
+                        <div class="modal-footer">
                             <button
                                 type="button"
-                                class="btn btn-secondary me-2"
+                                class="btn btn-secondary"
                                 on:click={() => (showAddModal = false)}
-                                >Annulla</button
-                            >
-                            <button type="submit" class="btn btn-primary"
-                                >Salva</button
-                            >
+                            >Annulla</button>
+                            <button type="submit" class="btn btn-submit">
+                                <span class="save-icon">💾</span> Salva
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal-backdrop fade show"></div>
 {/if}
 
 <!-- Modal Modifica Sagra -->
 {#if showEditModal && currentSagra}
-    <div class="modal fade show" style="display: block;" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+    <div class="modal-overlay">
+        <div class="modal-wrapper">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Modifica Sagra</h5>
@@ -633,9 +660,7 @@
                 <div class="modal-body">
                     <form on:submit|preventDefault={updateSagra}>
                         <div class="mb-3">
-                            <label for="edit-nome" class="form-label"
-                                >Nome*</label
-                            >
+                            <label for="edit-nome" class="form-label">Nome*</label>
                             <input
                                 type="text"
                                 class="form-control"
@@ -645,9 +670,7 @@
                             />
                         </div>
                         <div class="mb-3">
-                            <label for="edit-descrizione" class="form-label"
-                                >Descrizione*</label
-                            >
+                            <label for="edit-descrizione" class="form-label">Descrizione*</label>
                             <textarea
                                 class="form-control"
                                 id="edit-descrizione"
@@ -657,9 +680,7 @@
                             ></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="edit-luogo" class="form-label"
-                                >Luogo*</label
-                            >
+                            <label for="edit-luogo" class="form-label">Luogo*</label>
                             <input
                                 type="text"
                                 class="form-control"
@@ -670,9 +691,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="edit-dataInizio" class="form-label"
-                                    >Data Inizio*</label
-                                >
+                                <label for="edit-dataInizio" class="form-label">Data Inizio*</label>
                                 <input
                                     type="date"
                                     class="form-control"
@@ -682,9 +701,7 @@
                                 />
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="edit-dataFine" class="form-label"
-                                    >Data Fine*</label
-                                >
+                                <label for="edit-dataFine" class="form-label">Data Fine*</label>
                                 <input
                                     type="date"
                                     class="form-control"
@@ -695,9 +712,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="edit-immagine" class="form-label"
-                                >URL Immagine</label
-                            >
+                            <label for="edit-immagine" class="form-label">URL Immagine</label>
                             <input
                                 type="url"
                                 class="form-control"
@@ -705,33 +720,30 @@
                                 bind:value={formData.immagine}
                             />
                             <div class="form-text">
-                                Inserisci un URL valido per l'immagine della
-                                sagra
+                                Inserisci un URL valido per l'immagine della sagra
                             </div>
                         </div>
-                        <div class="text-end">
+                        <div class="modal-footer">
                             <button
                                 type="button"
-                                class="btn btn-secondary me-2"
+                                class="btn btn-secondary"
                                 on:click={() => (showEditModal = false)}
-                                >Annulla</button
-                            >
-                            <button type="submit" class="btn btn-primary"
-                                >Aggiorna</button
-                            >
+                            >Annulla</button>
+                            <button type="submit" class="btn btn-submit">
+                                <span class="save-icon">💾</span> Aggiorna
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal-backdrop fade show"></div>
 {/if}
 
 <!-- Modal Elimina Sagra -->
 {#if showDeleteModal && currentSagra}
-    <div class="modal fade show" style="display: block;" tabindex="-1">
-        <div class="modal-dialog">
+    <div class="modal-overlay">
+        <div class="modal-wrapper delete-modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Conferma Eliminazione</h5>
@@ -741,81 +753,42 @@
                         on:click={() => (showDeleteModal = false)}
                     ></button>
                 </div>
-                <div class="modal-body">
-                    <p>
-                        Sei sicuro di voler eliminare la sagra "{currentSagra.nomeSagra}"?
-                    </p>
-                    <p class="text-danger">
-                        Questa azione è irreversibile e comporterà anche
-                        l'eliminazione di tutti gli eventi associati.
-                    </p>
+                <div class="modal-body delete-modal-body">
+                    <div class="delete-warning-icon">
+                        <span class="warning-icon">⚠️</span>
+                    </div>
+                    <h4 class="delete-title">
+                        {#if currentSagra.nomeSagra || currentSagra.nome}
+                            Stai per eliminare la sagra "{currentSagra.nomeSagra || currentSagra.nome}"
+                        {:else}
+                            Stai per eliminare questa sagra
+                        {/if}
+                    </h4>
+                    <div class="delete-warning">
+                        <p>
+                            Questa azione è <strong>irreversibile</strong> e comporterà anche
+                            l'eliminazione di tutti gli eventi associati.
+                        </p>
+                        <p>
+                            Sei sicuro di voler procedere?
+                        </p>
+                    </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer delete-modal-footer">
                     <button
                         type="button"
                         class="btn btn-secondary"
                         on:click={() => (showDeleteModal = false)}
-                        >Annulla</button
-                    >
+                    >Annulla</button>
                     <button
                         type="button"
-                        class="btn btn-danger"
-                        on:click={deleteSagra}>Elimina</button
+                        class="btn btn-delete-confirm"
+                        on:click={deleteSagra}
                     >
+                        <span class="trash-icon">🗑️</span> Elimina Sagra
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="modal-backdrop fade show"></div>
 {/if}
-
-<style>
-    .page-header h1 {
-        color: #333;
-        margin-bottom: 0;
-    }
-
-    .event-card {
-        transition:
-            transform 0.3s ease,
-            box-shadow 0.3s ease;
-        border-radius: 10px;
-        overflow: hidden;
-        border: none;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .event-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .card-title {
-        font-weight: bold;
-        color: #333;
-    }
-
-    .card-footer {
-        background: none;
-        border-top: none;
-        padding-top: 0;
-    }
-
-    .card-text {
-        color: #555;
-    }
-
-    .modal-content {
-        border-radius: 12px;
-        border: none;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .modal-header {
-        border-bottom: 1px solid #eee;
-    }
-
-    .modal-footer {
-        border-top: 1px solid #eee;
-    }
-</style>

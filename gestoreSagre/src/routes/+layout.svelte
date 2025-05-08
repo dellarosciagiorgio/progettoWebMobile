@@ -17,6 +17,18 @@
     // Gestione del dropdown eventi manuale
     let eventiDropdownOpen = false;
     
+    // Stato per il menu mobile
+    let mobileMenuOpen = false;
+    
+    function toggleMobileMenu() {
+        mobileMenuOpen = !mobileMenuOpen;
+        // Chiudi altri dropdown quando si apre il menu mobile
+        if (mobileMenuOpen) {
+            eventiDropdownOpen = false;
+            profileDropdownOpen = false;
+        }
+    }
+    
     function toggleEventiDropdown(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -112,6 +124,11 @@
         if (!e.target.closest('.profile-dropdown') && !e.target.closest('.profile-icon')) {
             closeProfileDropdown();
         }
+        
+        // Aggiungiamo la gestione per il menu mobile
+        if (!e.target.closest('.mobile-menu') && !e.target.closest('.menu-button')) {
+            mobileMenuOpen = false;
+        }
     }
     
     // Mantieni aggiornata la variabile userRole quando cambia lo store role
@@ -172,58 +189,53 @@
 </script>
 
 <div class="navbar-wrapper">
-    <nav class="navbar d-flex align-items-center">
-        
-        <a class="navbar-brand me-4" href="/Home">
+    <nav class="navbar">
+        <!-- Logo/Brand a sinistra -->
+        <a class="navbar-brand" href="/Home">
             <img src="/logo.png" alt="Logo" width="28" height="28" class="me-2" />
-            Village Festival
+            <span class="brand-text">Village Festival</span>
         </a>
         
-        <ul class="navbar-nav d-flex flex-row nav-center">
-            <!-- Home sempre visibile a tutti -->
-            <li class="nav-item">
+        <!-- MENU PRINCIPALE CENTRATO - visibile solo su desktop -->
+        <div class="main-nav d-none d-lg-flex">
+            <div class="nav-links-center">
+                <!-- Home -->
                 <a class="nav-link" class:active={$page.url.pathname === '/Home'} href="/Home">Home</a>
-            </li>
-            
-            {#if userRole !== 'Organizzatore'}
-                <!-- Elementi visibili SOLO ai NON organizzatori (acquirenti) -->
                 
-                <!-- Dropdown Eventi - Implementazione completamente custom -->
-                <li class="nav-item eventi-dropdown">
-                    <a href="/Eventi" 
-                       class="nav-link eventi-link" 
-                       class:active={$page.url.pathname.includes('/Eventi')} 
-                       on:click={toggleEventiDropdown}>
-                        Eventi
-                        <i class="bi bi-chevron-down ms-1"></i>
-                    </a>
+                {#if userRole !== 'Organizzatore'}
+                    <!-- Eventi (con potenziale dropdown) -->
+                    <div class="nav-link-dropdown">
+                        <a href="/Eventi" 
+                           class="nav-link eventi-link" 
+                           class:active={$page.url.pathname.includes('/Eventi')} 
+                           on:click={toggleEventiDropdown}>
+                            Eventi
+                            <i class="bi bi-chevron-down ms-1"></i>
+                        </a>
+                        
+                        {#if eventiDropdownOpen}
+                            <div class="custom-dropdown">
+                                <a href="/Eventi/EventiFuturi" class="dropdown-item">Eventi Futuri</a>
+                                <a href="/Eventi/EventiPassati" class="dropdown-item">Eventi Passati</a>
+                            </div>
+                        {/if}
+                    </div>
                     
-                    {#if eventiDropdownOpen}
-                        <div class="custom-dropdown">
-                            <a href="/Eventi/EventiFuturi" class="dropdown-item">Eventi Futuri</a>
-                            <a href="/Eventi/EventiPassati" class="dropdown-item">Eventi Passati</a>
-                        </div>
-                    {/if}
-                </li>
-                
-                <li class="nav-item">
+                    <!-- Sagre -->
                     <a class="nav-link" class:active={$page.url.pathname === '/Sagre'} href="/Sagre">Sagre</a>
-                </li>
-                
-                {#if $isAuthenticated}
-                    <li class="nav-item">
+                    
+                    {#if $isAuthenticated}
                         <a class="nav-link" class:active={$page.url.pathname === '/Biglietto'} href="/Biglietto">I miei biglietti</a>
-                    </li>
-                {/if}
-            {:else}
-                <!-- Elementi visibili SOLO agli organizzatori -->
-                <li class="nav-item">
+                    {/if}
+                {:else}
+                    <!-- Elementi visibili SOLO agli organizzatori -->
                     <a class="nav-link" class:active={$page.url.pathname === '/LeMieSagre'} href="/LeMieSagre">Le mie sagre</a>
-                </li>
-            {/if}
-        </ul>
+                {/if}
+            </div>
+        </div>
         
-        <div class="ms-auto d-flex align-items-center">
+        <!-- AUTH DESKTOP - visibile solo su desktop -->
+        <div class="auth-section d-none d-lg-flex">
             {#if $isAuthenticated}
                 <!-- Mostra l'icona del profilo con menu a tendina quando utente è loggato -->
                 <div class="profile-dropdown">
@@ -256,8 +268,73 @@
                 <a href="/Registrazione" class="btn btn-register">Registrazione</a>
             {/if}
         </div>
+        
+        <!-- Pulsante Menu Mobile - visibile solo su mobile -->
+        <button class="menu-button d-lg-none" on:click={toggleMobileMenu}>
+            {mobileMenuOpen ? 'Chiudi' : 'Menu'}
+        </button>
+        
+        <!-- MENU MOBILE - visibile solo quando aperto -->
+        {#if mobileMenuOpen}
+            <div class="mobile-menu">
+                <ul class="mobile-nav">
+                    <!-- Home -->
+                    <li class="mobile-nav-item">
+                        <a class="mobile-nav-link" class:active={$page.url.pathname === '/Home'} href="/Home">Home</a>
+                    </li>
+                    
+                    {#if userRole !== 'Organizzatore'}
+                        <!-- Elementi visibili SOLO ai NON organizzatori (acquirenti) -->
+                        <li class="mobile-nav-item">
+                            <a href="/Eventi" class="mobile-nav-link" class:active={$page.url.pathname.includes('/Eventi')}>Eventi</a>
+                        </li>
+                        <li class="mobile-nav-item nested-item">
+                            <a href="/Eventi/EventiFuturi" class="mobile-nav-link">- Eventi Futuri</a>
+                        </li>
+                        <li class="mobile-nav-item nested-item">
+                            <a href="/Eventi/EventiPassati" class="mobile-nav-link">- Eventi Passati</a>
+                        </li>
+                        
+                        <li class="mobile-nav-item">
+                            <a class="mobile-nav-link" class:active={$page.url.pathname === '/Sagre'} href="/Sagre">Sagre</a>
+                        </li>
+                        
+                        {#if $isAuthenticated}
+                            <li class="mobile-nav-item">
+                                <a class="mobile-nav-link" class:active={$page.url.pathname === '/Biglietto'} href="/Biglietto">I miei biglietti</a>
+                            </li>
+                        {/if}
+                    {:else}
+                        <!-- Elementi visibili SOLO agli organizzatori -->
+                        <li class="mobile-nav-item">
+                            <a class="mobile-nav-link" class:active={$page.url.pathname === '/LeMieSagre'} href="/LeMieSagre">Le mie sagre</a>
+                        </li>
+                    {/if}
+                    
+                    <!-- Divisore -->
+                    <li class="mobile-nav-divider"></li>
+                    
+                    <!-- Auth opzioni sempre nel menu mobile -->
+                    {#if $isAuthenticated}
+                        <li class="mobile-user-email">
+                            {$userEmail}
+                        </li>
+                        <li class="mobile-nav-item">
+                            <button class="mobile-nav-link mobile-logout-btn" on:click={handleLogout}>Logout</button>
+                        </li>
+                    {:else}
+                        <!-- Login e Registrazione nel menu mobile -->
+                        <li class="mobile-nav-item">
+                            <a class="mobile-nav-link" href="/LogIn">Login</a>
+                        </li>
+                        <li class="mobile-nav-item">
+                            <a class="mobile-nav-link mobile-register" href="/Registrazione">Registrazione</a>
+                        </li>
+                    {/if}
+                </ul>
+            </div>
+        {/if}
     </nav>
 </div>
 
 <slot />
-

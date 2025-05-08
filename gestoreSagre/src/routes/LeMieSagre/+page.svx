@@ -1,0 +1,5 @@
+<script>
+	import LeMieSagre from './../../components/LeMieSagre/lemiesagre.svelte';
+</script>
+
+<LeMieSagre/>
