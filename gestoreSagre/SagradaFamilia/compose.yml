@@ -29,10 +29,10 @@ services:
        - app_network
 
   sqlserver:
-    image: mcr.microsoft.com/azure-sql-edge:latest
+    image: mcr.microsoft.com/azure-sql-edge
     #se usate l'immagine di sqlserver, commentate la riga sopra   
     #e decommentate la riga sotto
-    # image: mcr.microsoft.com/mssql/server:2022-latest
+    #image: mcr.microsoft.com/mssql/server:2022-latest
     platform: linux/amd64
     container_name: ${SQL_CONT_NAME:-sqlserver}
     environment:
@@ -58,7 +58,7 @@ services:
       timeout: 5s
       
   sqlserver.configurator:
-    image: mcr.microsoft.com/azure-sql-edge:latest
+    image: mcr.microsoft.com/azure-sql-edge
     #se usate l'immagine di sqlserver, commentate la riga sopra   
     #e decommentate la riga sotto
     # image: mcr.microsoft.com/mssql/server:2022-latest

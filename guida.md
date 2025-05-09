@@ -148,11 +148,15 @@ MY_PLATFORM=linux/amd64
 ```
 
 ## BCript
+<<<<<<< Updated upstream
 
 In .NET puoi usare BCrypt per criptare (più correttamente: "hashare") le password in modo sicuro. BCrypt è un algoritmo di hashing pensato per proteggere le password, resistente agli attacchi di forza bruta e rainbow table.
+=======
+In .NET si può usare BCrypt per criptare (o hashare) le password in modo sicuro. BCrypt è un algoritmo di hashing pensato per proteggere le password, resistente agli attacchi di brute force e rainbow table.
+>>>>>>> Stashed changes
 Per prima cosa, ti serve una libreria compatibile. La più usata è BCrypt.Net-Next.
-BCrypt include automaticamente un salt all'interno dell'hash, quindi ogni volta che hashai la stessa password otterrai un risultato diverso.
-Non serve salvare il salt separatamente: è incluso nell'hash.
+BCrypt include automaticamente un salt all'interno dell'hash, quindi ogni volta che si esegue l'hash la stessa password otterrai un risultato diverso.
+Quindi non serve salvare il salt separatamente: è incluso nell'hash.
 La funzione Verify estrae il salt e confronta la password in modo sicuro.
 
 ### Come si rende BCrypt “meno efficiente” (più lento)

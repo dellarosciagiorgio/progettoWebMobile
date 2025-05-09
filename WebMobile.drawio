@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <mxfile host="65bd71144e">
     <diagram name="Pagina-1" id="2kd6w2bDSglVRTYshuDX">
         <mxGraphModel dx="1854" dy="1619" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
@@ -356,3 +357,205 @@
         </mxGraphModel>
     </diagram>
 </mxfile>
+=======
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Safari/605.1.15" version="27.0.2">
+  <diagram name="Pagina-1" id="gseirKFRvw-85E1EHNPF">
+    <mxGraphModel dx="828" dy="539" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-1" value="&amp;nbsp;Acquirente (chi compra i biglietti)&lt;div&gt;Organizzatore (Chi organizza eventi)&lt;/div&gt;&lt;div&gt;Admin&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="202.5" y="60" width="330" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-2" value="&lt;div&gt;USE CASES&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;Registrazione (acquirente)&lt;div&gt;Login (utente/organizzatore/admin)&lt;/div&gt;&lt;div&gt;Caricamento Evento (Organizzatore)&lt;/div&gt;&lt;div&gt;Elimina/Modifica MyEvents &amp;nbsp;(Organizzatore)&lt;/div&gt;&lt;div&gt;Visualizza andatura vendite (Organizzatore)&lt;/div&gt;&lt;div&gt;Feedback (Acquirente)&lt;/div&gt;&lt;div&gt;Compra Biglietto (Acquirente)&lt;/div&gt;&lt;div&gt;Visualizza Biglietti Acquistati (Acquirente)&lt;/div&gt;&lt;div&gt;Aggiungi/Elimina Organizzatore (Admin)&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;???&lt;/div&gt;&lt;div&gt;Elimina Acquirente (Admin)&lt;/div&gt;&lt;div&gt;Andamento Vendite generali (Admin)&lt;/div&gt;&lt;div&gt;Modifica utente (Acquirente)&lt;/div&gt;" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="87.5" y="150" width="560" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-3" value="Acquirente" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="25" y="555" width="75" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-4" value="Organizzatore" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="555" width="75" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-5" value="Admin" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="700" width="75" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-6" value="Evento" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="265" y="555" width="75" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-7" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" target="4jmITqAbGPKn8g1PhYLc-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="315" y="720" as="sourcePoint" />
+            <mxPoint x="510" y="590" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="560" y="720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-8" value="1 Aggiungi / Elimina N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4jmITqAbGPKn8g1PhYLc-7">
+          <mxGeometry x="0.0552" y="-1" relative="1" as="geometry">
+            <mxPoint x="-20" y="9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-9" value="N CRUD 1&amp;nbsp;" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="4jmITqAbGPKn8g1PhYLc-4" target="4jmITqAbGPKn8g1PhYLc-6">
+          <mxGeometry x="0.0009" width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="470" as="sourcePoint" />
+            <mxPoint x="270" y="420" as="targetPoint" />
+            <Array as="points" />
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-10" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="4jmITqAbGPKn8g1PhYLc-3" target="4jmITqAbGPKn8g1PhYLc-34">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="470" as="sourcePoint" />
+            <mxPoint x="65" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-11" value="1 acq compra N bigl" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4jmITqAbGPKn8g1PhYLc-10">
+          <mxGeometry x="-0.3827" y="1" relative="1" as="geometry">
+            <mxPoint x="15.11" y="-8.98" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-12" value="&amp;nbsp;Tipo Biglietto" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="265" y="438" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-13" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.671;entryY=1.067;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="4jmITqAbGPKn8g1PhYLc-37">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="537" y="556" as="sourcePoint" />
+            <mxPoint x="280" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-14" value="1 org Crea N stock" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="530" y="500" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-15" value="FeedBack" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="640" width="75" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-16" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="4jmITqAbGPKn8g1PhYLc-3" target="4jmITqAbGPKn8g1PhYLc-15">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="100" y="620" as="sourcePoint" />
+            <mxPoint x="150" y="570" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="60" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-17" value="1ScriveN" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4jmITqAbGPKn8g1PhYLc-16">
+          <mxGeometry x="-0.8002" y="1" relative="1" as="geometry">
+            <mxPoint y="34" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-18" value="" style="endArrow=classic;html=1;rounded=0;entryX=1.004;entryY=0.381;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" edge="1" parent="1" source="4jmITqAbGPKn8g1PhYLc-23" target="4jmITqAbGPKn8g1PhYLc-15">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="220" y="550" as="sourcePoint" />
+            <mxPoint x="200" y="640" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-19" value="NContiene1&amp;nbsp;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4jmITqAbGPKn8g1PhYLc-18">
+          <mxGeometry x="0.4165" y="3" relative="1" as="geometry">
+            <mxPoint x="7" y="5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-20" value="&lt;b&gt;Acquirente&lt;/b&gt;: id, mail, nome, cognome, &lt;u&gt;BigliettiComprati&lt;/u&gt;&lt;div&gt;&lt;b&gt;BigliettoComprato: &lt;/b&gt;id, &lt;u&gt;TipoBiglietto&lt;/u&gt;, nominativo&lt;/div&gt;&lt;div&gt;&lt;b&gt;TipoBiglietto&lt;/b&gt;: id, tipo, costo, descrizione&lt;/div&gt;&lt;div&gt;&lt;b&gt;Stock Biglietto&lt;/b&gt;: id, &lt;u&gt;TipoBiglietto&lt;/u&gt;, quantità&lt;br&gt;&lt;b&gt;Evento&lt;/b&gt;: id, &lt;u&gt;Stocks&lt;/u&gt;, &lt;u&gt;Sagra&lt;/u&gt;, data, info aggiuntive.&lt;/div&gt;&lt;div&gt;&lt;b&gt;Sagra&lt;/b&gt;: id, nome, descrizione, luogo, &lt;u&gt;Feedbacks&lt;/u&gt;, &lt;u&gt;Eventi&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;b&gt;Organizzatore&lt;/b&gt;: id, mail, nomeOrganizzazione,&amp;nbsp;&lt;u&gt;Sagre&lt;/u&gt;.&lt;/div&gt;&lt;div&gt;&lt;b&gt;Feedback&lt;/b&gt;: id, rating, titolo, &amp;nbsp;recensione, &lt;u&gt;Acquirente&lt;/u&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Admin&lt;/b&gt;: id, mail, nome, cognome.&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="25" y="760" width="515" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-21" value="&lt;div&gt;&lt;b&gt;Login&lt;/b&gt;: autenticazione e riconoscimento utente --&amp;gt; reindirizzamento a homePage&lt;/div&gt;&lt;div&gt;&lt;b&gt;Registrazione&lt;/b&gt;: registrazione acquirente, con relativi campi. Pass length &amp;gt;= 8&lt;/div&gt;&lt;b&gt;HomePage&lt;/b&gt;: logo, lista Sagre (a cui attualmente non partecipa), navebar di &amp;nbsp;ricerca, MyEvents btn&lt;div&gt;&lt;b&gt;MyEvents (acquirente): &lt;/b&gt;lista di biglietti comprati e relativo evento. Due sezioni disponibili:&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;- &lt;b&gt;EventiFuturi&lt;/b&gt;: eventi comprati a cui non si è ancora partecipato.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;- &lt;b&gt;EventiPassati&lt;/b&gt;: eventi a cui si è partecipato, quindi conclusi. Si può lasciare un feedback.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&lt;b&gt;Le Mie Sagre (organizzatore)&lt;/b&gt;:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;- &lt;/span&gt;&lt;b style=&quot;white-space: pre;&quot;&gt;EventiFuturi&lt;/b&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;: eventi organizzati non ancora conclusi. Visualizza sagra. Possibilità di modifica dell&#39;evento.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;- &lt;/span&gt;&lt;b style=&quot;white-space: pre;&quot;&gt;EventiPassati&lt;/b&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;: eventi terminati. Si possono visualizzare i feedback.&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;b style=&quot;white-space: pre;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;- &lt;/span&gt;AggiungiSagra (Organizzatore)&lt;/b&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;: aggiunge una sagra, con relativi dettagli. Va a finire nelle mie sagre&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;b style=&quot;white-space: pre;&quot;&gt;&#x9;- AggiungiEvento (Organizzatore)&lt;/b&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;: aggiunge un evento per una determina sagra (già esistente), con relativi dettagli ulteriori tra cui la data&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;&lt;/span&gt;dell&#39;evento.&lt;/span&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&lt;b&gt;Sagra (acquirente)&lt;/b&gt;: acquirente cerca e visualizza una sagra  determinato biglietto, indicandone la quantità, per una determinata sagra.&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&lt;b&gt;AggiungiOrganizzatore (Admin) &lt;/b&gt;: pagina che permette di aggiungere una organizzatore di sagre.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="25" y="980" width="765" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-22" value="&lt;b&gt;PROGETTO SAGRADA FAMILIA&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="222.5" y="10" width="290" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-23" value="Sagra" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="630" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-24" value="" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" target="4jmITqAbGPKn8g1PhYLc-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="640" as="sourcePoint" />
+            <mxPoint x="400" y="560" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="303" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-25" value="1 sag Relativo a N ev" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4jmITqAbGPKn8g1PhYLc-24">
+          <mxGeometry x="-0.5361" y="1" relative="1" as="geometry">
+            <mxPoint x="-50.69" y="-23.36" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-26" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.167;exitY=0.963;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="4jmITqAbGPKn8g1PhYLc-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="350" y="810" as="sourcePoint" />
+            <mxPoint x="430" y="640" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="533" y="640" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-27" value="&amp;nbsp;N Crea/Modifica 1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4jmITqAbGPKn8g1PhYLc-26">
+          <mxGeometry x="0.1723" y="3" relative="1" as="geometry">
+            <mxPoint x="1" y="-23" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-28" value="&lt;b&gt;Reminder&lt;/b&gt;: una organizzazione organizza una sagra per un paese (es. Sagra della Coratella di Città di Castello). Gli eventi sono relativi a una sagra. Ne indicano la data e l&#39;ora ed eventualmente alcuni dettagli aggiuntivi (live band solo per un determinato giorno x, giorno y c&#39;è la corsa coi sacchi...)&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Sagra contiene le informazioni relative alla sagra (cosa si mangia). Info uguali a tutti gli eventi per quella sagra&lt;/div&gt;&lt;div&gt;Evento è relativo a una sagra e contiene ulteriori informazioni di attività che si svolgono in quella data.&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="10" y="1240" width="715" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-29" value="Pagine le mie sagre&lt;div&gt;&lt;br&gt;&lt;div&gt;- sagra coratella 2025&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;giorno x: descrizione&lt;/span&gt;&amp;nbsp;a&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;giorno b: descrizione&lt;/span&gt;&amp;nbsp;b&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- sagra del pesce&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- sagra della pesca&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;white-space: pre;&quot;&gt;&#x9;giorno c: descrizione&lt;/span&gt;&amp;nbsp;c&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="25" y="1400" width="395" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-30" value="aggiungi evento" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="1420" width="105" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-31" value="aggiungi evento" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="1360" width="105" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-32" value="aggiungi evento" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="1460" width="105" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-33" value="aggiungi sagra" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="25" y="1510" width="105" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-34" value="BigliettoComprato" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="10" y="440" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-35" value="" style="endArrow=classic;html=1;" edge="1" parent="1" source="4jmITqAbGPKn8g1PhYLc-34" target="4jmITqAbGPKn8g1PhYLc-12">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="430" y="690" as="sourcePoint" />
+            <mxPoint x="480" y="640" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-36" value="1 tip b riferisce N bigl" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4jmITqAbGPKn8g1PhYLc-35">
+          <mxGeometry x="0.1738" y="-2" relative="1" as="geometry">
+            <mxPoint x="-15.009999999999998" y="-17.810000000000002" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-37" value="StockBiglietto" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="438" width="85" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-38" value="" style="endArrow=classic;html=1;exitX=0;exitY=0.75;exitDx=0;exitDy=0;entryX=1;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="4jmITqAbGPKn8g1PhYLc-37" target="4jmITqAbGPKn8g1PhYLc-12">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="460" y="670" as="sourcePoint" />
+            <mxPoint x="510" y="620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-39" value="1 stk contiene 1 tip" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4jmITqAbGPKn8g1PhYLc-38">
+          <mxGeometry x="-0.1862" y="-3" relative="1" as="geometry">
+            <mxPoint x="-7" y="-7.5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-40" value="" style="endArrow=classic;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="4jmITqAbGPKn8g1PhYLc-6" target="4jmITqAbGPKn8g1PhYLc-37">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="550" as="sourcePoint" />
+            <mxPoint x="286.25" y="468" as="targetPoint" />
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4jmITqAbGPKn8g1PhYLc-41" value="1 event Ha N tip" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4jmITqAbGPKn8g1PhYLc-40">
+          <mxGeometry x="-0.0931" relative="1" as="geometry">
+            <mxPoint x="40" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
+>>>>>>> Stashed changes

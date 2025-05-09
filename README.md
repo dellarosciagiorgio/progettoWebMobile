@@ -99,6 +99,7 @@ Avendo costruito pressoché un gestionale, necessitiamo di un backend che fornis
 
 ### Backend
 
+<<<<<<< Updated upstream
 Il servizio di backend è stato sviluppato usando .NET seguendo quella che viene chiamata CLEAN architecture.
 Il codice si divide in 4 macro aree:
 + **Application**, parte dedicata alle logiche di business;
@@ -113,6 +114,56 @@ Questo avvierà i seguenti servizi:
 + backend, avviabile sulla porta `443`
 + SQL server
 + SQL server configurator, servizio che permette di inizializzare il database creando il database, se non esiste, crea le tabelle e inserisce alcuni dati di esempio.
+=======
+#### .NET
+Il servizio di backend è stato sviluppato usando .NET seguendo quella che viene chiamata CLEAN architecture.
+Il codice si divide in 4 macro aree:
+- Application, parte dedicata alle logiche di business.
+- Model, entità e modelli.
+- Infrastructure, parte di collegamento al database e mapping delle entità.
+- Web, route path e api.
+
+Il servizio di backend comunica con un database relazionale, SQL Server.
+
+È stato scelto l'utilizzo di Docker, in modo da ottenere una maggiore indipendenza nello sviluppo di frontend e backend. In questo modo i progettisti di frontend devono solamente cambiare qualche variabile d'ambiente, se necessario, e avviare il sistema.
+Questo avvierà i seguenti servizi:
+- backend, avviabile sulla porta 443
+- sql server
+- sql server configurator, servizio che permette di inizializzare il database creando il database, se non esiste, crea le tabelle e inserisce alcuni dati di esempio.
+
+#### SQL Server
+Il database ha in file di inizializzazione (vedere cartella init).
+In questo file viene configurato il db, le tabelle, e inseriti dei valori.
+Si vuole sottolineare che le password degli utenti vengono salvate già hashate, ed ovviamente, non sono in chiaro. 
+Viene utilizzato [BCript](https://it.wikipedia.org/wiki/Bcrypt) per criptare e verificare le password.
+BCrypt include automaticamente un salt all'interno dell'hash, quindi ogni volta che si esegue l'hash la stessa password otterrai un risultato diverso.
+Quindi non serve salvare il salt separatamente: è incluso nell'hash.
+La funzione Verify estrae il salt e confronta la password in modo sicuro.
+
+##### BCrypt
+
+```csharp
+string hash = BCrypt.Net.BCrypt.HashPassword("password123", workFactor: 12);
+```
+
+- Il `workFactor` (o **cost**) è un numero tra 4 e 31 e rende BCrypt “meno efficiente” (più lento).
+- Più è alto, più iterazioni interne fa BCrypt.
+- Esempio:  
+  - `10` → default (2^10 = 1024 iterazioni)  
+  - `12` → 4096 iterazioni  
+  - `14` → 16.384 iterazioni  
+  - `16` → 65.536 iterazioni (molto lento!)
+
+Dipende dalla macchina, ma per dare un'idea:
+
+| Cost | Tempo medio (approx) |
+|------|-----------------------|
+| 10   | ~100 ms               |
+| 12   | ~300 ms               |
+| 14   | ~1 sec                |
+| 16   | ~3-5 sec              |
+
+>>>>>>> Stashed changes
 
 ### Frontend
 

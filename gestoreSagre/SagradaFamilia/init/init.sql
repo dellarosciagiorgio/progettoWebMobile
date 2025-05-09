@@ -261,9 +261,7 @@ add constraint FK_Organizzatori_Users foreign key (IdUser)
 references Users (IdUser)
     ON DELETE no action
     ON UPDATE no action;
-
-
-
+	
 -- INSERIMENTO DATI
 
 
