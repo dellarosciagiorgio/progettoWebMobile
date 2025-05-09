@@ -99,7 +99,6 @@ Avendo costruito pressoché un gestionale, necessitiamo di un backend che fornis
 
 ### Backend
 
-<<<<<<< Updated upstream
 Il servizio di backend è stato sviluppato usando .NET seguendo quella che viene chiamata CLEAN architecture.
 Il codice si divide in 4 macro aree:
 + **Application**, parte dedicata alle logiche di business;
@@ -114,22 +113,7 @@ Questo avvierà i seguenti servizi:
 + backend, avviabile sulla porta `443`
 + SQL server
 + SQL server configurator, servizio che permette di inizializzare il database creando il database, se non esiste, crea le tabelle e inserisce alcuni dati di esempio.
-=======
-#### .NET
-Il servizio di backend è stato sviluppato usando .NET seguendo quella che viene chiamata CLEAN architecture.
-Il codice si divide in 4 macro aree:
-- Application, parte dedicata alle logiche di business.
-- Model, entità e modelli.
-- Infrastructure, parte di collegamento al database e mapping delle entità.
-- Web, route path e api.
 
-Il servizio di backend comunica con un database relazionale, SQL Server.
-
-È stato scelto l'utilizzo di Docker, in modo da ottenere una maggiore indipendenza nello sviluppo di frontend e backend. In questo modo i progettisti di frontend devono solamente cambiare qualche variabile d'ambiente, se necessario, e avviare il sistema.
-Questo avvierà i seguenti servizi:
-- backend, avviabile sulla porta 443
-- sql server
-- sql server configurator, servizio che permette di inizializzare il database creando il database, se non esiste, crea le tabelle e inserisce alcuni dati di esempio.
 
 #### SQL Server
 Il database ha in file di inizializzazione (vedere cartella init).
@@ -162,8 +146,6 @@ Dipende dalla macchina, ma per dare un'idea:
 | 12   | ~300 ms               |
 | 14   | ~1 sec                |
 | 16   | ~3-5 sec              |
-
->>>>>>> Stashed changes
 
 ### Frontend
 
