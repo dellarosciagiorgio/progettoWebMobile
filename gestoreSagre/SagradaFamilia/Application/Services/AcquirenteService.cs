@@ -27,12 +27,16 @@ namespace Application.Services
         {
             var entity = AcquirenteMapper.ToEntity(request);
 
+
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == entity.User.Email);
             if (user != null)
             {
                 throw new ArgumentException("Utente già esistente");
             }
-
+            if(entity.User.Password.Length < 8)
+            {
+                throw new ArgumentException("Password troppo corta");
+            }
             entity.User.Password = await _passwordService.HashPassword(entity.User.Password);
             await _context.Users.AddAsync(entity.User);
             entity.IdUser = entity.User.IdUser;

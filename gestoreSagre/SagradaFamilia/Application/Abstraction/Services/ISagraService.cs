@@ -10,7 +10,7 @@ namespace Application.Abstraction.Services
 {
     public interface ISagraService
     {
-        Task<List<Sagra>> GetSagreAsync();
+        Task<List<SagraConRating>> GetSagreAsync();
         Task<Sagra> AddSagraAsync(AddSagraRequest request);
         Task<Sagra> EditSagraAsync(EditSagraRequest request);
         Task DeleteSagraAsync(DeleteSagraRequest request);

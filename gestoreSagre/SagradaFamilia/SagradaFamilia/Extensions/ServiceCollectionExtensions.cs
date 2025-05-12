@@ -10,6 +10,7 @@ using Web.Models;
 using System.Text.Json;
 using Models.Entities;
 using Application.Options;
+using System.Text.Json.Serialization;
 
 namespace Web.Extensions
 {
@@ -58,8 +59,19 @@ namespace Web.Extensions
             services.AddControllers(options =>
             {
                 options.Filters.Add<SanitizeInputFilter>();
-            });
-            
+            })
+                .AddJsonOptions(opt =>
+                {
+                    opt.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingDefault;
+                })
+                .ConfigureApiBehaviorOptions(opt =>
+                {
+                    opt.InvalidModelStateResponseFactory = (context) =>
+                    {
+                        return new BadRequestResultFactory(context);
+                    };
+                });
+
             var key = Encoding.UTF8.GetBytes(jwtOptions.Key);
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -128,14 +140,6 @@ namespace Web.Extensions
             });
             services.AddEndpointsApiExplorer();
 
-            services.AddControllers()
-                .ConfigureApiBehaviorOptions(opt =>
-                {
-                    opt.InvalidModelStateResponseFactory = (context) =>
-                    {
-                        return new BadRequestResultFactory(context);
-                    };
-                });
             return services;
         }
     }

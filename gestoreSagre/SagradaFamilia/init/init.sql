@@ -127,6 +127,7 @@ CREATE TABLE Sagre(
 	IdSagra INT identity (1,1),
 	NomeSagra VARCHAR(100) not null,
 	DescrizioneSagra VARCHAR(1000) not null,
+	Luogo VARCHAR(100) not null,
 	IdOrganizzatore INT,
 	CONSTRAINT [PK_Sagre] primary key clustered
 	(
@@ -313,11 +314,12 @@ VALUES
 INSERT INTO [dbo].[Sagre]
            ([NomeSagra]
            ,[DescrizioneSagra]
+		   ,[Luogo]
            ,[IdOrganizzatore])
      VALUES
-	 ('Sagra della Coratella', 'Nun poi manca, alla sagra della coratella de scapezzà', 2),
-	 ('Sagra del Pesce', 'Sagra del pesce fresco di Numana', 1),
-	 ('Sagra del Carciofo', 'Carciofi fritti, lessi, gratinati. Insomma, di tutti i tipi', 3);
+	 ('Sagra della Coratella', 'Nun poi manca, alla sagra della coratella de scapezzà', 'Scapezzano', 2),
+	 ('Sagra del Pesce', 'Sagra del pesce fresco di Numana', 'Numana', 1),
+	 ('Sagra del Carciofo', 'Carciofi fritti, lessi, gratinati. Insomma, di tutti i tipi', 'Borgo Passera', 3);
 
 
 -- TRUNCATE TABLE Eventi;

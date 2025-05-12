@@ -96,11 +96,16 @@ namespace Application.Services
             return sagra;
         }
 
-        public async Task<List<Sagra>> GetSagreAsync()
+        public async Task<List<SagraConRating>> GetSagreAsync()
         {
+
             return await _context.Sagre
-                .Include(s => s.Feedbacks)
-                .ToListAsync();
+                 .Select(s => new SagraConRating
+                 {
+                     Sagra = s,
+                     Rating = s.Feedbacks.Any() ? s.Feedbacks.Average(f => f.Rating) : 0
+                 })
+                 .ToListAsync();
         }
 
         public async Task<Sagra> GetSagreAsync(int id)

@@ -68,9 +68,9 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        [Route("eventi/")]
+        [Route("eventi/byuserandtime")]
         [Authorize(policy: "ANY_AUTH_USER")]
-        public async Task<IActionResult> GetEventiByTime(SomethingByUserRequest request, [FromQuery] bool checkByFuture)
+        public async Task<IActionResult> GetEventiByTimeAndUser(SomethingByUserRequest request, [FromQuery] bool checkByFuture)
         {
             var userId = User.FindFirst("sub")?.Value;
             var role = User.FindFirst("Ruolo")?.Value;
