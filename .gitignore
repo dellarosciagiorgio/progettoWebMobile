@@ -162,5 +162,5 @@ gestoreSagre/vite.config.ts.timestamp-*
 gestoreSagre/*/.dockerignore
 gestoreSagre/SagradaFamilia/Dockerfile
 # gestoreSagre/src/.env
-# gestoreSagre/SagradaFamilia/.env
+gestoreSagre/SagradaFamilia/.env
 gestoreSagre/SagradaFamilia/wwwroot/*

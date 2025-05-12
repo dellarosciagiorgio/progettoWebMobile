@@ -1,9 +1,9 @@
 services:
   server:
-#    image: mattiadispigno/sagradafamilia-server:latest
-    build:
-      context: .
-      target: final
+    image: mattiadispigno/sagradafamilia-server:latest
+#    build:
+#      context: .
+#      target: final
     platform: ${MY_PLATFORM:-linux/amd64}
     environment:
       ASPNETCORE_URLS: "https://+:443;http://+:80"
