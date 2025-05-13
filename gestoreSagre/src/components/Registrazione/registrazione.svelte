@@ -25,6 +25,13 @@
 		errorMessage = "";
 		isLoading = true;
 		
+		// Controllo lunghezza della password (minimo 8 caratteri)
+		if (password.length < 8) {
+			errorMessage = "La password deve essere di almeno 8 caratteri!";
+			isLoading = false;
+			return;
+		}
+		
 		if (password !== confermaPassword) {
 			errorMessage = "Le password non coincidono!";
 			isLoading = false;
@@ -140,7 +147,7 @@
 							</div>
 							<div class="form-floating mb-3">
 								<input type="password" class="form-control border-0 bg-light form-input-shadow" id="password" placeholder="Password" bind:value={password} required/>
-								<label for="password" class="text-muted">Password</label>
+								<label for="password" class="text-muted">Password (minimo 8 caratteri)</label>
 							</div>
 							<div class="form-floating mb-4">
 								<input type="password" class="form-control border-0 bg-light form-input-shadow" id="confermaPassword" placeholder="Conferma Password" bind:value={confermaPassword} required/>

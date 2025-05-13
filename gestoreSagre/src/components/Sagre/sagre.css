@@ -46,17 +46,17 @@
     start: 0;
     width: 100%;
     padding: 1rem;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0,0,0,0));
 }
 
 .details-button {
     background-color: #f77f00;
-    color: white;
-}
+    color: rgb(255, 255, 255);
+} 
 
 .details-button:hover {
-    background-color: #e67200;
-    color: white;
+    background-color: #d62828;
+    color: rgb(255, 255, 255);
 }
 
 .hover-scale {
