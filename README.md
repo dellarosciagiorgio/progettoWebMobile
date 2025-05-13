@@ -116,6 +116,7 @@ Questo avvierà i seguenti servizi:
 
 
 #### SQL Server
+
 Il database ha in file di inizializzazione (vedere cartella init).
 In questo file viene configurato il db, le tabelle, e inseriti dei valori.
 Si vuole sottolineare che le password degli utenti vengono salvate già hashate, ed ovviamente, non sono in chiaro. 
@@ -130,22 +131,22 @@ La funzione Verify estrae il salt e confronta la password in modo sicuro.
 string hash = BCrypt.Net.BCrypt.HashPassword("password123", workFactor: 12);
 ```
 
-- Il `workFactor` (o **cost**) è un numero tra 4 e 31 e rende BCrypt “meno efficiente” (più lento).
-- Più è alto, più iterazioni interne fa BCrypt.
-- Esempio:  
-  - `10` → default (2^10 = 1024 iterazioni)  
-  - `12` → 4096 iterazioni  
-  - `14` → 16.384 iterazioni  
-  - `16` → 65.536 iterazioni (molto lento!)
++ Il `workFactor` (o **cost**) è un numero tra 4 e 31 e rende BCrypt "meno efficiente" (più lento).
++ Più è alto, più iterazioni interne fa BCrypt.
++ Esempio:  
+  + `10` → default (2^10 = 1024 iterazioni)  
+  + `12` → 4096 iterazioni  
+  + `14` → 16.384 iterazioni  
+  + `16` → 65.536 iterazioni (molto lento!)
 
 Dipende dalla macchina, ma per dare un'idea:
 
-| Cost | Tempo medio (approx) |
-|------|-----------------------|
-| 10   | ~100 ms               |
-| 12   | ~300 ms               |
-| 14   | ~1 sec                |
-| 16   | ~3-5 sec              |
+| costo | t medio (s) |
+| :-: | :-: |
+| 10 | 0.1 |
+| 12 | 0.3 |
+| 14 | 1 |
+| 16 | 3-5 |
 
 ### Frontend
 

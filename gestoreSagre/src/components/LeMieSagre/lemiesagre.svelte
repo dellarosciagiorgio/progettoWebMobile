@@ -3,7 +3,7 @@
     import { isAuthenticated, userEmail, role } from "$lib/stores";
     import { browser } from "$app/environment";
     import "bootstrap/dist/css/bootstrap.min.css";
-    import "./LeMieSagre.css";
+    import "./lemiesagre.css";
 
     let sagre = [];
     let isLoading = true;
@@ -558,6 +558,7 @@
                     <button
                         type="button"
                         class="btn-close"
+                        aria-label="btn-addSagra"
                         on:click={() => (showAddModal = false)}
                     ></button>
                 </div>
@@ -654,6 +655,7 @@
                     <button
                         type="button"
                         class="btn-close"
+                        aria-label="btn-editSagra"
                         on:click={() => (showEditModal = false)}
                     ></button>
                 </div>
@@ -750,6 +752,7 @@
                     <button
                         type="button"
                         class="btn-close"
+                        aria-label="btn-deleteSagra"
                         on:click={() => (showDeleteModal = false)}
                     ></button>
                 </div>
