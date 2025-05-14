@@ -7,12 +7,7 @@
     let error = null;
     let valutazione = null;
     
-    onMount(async () => {
-        let data = await getData(`sagra/ratingbyid/${new URLSearchParams(window.location.search).get('id')}`);
-        data ? valutazione = data.data : error = "Errore nel recupero dei dati.";
-    });
-</script>
 
-Valutazione: {valutazione}
+</script>
 
 <Eventi idSagra={new URLSearchParams(window.location.search).get('id')} percorso={''}/>

@@ -12,7 +12,7 @@
     try {
         let data = await getDataAuth("biglietto");
         if (data)
-            console.log(biglietti = data.data); // <-- correggi qui
+            console.log(biglietti = data.data); 
         else
             error = "Errore nel recupero dei dati.";
     } catch (err) {

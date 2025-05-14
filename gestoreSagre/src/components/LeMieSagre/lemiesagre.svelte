@@ -179,7 +179,7 @@
                 nomeSagra = "";
                 descrizioneSagra = "";
             }
-            // Usa l'endpoint "Add Sagra" come mostrato in Postman
+          
             const response = await fetch(
                 `${import.meta.env.VITE_API_URL}sagra/`,
                 {

@@ -3,16 +3,26 @@
     import { getData } from "../../lib/get.js";
     import "bootstrap/dist/css/bootstrap.min.css";
     import "./sagre.css";
-
+    
     let sagre = [];
     let loading = true;
     let error = "";
-
+    
+    // Oggetti per la gestione delle valutazioni
+    let showRatings = {};
+    let ratings = {};
+    let ratingLoading = {};
+    
     onMount(async () => {
         try {
             let data = await getData("sagre");
-            if (data)
+            if (data) {
                 console.log(sagre = data.data);
+                // Inizializza gli stati per ogni sagra
+                sagre.forEach(s => {
+                    showRatings[s.sagra.idSagra] = false;
+                });
+            }
             else
                 error = "Errore nel recupero dei dati.";
         } catch (err) {
@@ -22,6 +32,28 @@
             loading = false;
         }
     });
+    
+    // Funzione per mostrare/nascondere la valutazione e caricare i dati
+    async function toggleValutazione(idSagra) {
+        showRatings[idSagra] = !showRatings[idSagra];
+        
+        if (showRatings[idSagra] && !ratings[idSagra]) {
+            ratingLoading[idSagra] = true;
+            try {
+                let data = await getData(`sagra/ratingbyid/${idSagra}`);
+                if (data) {
+                    ratings[idSagra] = data.data;
+                } else {
+                    ratings[idSagra] = "N/D";
+                }
+            } catch (err) {
+                console.error("Errore nel recupero della valutazione:", err);
+                ratings[idSagra] = "Errore";
+            } finally {
+                ratingLoading[idSagra] = false;
+            }
+        }
+    }
 </script>
 
 <div class="container-fluid py-5 page-background">
@@ -36,7 +68,7 @@
                 </div>
             </div>
         </div>
-
+        
         {#if loading}
             <div class="d-flex justify-content-center my-5">
                 <div class="spinner-border spinner-loading" role="status">
@@ -56,10 +88,10 @@
                 <p class="text-muted">Non ci sono sagre registrate al momento.</p>
             </div>
         {:else}
-            <div class="row g-4">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
                 {#each sagre as singolaSagra}
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="card border-0 h-100 shadow-sm rounded-4 overflow-hidden hover-scale">
+                    <div class="col">
+                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden hover-scale">
                             <div class="position-relative">
                                 <img src="/imgs/sagra.jpg" class="card-img-top sagra-image" alt="Immagine della sagra">
                                 <div class="image-overlay">
@@ -68,9 +100,52 @@
                             </div>
                             <div class="card-body p-4">
                                 <p class="card-text text-muted mb-4">{singolaSagra.sagra.descrizione}</p>
-                                <div class="text-end">
-                                    <a href='/Sagre/Sagra?id={singolaSagra.sagra.idSagra}' class="btn rounded-pill px-4 details-button">
-                                        Dettagli
+                                
+                                <!-- Sezione valutazione - visibile solo quando richiesta -->
+                                {#if showRatings[singolaSagra.sagra.idSagra]}
+                                    <div class="rating-section mb-4">
+                                        {#if ratingLoading && ratingLoading[singolaSagra.sagra.idSagra]}
+                                            <div class="d-flex justify-content-center my-3">
+                                                <div class="spinner-border spinner-border-sm text-warning" role="status">
+                                                    <span class="visually-hidden">Caricamento...</span>
+                                                </div>
+                                            </div>
+                                        {:else}
+                                            <div class="text-center mb-2">Valutazione</div>
+                                            <div class="rating-value-container">
+                                                <span class="rating-big-number">{ratings[singolaSagra.sagra.idSagra]}</span>
+                                                <span class="rating-scale">/10</span>
+                                            </div>
+                                            <div class="rating-bar-container">
+                                                <div class="rating-bar" style="width: {ratings[singolaSagra.sagra.idSagra] * 10}%"></div>
+                                            </div>
+                                        {/if}
+                                    </div>
+                                {/if}
+                                
+                                <!-- Pulsanti -->
+                                <div class="d-flex justify-content-center gap-2">
+                                    {#if !showRatings[singolaSagra.sagra.idSagra]}
+                                        <button 
+                                            class="btn rounded-pill valutazione-btn" 
+                                            on:click={() => toggleValutazione(singolaSagra.sagra.idSagra)}
+                                        >
+                                            Valutazione
+                                        </button>
+                                    {:else}
+                                        <button 
+                                            class="btn rounded-pill nascondi-btn" 
+                                            on:click={() => toggleValutazione(singolaSagra.sagra.idSagra)}
+                                        >
+                                            Nascondi
+                                        </button>
+                                    {/if}
+                                    
+                                    <a 
+                                        href='/Sagre/Sagra?id={singolaSagra.sagra.idSagra}' 
+                                        class="btn rounded-pill eventi-btn"
+                                    >
+                                        Eventi
                                     </a>
                                 </div>
                             </div>
