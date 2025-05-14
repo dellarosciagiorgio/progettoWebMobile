@@ -11,11 +11,10 @@
     onMount(async () => {
         try {
             let data = await getData("sagre");
-            if (data) {
+            if (data)
                 console.log(sagre = data.data);
-            } else {
+            else
                 error = "Errore nel recupero dei dati.";
-            }
         } catch (err) {
             console.error("Errore:", err);
             error = "Errore nel recupero dei dati.";
@@ -58,19 +57,19 @@
             </div>
         {:else}
             <div class="row g-4">
-                {#each sagre as sagra}
+                {#each sagre as singolaSagra}
                     <div class="col-sm-6 col-lg-4">
                         <div class="card border-0 h-100 shadow-sm rounded-4 overflow-hidden hover-scale">
                             <div class="position-relative">
                                 <img src="/imgs/sagra.jpg" class="card-img-top sagra-image" alt="Immagine della sagra">
                                 <div class="image-overlay">
-                                    <h5 class="card-title fw-bold text-white mb-0">{sagra.nomeSagra}</h5>
+                                    <h5 class="card-title fw-bold text-white mb-0">{singolaSagra.sagra.nomeSagra}</h5>
                                 </div>
                             </div>
                             <div class="card-body p-4">
-                                <p class="card-text text-muted mb-4">{sagra.descrizione}</p>
+                                <p class="card-text text-muted mb-4">{singolaSagra.sagra.descrizione}</p>
                                 <div class="text-end">
-                                    <a href='/Sagre/Sagra?id={sagra.idSagra}' class="btn rounded-pill px-4 details-button">
+                                    <a href='/Sagre/Sagra?id={singolaSagra.sagra.idSagra}' class="btn rounded-pill px-4 details-button">
                                         Dettagli
                                     </a>
                                 </div>
