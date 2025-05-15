@@ -154,9 +154,4 @@ Come framework Javascript abbiamo scelto l'accoppiata [Svelte](https://svelte.de
 
 In fase di creazione del progetto ci siamo accorti che venivano messi a disposizione dei plugin, uno di questi era [mdsvex](https://mdsvex.pngwn.io/) che permette di scrivere pagine in Markdown anziché HTML. I file non avranno estensione _svelte_, ma _svx_.
 
-Non ne abbiamo sfruttato tutte le potenzialità in quanto abbiamo preferito creare i componenti da importare in routes, per far sì di mantenere ben organizzati i file delle pagine, che in Svelte prendono il nome di `+page`.
-
-> [!NOTE]
-> I componenti non possono utilizzare mdsvex!
-
-Abbiamo poi introdotto [Bootstrap](https://getbootstrap.com/) per gestire graficamente i fogli di stile con elementi già pronti all'uso.
+Non ne abbiamo sfruttato tutte le potenzialità in quanto abbiamo preferito aggiungere una grafica più elaborata utilizzando [Bootstrap](https://getbootstrap.com/). Così facendo la gestione dei fogli di stile avviene con elementi già pronti all'uso.

@@ -1,5 +1,5 @@
 <script>
-    import Eventi from "../eventi.svelte";
+    import Eventi from "../eventi.svx";
 </script>
 
 <Eventi eventiFuturi={true}/>

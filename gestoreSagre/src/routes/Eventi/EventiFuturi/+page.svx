@@ -1,5 +1,5 @@
 <script>
-	import EventiFuturi from '../../../components/Eventi/EventiFuturi/eventiFuturi.svelte';
+	import EventiFuturi from '../../../components/Eventi/EventiFuturi/eventiFuturi.svx';
 </script>
 
 <EventiFuturi/>

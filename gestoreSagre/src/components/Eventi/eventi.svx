@@ -1,5 +1,4 @@
 <script>
-	import Eventi from './eventi.svelte';
 	import { onMount } from "svelte";
 	import { getData } from "../../lib/get.js";
 	import "bootstrap/dist/css/bootstrap.min.css";

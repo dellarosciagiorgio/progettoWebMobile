@@ -1,5 +1,5 @@
 <script>
-	import Sagre from './../../../components/Sagre/Sagra/sagra.svelte';
+	import Sagre from './../../../components/Sagre/Sagra/sagra.svx';
 </script>
 
 <Sagre/>

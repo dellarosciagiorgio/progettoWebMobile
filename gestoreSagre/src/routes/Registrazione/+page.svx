@@ -1,5 +1,5 @@
 <script>
-	import Registrazione from './../../components/Registrazione/registrazione.svelte';
+	import Registrazione from './../../components/Registrazione/registrazione.svx';
 </script>
 
 <Registrazione/>

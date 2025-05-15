@@ -1,5 +1,5 @@
 <script>
-	import Biglietto from './../../components/Biglietto/biglietto.svelte';
+	import Biglietto from './../../components/Biglietto/biglietto.svx';
 </script>
 
 <Biglietto/>
