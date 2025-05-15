@@ -14,11 +14,10 @@ export async function getData(endpoint) {
 
 export async function getDataAuth(endpoint) {
     try {
-        const authToken = getCookie('authToken');
         const response = await fetch(`${import.meta.env.VITE_API_URL}${endpoint}`, {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${authToken}`
+                'Authorization': `Bearer ${getCookie('authToken')}`
             },
         });
         if (!response.ok)
