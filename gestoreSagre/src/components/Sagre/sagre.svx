@@ -1,14 +1,13 @@
 <script>
     import { onMount } from "svelte";
-    import { getData } from "../../lib/get.js";
     import "bootstrap/dist/css/bootstrap.min.css";
+    
+    import { getData } from "$lib/get.js";
     import "./sagre.css";
     
     let sagre = [];
     let loading = true;
     let error = "";
-    
-    // Oggetti per la gestione delle valutazioni
     let showRatings = {};
     let ratings = {};
     let ratingLoading = {};
@@ -18,13 +17,9 @@
             let data = await getData("sagre");
             if (data) {
                 console.log(sagre = data.data);
-                // Inizializza gli stati per ogni sagra
-                sagre.forEach(s => {
-                    showRatings[s.sagra.idSagra] = false;
-                });
+                sagre.forEach(s => { showRatings[s.sagra.idSagra] = false; });
             }
-            else
-                error = "Errore nel recupero dei dati.";
+            else error = "Errore nel recupero dei dati.";
         } catch (err) {
             console.error("Errore:", err);
             error = "Errore nel recupero dei dati.";
@@ -33,19 +28,14 @@
         }
     });
     
-    // Funzione per mostrare/nascondere la valutazione e caricare i dati
     async function toggleValutazione(idSagra) {
         showRatings[idSagra] = !showRatings[idSagra];
-        
         if (showRatings[idSagra] && !ratings[idSagra]) {
             ratingLoading[idSagra] = true;
             try {
                 let data = await getData(`sagra/ratingbyid/${idSagra}`);
-                if (data) {
-                    ratings[idSagra] = data.data;
-                } else {
-                    ratings[idSagra] = "N/D";
-                }
+                if (data) ratings[idSagra] = data.data;
+                else ratings[idSagra] = "N/D";
             } catch (err) {
                 console.error("Errore nel recupero della valutazione:", err);
                 ratings[idSagra] = "Errore";
@@ -68,7 +58,6 @@
                 </div>
             </div>
         </div>
-        
         {#if loading}
             <div class="d-flex justify-content-center my-5">
                 <div class="spinner-border spinner-loading" role="status">
@@ -100,8 +89,6 @@
                             </div>
                             <div class="card-body p-4">
                                 <p class="card-text text-muted mb-4">{singolaSagra.sagra.descrizione}</p>
-                                
-                                <!-- Sezione valutazione - visibile solo quando richiesta -->
                                 {#if showRatings[singolaSagra.sagra.idSagra]}
                                     <div class="rating-section mb-4">
                                         {#if ratingLoading && ratingLoading[singolaSagra.sagra.idSagra]}
@@ -122,31 +109,13 @@
                                         {/if}
                                     </div>
                                 {/if}
-                                
-                                <!-- Pulsanti -->
                                 <div class="d-flex justify-content-center gap-2">
                                     {#if !showRatings[singolaSagra.sagra.idSagra]}
-                                        <button 
-                                            class="btn rounded-pill valutazione-btn" 
-                                            on:click={() => toggleValutazione(singolaSagra.sagra.idSagra)}
-                                        >
-                                            Valutazione
-                                        </button>
+                                        <button class="btn rounded-pill valutazione-btn" on:click={() => toggleValutazione(singolaSagra.sagra.idSagra)}>Valutazione</button>
                                     {:else}
-                                        <button 
-                                            class="btn rounded-pill nascondi-btn" 
-                                            on:click={() => toggleValutazione(singolaSagra.sagra.idSagra)}
-                                        >
-                                            Nascondi
-                                        </button>
+                                        <button class="btn rounded-pill nascondi-btn" on:click={() => toggleValutazione(singolaSagra.sagra.idSagra)}>Nascondi</button>
                                     {/if}
-                                    
-                                    <a 
-                                        href='/Sagre/Sagra?id={singolaSagra.sagra.idSagra}' 
-                                        class="btn rounded-pill eventi-btn"
-                                    >
-                                        Eventi
-                                    </a>
+                                    <a href='/Sagre/Sagra?id={singolaSagra.sagra.idSagra}' class="btn rounded-pill eventi-btn">Eventi</a>
                                 </div>
                             </div>
                         </div>
