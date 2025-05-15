@@ -1,7 +1,7 @@
 <script>
-    import { onMount } from "svelte";
     import "bootstrap/dist/css/bootstrap.min.css";
-    import "./home.style.css";
+    
+    import "./home.css";
 
     const sagreInEvidenza = [
         {

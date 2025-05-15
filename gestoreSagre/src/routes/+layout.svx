@@ -203,16 +203,7 @@
                 <a class="nav-link" class:active={$page.url.pathname === '/Home'} href="/Home">Home</a>
                 
                 {#if userRole !== 'Organizzatore'}
-                    <!-- Eventi (con potenziale dropdown) -->
                     <div class="nav-link-dropdown">
-                        <a href="/Eventi" 
-                           class="nav-link eventi-link" 
-                           class:active={$page.url.pathname.includes('/Eventi')} 
-                           on:click={toggleEventiDropdown}>
-                            Eventi
-                            <i class="bi bi-chevron-down ms-1"></i>
-                        </a>
-                        
                         {#if eventiDropdownOpen}
                             <div class="custom-dropdown">
                                 <a href="/Eventi/EventiFuturi" class="dropdown-item">Eventi Futuri</a>
@@ -285,14 +276,11 @@
                     
                     {#if userRole !== 'Organizzatore'}
                         <!-- Elementi visibili SOLO ai NON organizzatori (acquirenti) -->
-                        <li class="mobile-nav-item">
-                            <a href="/Eventi" class="mobile-nav-link" class:active={$page.url.pathname.includes('/Eventi')}>Eventi</a>
+                        <li class="mobile-nav-item nested-item">
+                            <a href="/Eventi/EventiFuturi" class="mobile-nav-link">Eventi Futuri</a>
                         </li>
                         <li class="mobile-nav-item nested-item">
-                            <a href="/Eventi/EventiFuturi" class="mobile-nav-link">- Eventi Futuri</a>
-                        </li>
-                        <li class="mobile-nav-item nested-item">
-                            <a href="/Eventi/EventiPassati" class="mobile-nav-link">- Eventi Passati</a>
+                            <a href="/Eventi/EventiPassati" class="mobile-nav-link">Eventi Passati</a>
                         </li>
                         
                         <li class="mobile-nav-item">
