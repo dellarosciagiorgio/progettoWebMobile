@@ -78,6 +78,7 @@
             </div>
         {:else}
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+                
                 {#each sagre as singolaSagra}
                     <div class="col">
                         <div class="card border-0 shadow-sm rounded-4 overflow-hidden hover-scale">
@@ -93,15 +94,25 @@
                                     <div class="rating-section mb-4">
                                         {#if ratingLoading && ratingLoading[singolaSagra.sagra.idSagra]}
                                             <div class="d-flex justify-content-center my-3">
+                                                Paolo
                                                 <div class="spinner-border spinner-border-sm text-warning" role="status">
                                                     <span class="visually-hidden">Caricamento...</span>
                                                 </div>
                                             </div>
                                         {:else}
                                             <div class="text-center mb-2">Valutazione</div>
+
                                             <div class="rating-value-container">
+                                            {#if ratings[singolaSagra.sagra.idSagra] >0}
                                                 <span class="rating-big-number">{ratings[singolaSagra.sagra.idSagra]}</span>
+                                                
                                                 <span class="rating-scale">/10</span>
+                                             
+                                            {:else}    
+                                                 <span class="rating-big-number">N/D</span>
+                                                
+                                            {/if}
+
                                             </div>
                                             <div class="rating-bar-container">
                                                 <div class="rating-bar" style="width: {ratings[singolaSagra.sagra.idSagra] * 10}%"></div>

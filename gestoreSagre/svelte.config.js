@@ -9,6 +9,9 @@ const config = {
         // See https://svelte.dev/docs/kit/adapters for more information about adapters.
         adapter: adapter({
             pages: 'build',
+            paths: {
+              base: '', // o '/nome-sottocartella' se necessario
+            },
             assets: 'build',
             fallback: 'index.html'
           }),
@@ -19,5 +22,7 @@ const config = {
     preprocess: [mdsvex()],
     extensions: [".svelte", ".svx"]
 };
+
+
 
 export default config;

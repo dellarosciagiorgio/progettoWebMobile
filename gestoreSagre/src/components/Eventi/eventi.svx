@@ -14,8 +14,18 @@
 	let error = "";
 
 	onMount(async () => {
-		let data = await getData(`eventi/${idSagra}${percorso}${eventiFuturi}`);
-		data ? eventi = data.data : error = "Errore nel recupero dei dati.";
+		try{
+			let data = await getData(`eventi/${idSagra}${percorso}${eventiFuturi}`);
+			data ? eventi = data.data : error = "Errore nel recupero dei dati.";
+		}
+		catch (err) {
+			console.error("Errore:", err);
+			error = "Nessun evento presente per questa sagra.";
+		}
+		finally {
+			loading = false;
+		}
+		
 		loading = false;
 	});
 </script>
@@ -34,6 +44,7 @@
 		{#if loading}
 			<div class="d-flex justify-content-center my-5">
 				<div class="spinner-border spinner-custom" role="status">
+					
 					<span class="visually-hidden">Caricamento...</span>
 				</div>
 			</div>

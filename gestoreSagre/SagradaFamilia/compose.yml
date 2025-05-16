@@ -9,7 +9,7 @@ services:
       ASPNETCORE_URLS: "https://+:443;http://+:80"
       ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/https-devcert.pfx"
       ASPNETCORE_Kestrel__Certificates__Default__Password: ${CERT_PASSWORD}
-      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_ENVIRONMENT: Final
       AllowedIpsConfig__AllowedIps: '["https://localhost:443","http://localhost:5173"]'
       ConnectionStrings__MyDbContext: ${DB_CONN_STRING}
       Jwt__Key: ${MY_SECRET}
@@ -19,7 +19,7 @@ services:
       - ./server_certificate/https-devcert.pfx:/https/https-devcert.pfx
 
       #per inserire le pagine statiche direttamente in .net, inserire la cartella build nella cartella wwwroot
-      #- ./wwwroot/build:/app/wwwroot:ro
+      - ./wwwroot/build:/app/wwwroot:ro
     ports:
       - "443:443"
       - "80:80"

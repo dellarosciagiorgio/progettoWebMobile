@@ -55,7 +55,7 @@
         return sagreData.map(sagra => {
             console.log("Struttura sagra originale:", JSON.stringify(sagra));
             const normalizedSagra = {
-                idSagra: sagra.IdSagra,
+                idSagra: sagra.idSagra,
                 nomeSagra: sagra.nomeSagra,
                 descrizione: sagra.descrizione,
                 luogo: sagra.luogo
@@ -122,7 +122,7 @@
                 sagraDescrizione = formData.descrizione;
                 sagraLuogo = formData.luogo;
             } else throw new Error("Dati non validi");
-            const apiUrl = `${import.meta.env.VITE_API_URL}sagre`;
+            const apiUrl = `${import.meta.env.VITE_API_URL}sagra`;
             const response = await fetch(apiUrl, {
                 method: "POST",
                 headers: {
@@ -147,6 +147,8 @@
                 throw new Error(errorMessage);
             }
             const data = await response.json();
+            await loadMySagre();
+            showAddModal = false;
             console.log(data);
         } catch (err) {
             console.error("Errore nell'aggiunta della sagra:", err);
@@ -154,43 +156,53 @@
         }
     }
 
-    async function updateSagra() {
+    async function updateSagra(SagraToUpdate) {
         try {
+            console.log("SAGRA TO UP: ",SagraToUpdate);
             const token = getCookie("authToken");
             if (!token)
                 throw new Error("Token di autenticazione non trovato");
             console.log("Dati da inviare per aggiornamento:", formData);
-            const response = await fetch(`${import.meta.env.VITE_API_URL}sagra/`, {
+
+            if (formData) {
+                SagraToUpdate.nomeSagra = formData.nome;
+                SagraToUpdate.descrizione = formData.descrizione;
+                SagraToUpdate.luogo = formData.luogo;
+
+                console.log("Nome:", SagraToUpdate.nomeSagra);
+                console.log("Descrizione:", SagraToUpdate.descrizione);
+                console.log("Luogo:", SagraToUpdate.luogo);    
+            } else throw new Error("Dati non validi");
+            const response = await fetch(`${import.meta.env.VITE_API_URL}sagra`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify({
-                    id: currentSagra.id,
-                    ...formData
+                    idSagra: SagraToUpdate.idSagra,
+                    nomeSagra: SagraToUpdate.nomeSagra,
+                    descrizione: SagraToUpdate.descrizione,
+                    luogo: SagraToUpdate.luogo
                 })
             });
-
-            const responseText = await response.text();
-            if (!responseText)
-                throw new Error("Il server ha restituito una risposta vuota");
-            console.log("Risposta dal server (raw):", responseText);
-            let data;
-            try {
-                data = JSON.parse(responseText);
-            } catch (jsonError) {
-                throw new Error(`Errore nel parsing della risposta: ${responseText.substring(0, 100)}...`);
-            }
             if (!response.ok) {
-                const errorMsg = data && data.message ? data.message : `Errore durante la modifica della sagra: ${response.status}`;
-                throw new Error(errorMsg);
+                let errorMessage = "Sagra non aggiunta. Status: " + response.status;
+                try {
+                    const errorData = await response.json();
+                    if (errorData && errorData.message)
+                        errorMessage += " - " + errorData.message;
+                } catch (parseError) {
+                    console.error("Error parsing JSON error response:", parseError);
+                }
+                throw new Error(errorMessage);
             }
-            console.log("Sagra aggiornata con successo:", data);
+            const data = await response.json();
             await loadMySagre();
             showEditModal = false;
+            console.log(data);
         } catch (err) {
-            console.error("Errore nella modifica della sagra:", err);
+            console.error("Errore nell'aggiunta della sagra:", err);
             error = err.message;
         }
     }
@@ -355,7 +367,7 @@
                     <form on:submit|preventDefault={addSagra}>
                         <div class="mb-3">
                             <label for="nome" class="form-label">Nome*</label>
-                            <input type="text" class="form-control" id="nome" bind:value={formData.nomeSagra} required/>
+                            <input type="text" class="form-control" id="nome" bind:value={formData.nome} required/>
                         </div>
                         <div class="mb-3">
                             <label for="descrizione" class="form-label">Descrizione*</label>
@@ -367,10 +379,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" on:click={() => (showAddModal = false)}>Annulla</button>
-                            <button type="submit" class="btn btn-submit">
-                                <span class="save-icon">💾</span>
-                                Salva
-                            </button>
+                            <button type="submit" class="btn btn-submit" > Salva </button>
                         </div>
                     </form>
                 </div>
@@ -388,10 +397,11 @@
                     <button type="button" class="btn-close" aria-label="btn-editSagra" on:click={() => (showEditModal = false)}></button>
                 </div>
                 <div class="modal-body">
-                    <form on:submit|preventDefault={updateSagra}>
+                    <form on:submit|preventDefault={() => updateSagra(currentSagra)}>
                         <div class="mb-3">
                             <label for="edit-nome" class="form-label">Nome*</label>
-                            <input type="text" class="form-control" id="edit-nome" bind:value={formData.nomeSagra} required/>
+                            <textarea class="form-control" id="edit-nome" rows="3" bind:value={formData.nome} required></textarea>
+                            
                         </div>
                         <div class="mb-3">
                             <label for="edit-descrizione" class="form-label">Descrizione*</label>
@@ -399,12 +409,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="edit-luogo" class="form-label">Luogo*</label>
-                            <input type="text" class="form-control" id="edit-luogo" bind:value={formData.luogo} required/>
+                            <textarea class="form-control" id="edit-luogo" rows="3" bind:value={formData.luogo} required></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" on:click={() => (showEditModal = false)}>Annulla</button>
                             <button type="submit" class="btn btn-submit">
-                                <span class="save-icon">💾</span>
                                 Aggiorna
                             </button>
                         </div>

@@ -1,5 +1,5 @@
-import { load } from '$lib/redirect.js';
+import { loadHome } from '$lib/redirect.js';
 
 export function load() {
-    load('/Home');
+    loadHome('/Home');
 }
